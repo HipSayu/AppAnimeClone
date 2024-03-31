@@ -1,5 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
+using ApiBasic.ApplicationServices.LoginModule.Abstract;
+using ApiBasic.ApplicationServices.LoginModule.implements;
 using ApiBasic.ApplicationServices.ModuleFile.Abstract;
 using ApiBasic.ApplicationServices.ModuleFile.Implements;
 using ApiBasic.ApplicationServices.UserDisLikeVideoModule.Abstract;
@@ -21,14 +23,26 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var apiCorsPolicy = "ApiCorsPolicy";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: apiCorsPolicy,
+                      builder =>
+                      {
+                          builder.WithOrigins("http://localhost:4200", "https://localhost:4200")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .AllowCredentials()
+                            .WithMethods("OPTIONS", "GET");
+                      });
+});
+
 // Add services to the container.
 builder.Services.AddDbContext<AnimeAppContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("MyDB"));
 });
-
-//Hipdz
-//1AB8A26D5B94FBEF8016115E9E8B152B ~16112003
 
 // Cấu hình JWT
 JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
@@ -109,6 +123,8 @@ builder.Services.AddScoped<IUserDislikeVideoService, UserDislikeVideoService>();
 builder.Services.AddScoped<IUserDownloadVideoService, UserDownloadVideoService>();
 builder.Services.AddScoped<IUserLikeVideoService, UserLikeVideoService>();
 builder.Services.AddScoped<IUserXemVideoService, UserXemVideoService>();
+builder.Services.AddScoped<ILoginServices, LoginServices>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -117,9 +133,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseHttpsRedirection();
+app.UseCors(apiCorsPolicy);
 
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

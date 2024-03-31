@@ -2,11 +2,15 @@
 using ApiBasic.ApplicationServices.UserModule.Dtos;
 using ApiBasic.Shared.Shared;
 using ApiWebBasicPlatFrom.Controllers;
-using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiBasic.Controllers
 {
+    [Route("api/[controller]")]
+    [EnableCors("ApiCorsPolicy")]
+    [ApiController]
     public class UserController : ApiControllerBase
     {
         private readonly IUserServices _iUserServices;
@@ -57,6 +61,7 @@ namespace ApiBasic.Controllers
                 return HandleException(ex);
             }
         }
+
         [HttpPut("update")]
         public ActionResult Update(UpdateUserDto input)
         {
@@ -64,6 +69,19 @@ namespace ApiBasic.Controllers
             {
                 _iUserServices.Update(input);
                 return Ok();
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
+
+        [HttpGet("get-by-id/{UserId}")]
+        public ActionResult GetById(int UserId)
+        {
+            try
+            {
+                return Ok(_iUserServices.FindById(UserId));
             }
             catch (Exception ex)
             {

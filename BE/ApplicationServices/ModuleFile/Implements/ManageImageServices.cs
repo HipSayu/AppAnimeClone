@@ -11,7 +11,8 @@ namespace ApiBasic.ApplicationServices.ModuleFile.Implements
             string FileName = "";
 
             FileInfo _FileInfo = new FileInfo(_IFormFile.FileName);
-            FileName = _IFormFile.FileName + "_" + DateTime.Now.Ticks.ToString() + _FileInfo.Extension;
+            FileName =
+                _IFormFile.FileName + "_" + DateTime.Now.Ticks.ToString() + _FileInfo.Extension;
             var _GetFilePath = Common.GetFilePath(FileName);
             using (var _FileStream = new FileStream(_GetFilePath, FileMode.Create))
             {
@@ -19,9 +20,9 @@ namespace ApiBasic.ApplicationServices.ModuleFile.Implements
             }
             return FileName;
         }
+
         public async Task<(byte[], string, string)> DownloadFile(string FileName)
         {
-
             var _GetFilePath = Common.GetFilePath(FileName);
             var provider = new FileExtensionContentTypeProvider();
             if (!provider.TryGetContentType(_GetFilePath, out var _ContentType))
@@ -32,9 +33,6 @@ namespace ApiBasic.ApplicationServices.ModuleFile.Implements
             return (_ReadAllBytesAsync, _ContentType, Path.GetFileName(_GetFilePath));
         }
 
-    }
-    
-}
         
-    
-
+    }
+}

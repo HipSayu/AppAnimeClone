@@ -24,15 +24,18 @@ namespace ApiBasic.ApplicationServices.UserModule.Implements
             {
                 throw new UserFriendlyExceptions("Số điện thoại đã tồn tại");
             }
-
+            if(_dbcontext.Users.Any(u => u.UserName.Equals(input.UserName)))
+            {
+                throw new UserFriendlyExceptions("UserName đã tồn tại");
+            }
             _dbcontext.Add(
                 new User
                 {
                     UserName = input.UserName,
                     Password = CommonUtils.CreateMD5(input.Password),
                     SĐT = input.SĐT,
-                    AvatarUrl = input.AvatarUrl,
-                    BackgroundUrl = input.BackgroundUrl,
+                    AvatarUrl = "http://localhost:5179/api/File/GetImage/avatarDefault.jpg",
+                    BackgroundUrl = "http://localhost:5179/api/File/GetImage/kurrumi.jpg_638472133676158469.jpg",
                     TieuSu = input.TieuSu,
                     UserType = 1,
                 }
@@ -47,6 +50,27 @@ namespace ApiBasic.ApplicationServices.UserModule.Implements
                 ?? throw new UserFriendlyExceptions("User không tìm thấy");
             _dbcontext.Remove(user);
             _dbcontext.SaveChanges();
+        }
+
+        public FindUserDto FindById(int UserId)
+        {
+            var users = _dbcontext
+               .Users.Include(u => u.Followers)
+               .ThenInclude(u => u.Following).ThenInclude(u => u.Videos)
+               .Where(u => u.Id ==UserId)
+               .Select(e => new FindUserDto
+               {
+                   UserName = e.UserName,
+                   AvatarUrl = e.AvatarUrl,
+                   BackgroundUrl = e.BackgroundUrl,
+                   SĐT = e.SĐT,
+                   TieuSu = e.TieuSu,
+                   Follower = e.Following.Count(),
+                   Following = e.Followers.Count(),
+                   Videos = e.Videos.Count(),
+               });
+            return users.FirstOrDefault() ?? throw new UserFriendlyExceptions("Không tồn tại User");
+            
         }
 
         public PageResultDto<List<FindUserDto>> GetAll(FilterDto input)

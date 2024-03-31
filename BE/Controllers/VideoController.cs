@@ -2,12 +2,13 @@
 using ApiBasic.ApplicationServices.VideoModule.Dtos;
 using ApiBasic.Shared.Shared;
 using ApiWebBasicPlatFrom.Controllers;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiBasic.Controllers
 {
     [Route("api/[controller]")]
+    [EnableCors("ApiCorsPolicy")]
     [ApiController]
     public class VideoController : ApiControllerBase
     {

@@ -10,5 +10,6 @@ namespace ApiBasic.ApplicationServices.UserModule.Abstract
         void Delete(int UserId);
 
         PageResultDto<List<FindUserDto>> GetAll(FilterDto input);
+        FindUserDto FindById (int UserId);
     }
 }
