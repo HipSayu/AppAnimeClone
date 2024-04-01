@@ -69,6 +69,34 @@ namespace ApiBasic.ApplicationServices.VideoModule.Implements
             };
         }
 
+        public PageResultDto<List<GetVideoByUserId>> GetVideoByUserId(FilterGetVideoById input)
+        {
+            var videos = from video in _dbcontext.Videos
+                         join user in _dbcontext.Users
+                         on video.UserId equals user.Id
+                         where user.Id == input.IdUser
+                         select new GetVideoByUserId
+                         {
+                             AvatarUserUrl = video.AvatarVideoUrl,
+                             AvatarVideoUrl = video.AvatarVideoUrl,
+                             Id = video.Id,
+                             VideoId = video.VideoId,
+                             NameVideos = video.NameVideos,
+                             Time = video.Time,
+                             dayAgo = DateTime.Now.Day - video.ThoiDiemTao.Day,
+                             UrlVideo = video.UrlVideo,
+                             nameUser = user.UserName,
+                         };
+
+            videos = videos.Skip(input.PageSize * (input.PageIndex - 1)).Take(input.PageSize);
+            return new PageResultDto<List<GetVideoByUserId>>
+            {
+                Items = videos.ToList(),
+                TotalItem = videos.Count(),
+            };
+            
+        }
+
         public void Update(UpdateVideoDto input)
         {
             var video =
@@ -82,5 +110,7 @@ namespace ApiBasic.ApplicationServices.VideoModule.Implements
             video.Time = input.Time;
             _dbcontext.SaveChanges();
         }
+
+       
     }
 }

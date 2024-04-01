@@ -98,6 +98,33 @@ namespace ApiBasic.ApplicationServices.UserModule.Implements
             };
         }
 
+        public PageResultDto<List<UserFollowDto>> GetAllUserFollow(FilterUserFollowDto input)
+        {
+            var usersFollowingIdS = from u in _dbcontext.Users
+                                   join userFollowing in _dbcontext.UserFollows on u.Id equals userFollowing.FollowerId
+                                   where (u.Id == input.UserId)
+                                   select new
+                                   {
+                                       usersFollowingId = userFollowing.FollowingId
+                                   };
+            var users = from user in _dbcontext.Users
+                        join usersFollowingId in usersFollowingIdS on user.Id equals usersFollowingId.usersFollowingId
+                        select new UserFollowDto
+                        {
+                            UserFollowId = user.Id,
+                            AvatarUrl = user.AvatarUrl,
+                            UserName = user.UserName
+                        };
+
+            users = users.Skip(input.PageSize * (input.PageIndex - 1)).Take(input.PageSize);
+            return new PageResultDto<List<UserFollowDto>>
+            {
+                Items = users.ToList(),
+                TotalItem = users.Count(),
+            };
+        
+        }
+
         public void Update(UpdateUserDto input)
         {
             var user =

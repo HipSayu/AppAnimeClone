@@ -1,34 +1,14 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\workspace\\React Native CLI\\AppAnime\\BE\\",
+  "WorkspaceRootPath": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\react native cli\\appanime\\be\\applicationservices\\usermodule\\dtos\\createuserdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:applicationservices\\usermodule\\dtos\\createuserdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\da nen tang\\appanime\\be\\applicationservices\\videomodule\\implements\\videoservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:applicationservices\\videomodule\\implements\\videoservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\react native cli\\appanime\\be\\applicationservices\\usermodule\\implements\\userservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:applicationservices\\usermodule\\implements\\userservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\react native cli\\appanime\\be\\applicationservices\\usermodule\\abstract\\iuserservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:applicationservices\\usermodule\\abstract\\iuserservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\react native cli\\appanime\\be\\applicationservices\\usermodule\\dtos\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:applicationservices\\usermodule\\dtos\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\react native cli\\appanime\\be\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\react native cli\\appanime\\be\\applicationservices\\loginmodule\\implements\\loginservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:applicationservices\\loginmodule\\implements\\loginservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\react native cli\\appanime\\be\\applicationservices\\loginmodule\\abstract\\iloginservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:applicationservices\\loginmodule\\abstract\\iloginservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\da nen tang\\appanime\\be\\applicationservices\\videomodule\\dtos\\filtergetvideobyid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:applicationservices\\videomodule\\dtos\\filtergetvideobyid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,8 +18,22 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 9,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FilterGetVideoById.cs",
+              "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\VideoModule\\Dtos\\FilterGetVideoById.cs",
+              "RelativeDocumentMoniker": "ApplicationServices\\VideoModule\\Dtos\\FilterGetVideoById.cs",
+              "ToolTip": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\VideoModule\\Dtos\\FilterGetVideoById.cs",
+              "RelativeToolTip": "ApplicationServices\\VideoModule\\Dtos\\FilterGetVideoById.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-01T10:56:11.048Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
@@ -75,87 +69,15 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "CreateUserDto.cs",
-              "DocumentMoniker": "D:\\workspace\\React Native CLI\\AppAnime\\BE\\ApplicationServices\\UserModule\\Dtos\\CreateUserDto.cs",
-              "RelativeDocumentMoniker": "ApplicationServices\\UserModule\\Dtos\\CreateUserDto.cs",
-              "ToolTip": "D:\\workspace\\React Native CLI\\AppAnime\\BE\\ApplicationServices\\UserModule\\Dtos\\CreateUserDto.cs",
-              "RelativeToolTip": "ApplicationServices\\UserModule\\Dtos\\CreateUserDto.cs",
-              "ViewState": "AQIAAAcAAAAAAAAAAAAgwBUAAAAdAAAA",
+              "Title": "VideoServices.cs",
+              "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\VideoModule\\Implements\\VideoServices.cs",
+              "RelativeDocumentMoniker": "ApplicationServices\\VideoModule\\Implements\\VideoServices.cs",
+              "ToolTip": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\VideoModule\\Implements\\VideoServices.cs",
+              "RelativeToolTip": "ApplicationServices\\VideoModule\\Implements\\VideoServices.cs",
+              "ViewState": "AQIAADgAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-31T02:54:41.507Z",
+              "WhenOpened": "2024-04-01T11:08:32.543Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "D:\\workspace\\React Native CLI\\AppAnime\\BE\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "Controllers\\UserController.cs",
-              "ToolTip": "D:\\workspace\\React Native CLI\\AppAnime\\BE\\Controllers\\UserController.cs",
-              "RelativeToolTip": "Controllers\\UserController.cs",
-              "ViewState": "AQIAAEIAAAAAAAAAAAAAAEoAAAArAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-31T00:35:38.11Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "UserDto.cs",
-              "DocumentMoniker": "D:\\workspace\\React Native CLI\\AppAnime\\BE\\ApplicationServices\\UserModule\\Dtos\\UserDto.cs",
-              "RelativeDocumentMoniker": "ApplicationServices\\UserModule\\Dtos\\UserDto.cs",
-              "ToolTip": "D:\\workspace\\React Native CLI\\AppAnime\\BE\\ApplicationServices\\UserModule\\Dtos\\UserDto.cs",
-              "RelativeToolTip": "ApplicationServices\\UserModule\\Dtos\\UserDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-31T00:33:29.052Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "IUserServices.cs",
-              "DocumentMoniker": "D:\\workspace\\React Native CLI\\AppAnime\\BE\\ApplicationServices\\UserModule\\Abstract\\IUserServices.cs",
-              "RelativeDocumentMoniker": "ApplicationServices\\UserModule\\Abstract\\IUserServices.cs",
-              "ToolTip": "D:\\workspace\\React Native CLI\\AppAnime\\BE\\ApplicationServices\\UserModule\\Abstract\\IUserServices.cs",
-              "RelativeToolTip": "ApplicationServices\\UserModule\\Abstract\\IUserServices.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAqAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-31T00:33:05.056Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "UserServices.cs",
-              "DocumentMoniker": "D:\\workspace\\React Native CLI\\AppAnime\\BE\\ApplicationServices\\UserModule\\Implements\\UserServices.cs",
-              "RelativeDocumentMoniker": "ApplicationServices\\UserModule\\Implements\\UserServices.cs",
-              "ToolTip": "D:\\workspace\\React Native CLI\\AppAnime\\BE\\ApplicationServices\\UserModule\\Implements\\UserServices.cs",
-              "RelativeToolTip": "ApplicationServices\\UserModule\\Implements\\UserServices.cs",
-              "ViewState": "AQIAAFsAAAAAAAAAAAAAACoAAAAlAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-30T04:49:26.347Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "LoginServices.cs",
-              "DocumentMoniker": "D:\\workspace\\React Native CLI\\AppAnime\\BE\\ApplicationServices\\LoginModule\\implements\\LoginServices.cs",
-              "RelativeDocumentMoniker": "ApplicationServices\\LoginModule\\implements\\LoginServices.cs",
-              "ToolTip": "D:\\workspace\\React Native CLI\\AppAnime\\BE\\ApplicationServices\\LoginModule\\implements\\LoginServices.cs",
-              "RelativeToolTip": "ApplicationServices\\LoginModule\\implements\\LoginServices.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAiwCoAAAAgAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-30T03:22:27.494Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ILoginServices.cs",
-              "DocumentMoniker": "D:\\workspace\\React Native CLI\\AppAnime\\BE\\ApplicationServices\\LoginModule\\Abstract\\ILoginServices.cs",
-              "RelativeDocumentMoniker": "ApplicationServices\\LoginModule\\Abstract\\ILoginServices.cs",
-              "ToolTip": "D:\\workspace\\React Native CLI\\AppAnime\\BE\\ApplicationServices\\LoginModule\\Abstract\\ILoginServices.cs",
-              "RelativeToolTip": "ApplicationServices\\LoginModule\\Abstract\\ILoginServices.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAcAAAAaAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-30T03:20:59.697Z"
             }
           ]
         },

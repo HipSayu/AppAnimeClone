@@ -4,6 +4,8 @@ using ApiBasic.ApplicationServices.LoginModule.Abstract;
 using ApiBasic.ApplicationServices.LoginModule.implements;
 using ApiBasic.ApplicationServices.ModuleFile.Abstract;
 using ApiBasic.ApplicationServices.ModuleFile.Implements;
+using ApiBasic.ApplicationServices.SearchModule.Abstract;
+using ApiBasic.ApplicationServices.SearchModule.Implements;
 using ApiBasic.ApplicationServices.UserDisLikeVideoModule.Abstract;
 using ApiBasic.ApplicationServices.UserDisLikeVideoModule.Implements;
 using ApiBasic.ApplicationServices.UserDownloadVideoModule.Abstract;
@@ -124,6 +126,7 @@ builder.Services.AddScoped<IUserDownloadVideoService, UserDownloadVideoService>(
 builder.Services.AddScoped<IUserLikeVideoService, UserLikeVideoService>();
 builder.Services.AddScoped<IUserXemVideoService, UserXemVideoService>();
 builder.Services.AddScoped<ILoginServices, LoginServices>();
+builder.Services.AddScoped<ISearchServices, SearchServices>();
 
 var app = builder.Build();
 

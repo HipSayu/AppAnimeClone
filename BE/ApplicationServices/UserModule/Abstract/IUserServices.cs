@@ -11,5 +11,6 @@ namespace ApiBasic.ApplicationServices.UserModule.Abstract
 
         PageResultDto<List<FindUserDto>> GetAll(FilterDto input);
         FindUserDto FindById (int UserId);
+        PageResultDto<List<UserFollowDto>> GetAllUserFollow(FilterUserFollowDto input);
     }
 }

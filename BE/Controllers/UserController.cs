@@ -88,5 +88,17 @@ namespace ApiBasic.Controllers
                 return HandleException(ex);
             }
         }
+        [HttpGet("get-all-user-follow")]
+        public ActionResult GetAllUserFollow(FilterUserFollowDto input)
+        {
+            try
+            {
+                return Ok(_iUserServices.GetAllUserFollow(input));
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
     }
 }

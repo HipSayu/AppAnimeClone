@@ -74,5 +74,18 @@ namespace ApiBasic.Controllers
                 return HandleException(ex);
             }
         }
+
+        [HttpGet("get-video-by-idUser")]
+        public ActionResult GetVideoByIdUser(FilterGetVideoById input)
+        {
+            try
+            {
+                return Ok(_iVideoServices.GetVideoByUserId(input));
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
     }
 }
