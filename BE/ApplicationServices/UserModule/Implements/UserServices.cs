@@ -129,7 +129,7 @@ namespace ApiBasic.ApplicationServices.UserModule.Implements
                         NameVideos = v.NameVideos,
                         Time = v.Time,
                         UrlVideo = v.UrlVideo,
-                        dayAgo = ((TimeSpan)(DateTime.Now - v.ThoiDiemTao)).Days,
+                        dayAgo = (DateTime.Now - v.ThoiDiemTao).Days,
                     })
                     .Skip(input.PageSize * (input.PageIndex - 1))
                     .Take(input.PageSize);
@@ -177,7 +177,7 @@ namespace ApiBasic.ApplicationServices.UserModule.Implements
                                 IdUserCreateVideo = u.Id,
                                 Time = v.Time,
                                 UrlVideo = v.UrlVideo,
-                                dayAgo = ((TimeSpan)(DateTime.Now - v.ThoiDiemTao)).Days
+                                dayAgo = (DateTime.Now - v.ThoiDiemTao).Days
                             })
                             .ToList(),
                     })

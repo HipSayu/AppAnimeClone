@@ -82,7 +82,7 @@ namespace ApiBasic.ApplicationServices.VideoModule.Implements
 
                 Id = video.Id,
                 NameVideos = video.NameVideos,
-                DayAgo = ((TimeSpan)(DateTime.Now - video.ThoiDiemTao)).Days
+                DayAgo = (DateTime.Now - video.ThoiDiemTao).Days
             };
         }
 
@@ -98,7 +98,7 @@ namespace ApiBasic.ApplicationServices.VideoModule.Implements
                     Id = video.Id,
                     NameVideos = video.NameVideos,
                     Time = video.Time,
-                    dayAgo = ((TimeSpan)(DateTime.Now - video.ThoiDiemTao)).Days,
+                    dayAgo = (DateTime.Now - video.ThoiDiemTao).Days,
                     UrlVideo = video.UrlVideo,
                 };
 
