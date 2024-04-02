@@ -13,5 +13,7 @@ namespace ApiBasic.ApplicationServices.VideoModule.Abstract
 
         PageResultDto<List<FindVideoDto>> GetAll(FilterDto input);
         PageResultDto<List<GetVideoByUserId>> GetVideoByUserId(FilterGetVideoById input);
+
+        VideoDto GetById (int IdVideo);
     }
 }

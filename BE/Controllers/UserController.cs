@@ -100,5 +100,18 @@ namespace ApiBasic.Controllers
                 return HandleException(ex);
             }
         }
+        [HttpGet("get-user-with-Video-by-id/{UserId}")]
+        public ActionResult GetUserWithVideoById(int UserId)
+        {
+            try
+            {
+                return Ok(_iUserServices.GetUserWithVideoById(UserId));
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
+
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using ApiBasic.ApplicationServices.UserModule.Abstract;
+﻿using ApiBasic.ApplicationServices.UserModule.Abstract;
 using ApiBasic.ApplicationServices.UserModule.Dtos;
 using ApiBasic.ApplicationServices.VideoModule.Dtos;
 using ApiBasic.Domain;
@@ -8,7 +7,6 @@ using ApiBasic.Shared.Exceptions;
 using ApiBasic.Shared.Shared;
 using ApiBasic.Shared.Utils;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace ApiBasic.ApplicationServices.UserModule.Implements
 {
@@ -153,6 +151,39 @@ namespace ApiBasic.ApplicationServices.UserModule.Implements
                 Items = result.ToList(),
                 TotalItem = result.Count(),
             };
+        }
+
+        public UserWithVideoDto GetUserWithVideoById(int UserId)
+        {
+            var result =
+                _dbcontext
+                    .Users.Include(u => u.Followers)
+                    .ThenInclude(u => u.Following)
+                    .ThenInclude(u => u.Videos)
+                    .Select(u => new UserWithVideoDto
+                    {
+                        Id = u.Id,
+                        AvatarUrl = u.AvatarUrl,
+                        BackgroundUrl = u.BackgroundUrl,
+                        UserName = u.UserName,
+                        Follower = u.Following.Count(),
+                        Following = u.Followers.Count(),
+                        VideoUserFollow = u
+                            .Videos.Select(v => new GetVideoByUserId
+                            {
+                                AvatarVideoUrl = v.AvatarVideoUrl,
+                                NameVideos = v.NameVideos,
+                                Id = v.Id,
+                                IdUserCreateVideo = u.Id,
+                                Time = v.Time,
+                                UrlVideo = v.UrlVideo,
+                                dayAgo = ((TimeSpan)(DateTime.Now - v.ThoiDiemTao)).Days
+                            })
+                            .ToList(),
+                    })
+                    .FirstOrDefault(u => u.Id == UserId)
+                ?? throw new UserFriendlyExceptions("User không tìm thấy");
+            return result;
         }
 
         public void Update(UpdateUserDto input)

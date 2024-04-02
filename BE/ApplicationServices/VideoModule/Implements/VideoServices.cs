@@ -69,6 +69,23 @@ namespace ApiBasic.ApplicationServices.VideoModule.Implements
             };
         }
 
+        public VideoDto GetById(int IdVideo)
+        {
+            var video =
+                _dbcontext.Videos.FirstOrDefault(v => v.Id == IdVideo)
+                ?? throw new UserFriendlyExceptions("Video không tìm thấy");
+            return new VideoDto
+            {
+                UrlVideo = video.UrlVideo,
+                Time = video.Time,
+                AvatarVideoUrl = video.AvatarVideoUrl,
+
+                Id = video.Id,
+                NameVideos = video.NameVideos,
+                DayAgo = ((TimeSpan)(DateTime.Now - video.ThoiDiemTao)).Days
+            };
+        }
+
         public PageResultDto<List<GetVideoByUserId>> GetVideoByUserId(FilterGetVideoById input)
         {
             var videos =
@@ -79,10 +96,9 @@ namespace ApiBasic.ApplicationServices.VideoModule.Implements
                 {
                     AvatarVideoUrl = video.AvatarVideoUrl,
                     Id = video.Id,
-
                     NameVideos = video.NameVideos,
                     Time = video.Time,
-                    dayAgo = DateTime.Now.Day - video.ThoiDiemTao.Day,
+                    dayAgo = ((TimeSpan)(DateTime.Now - video.ThoiDiemTao)).Days,
                     UrlVideo = video.UrlVideo,
                 };
 
