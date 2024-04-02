@@ -5,7 +5,7 @@ import { useState } from 'react';
 import React from 'react';
 
 import GlobalStyles from '~/Styles/GlobalStyles';
-import SearchingPage from '../Searching/SearchingPage';
+
 import SeacrResultHomePage from './SearchResultHomePage/SeacrResultHomePage';
 
 const windowWidth = Dimensions.get('window').width;
@@ -18,35 +18,38 @@ export default function SearchResultPage({ route }) {
 
     const navigation = useNavigation();
 
-    let widthSearch = 1.2;
+    let widthSearch = 1.4;
 
     return (
         <>
-            <View style={styles.Search}>
-                {search !== '' ? (
-                    <TouchableOpacity onPress={() => navigation.goBack()}>
-                        <ImageBackground
-                            style={{ width: 20, height: 20, marginRight: 5, marginTop: 10 }}
-                            source={require('~/Assets/Icon/IconReturn.png')}
-                        />
-                    </TouchableOpacity>
-                ) : (
-                    <></>
-                )}
-                <TouchableOpacity>
-                    <View style={[styles.WrapperInput, { width: windowWidth / widthSearch }]}>
-                        <ImageBackground style={styles.Icon} source={require('~/Assets/Icon/search.png')} />
+            <View style={[styles.Search]}>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <ImageBackground
+                        style={{ width: 20, height: 20, marginRight: 5, marginTop: 10 }}
+                        source={require('~/Assets/Icon/IconReturn.png')}
+                    />
+                </TouchableOpacity>
 
-                        <TextInput
-                            value={search}
-                            onFocus={() => navigation.navigate('SearchingPage')}
-                            onChangeText={(searchInput) => setSearch(searchInput)}
-                            style={[styles.input, { width: windowWidth / widthSearch / 1.25 }]}
-                            placeholder="Tìm Anime | Video | Nhà sáng tạo"
-                        ></TextInput>
-                    </View>
+                <View style={[styles.WrapperInput, { width: windowWidth / widthSearch }]}>
+                    <ImageBackground style={styles.Icon} source={require('~/Assets/Icon/search.png')} />
+
+                    <TextInput
+                        value={search}
+                        onFocus={() => navigation.goBack()}
+                        onChangeText={(searchInput) => setSearch(searchInput)}
+                        style={[styles.input, { width: windowWidth / widthSearch / 1.25 }]}
+                        placeholder="Tìm Anime | Video | Nhà sáng tạo"
+                    ></TextInput>
+                </View>
+
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('SearchResultPage', { data: search })}
+                    style={{ marginTop: 10 }}
+                >
+                    <Text style={[GlobalStyles.gray, { marginLeft: 10 }]}>Tìm kiếm</Text>
                 </TouchableOpacity>
             </View>
+
             <SeacrResultHomePage />
         </>
     );
@@ -57,6 +60,7 @@ const styles = StyleSheet.create({
     Search: {
         backgroundColor: GlobalStyles.white.color,
         paddingTop: 25,
+
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'center',

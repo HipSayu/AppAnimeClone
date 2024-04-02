@@ -5,6 +5,7 @@ import IconCustom from '~/Components/Icon/IconCustom';
 import CreateAnime from '~/Screens/AddVideo/CreateAnime';
 
 import HomePage from '~/Screens/Home/HomePage';
+import PlayVideoPage from '~/Screens/PlayVideo/PlayVideoPage';
 
 import SearchResultPage from '~/Screens/KhamPha/SearchResult/SearchResultPage';
 import SearchPage from '~/Screens/KhamPha/SearchPage';
@@ -21,6 +22,15 @@ import ResgisterSDTPage from '~/Screens/User/NotAcess/LoginHome/Resgister/Resgis
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+
+function HomeScreenPage() {
+    return (
+        <Stack.Navigator options={{ headerShown: false }}>
+            <Stack.Screen name="HomePage" options={{ headerShown: false }} component={HomePage} />
+            <Stack.Screen name="PlayVideoPage" options={{ headerShown: false }} component={PlayVideoPage} />
+        </Stack.Navigator>
+    );
+}
 
 function SearchHomePage() {
     return (
@@ -65,12 +75,12 @@ function FollowPageHome() {
 function Navigation() {
     return (
         <Tab.Navigator
-            initialRouteName="HomePage"
+            initialRouteName="HomeScreenPage"
             screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused }) => {
                     let sourceIcon;
                     let namePage;
-                    if (route.name === 'HomePage') {
+                    if (route.name === 'HomeScreenPage') {
                         sourceIcon = focused ? 'HomeActive' : 'Home';
                         namePage = 'Trang chủ';
                     }
@@ -106,8 +116,8 @@ function Navigation() {
             tabBarActiveTintColor={true}
         >
             <Tab.Screen
-                name="HomePage"
-                component={HomePage}
+                name="HomeScreenPage"
+                component={HomeScreenPage}
                 options={{
                     tabBarLabel: '',
                     headerShown: false,

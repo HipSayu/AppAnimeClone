@@ -1,7 +1,7 @@
 import { ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { Dimensions } from 'react-native';
-
+import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 
 import React, { useEffect, useState } from 'react';
@@ -24,6 +24,8 @@ const windowWidth = Dimensions.get('window').width;
 
 export default function DeXuatHomePage() {
     const [amv, setAmv] = useState([]);
+
+    const navigation = useNavigation();
 
     useEffect(() => {
         axios
@@ -67,6 +69,9 @@ export default function DeXuatHomePage() {
                     {/* ImageVideo */}
                     {amv.map((amv, index) => (
                         <AnimeMV
+                            navigation={navigation}
+                            navigationAvatar={navigation}
+                            dataVideo={amv.id}
                             key={index}
                             sourceAvartar={{ uri: amv.avatarUserUrl }}
                             sourceAnime={{ uri: amv.avatarVideoUrl }}

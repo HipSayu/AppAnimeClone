@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import { Dimensions } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { LOGIN_REQUEST } from '~/Services/Action/action';
 
@@ -22,7 +22,7 @@ export default function LoginSDTPage({ route }) {
     // const [error, setError] = useState('');
     // const [isLoading, setIsLoading] = useState(false);
     // const [userInfo, setUserInfo] = useState([]);
-    
+
     const dispatch = useDispatch();
 
     const [isUserName, setIsUserName] = useState(true);
@@ -30,7 +30,7 @@ export default function LoginSDTPage({ route }) {
 
     const SDT = route.params.SDT;
 
-    var login = useSelector((state) => state.loginReducer);
+    // var login = useSelector((state) => state.loginReducer);
 
     // useEffect(() => {
     //     setError(login.error);

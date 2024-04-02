@@ -1,4 +1,4 @@
-import { ImageBackground, StyleSheet, Text, View } from 'react-native';
+import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import Avatar from '../AvatarUser/Avatar';
 import GlobalStyles from '~/Styles/GlobalStyles';
@@ -26,10 +26,18 @@ export default function AnimeMV({
     IsHasICon = true,
     IsUser = false,
     IsHasAvatar = true,
+    dataVideo,
+    navigationAvatar = function () {},
+    navigation = function () {},
 }) {
     return (
         <View style={{ flexDirection: flexDirection, marginTop: IsUser ? 10 : 0 }}>
-            <View style={{ alignItems: 'center', marginTop: IsUser ? 10 : 20 }}>
+            <TouchableOpacity
+                onPress={() => {
+                    navigation.navigate('PlayVideoPage', { data: dataVideo });
+                }}
+                style={{ alignItems: 'center', marginTop: IsUser ? 10 : 20 }}
+            >
                 <ImageBackground
                     borderRadius={10}
                     resizeMode="cover"
@@ -67,9 +75,10 @@ export default function AnimeMV({
                     </View>
                 </ImageBackground>
                 {/* User */}
-            </View>
+            </TouchableOpacity>
             <View style={{ alignItems: 'flex-start' }}>
                 <Avatar
+                    navigation={navigationAvatar}
                     Avatar={sourceAvartar}
                     IsHasIcon={IsHasICon}
                     Width={widthAvatar}

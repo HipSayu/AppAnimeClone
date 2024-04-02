@@ -1,57 +1,93 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
 import Avatar from '~/Components/AvatarUser/Avatar';
 import AnimeMV from '~/Components/AMV/AnimeMV';
 import GlobalStyles from '~/Styles/GlobalStyles';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 export default function FollowPage() {
+    const [userFollow, setUserFollow] = useState([]);
+
     const navigation = useNavigation();
 
-    return (
-        <View style={{ marginTop: 25, backgroundColor: GlobalStyles.white.color }}>
-            <ScrollView contentContainerStyle={{ paddingBottom: 15 }} horizontal={true}>
-                <Avatar navigation={navigation} styleCustom={{ marginHorizontal: 10 }} UserName="Rikka" />
-                <Avatar
-                    styleCustom={{ marginHorizontal: 10 }}
-                    Avatar={require('~/Assets/Avatar/MaiSan.png')}
-                    UserName="Mai-san"
-                />
-                <Avatar
-                    styleCustom={{ marginHorizontal: 10 }}
-                    Avatar={require('~/Assets/Avatar/AiHoshino.png')}
-                    UserName="Ai Hoshino"
-                />
-            </ScrollView>
-            <ScrollView showsVerticalScrollIndicator={false}>
-                <AnimeMV
-                    sourceAnime={require('~/Assets/Image/Chisato.png')}
-                    UserName="Rikka"
-                    NameVideo="Lycoris Recoil-Chisato"
-                    IsHasICon={false}
-                    flexDirection="column-reverse"
-                    ViewAvatar="3 ngày trước"
-                    IsUser={true}
-                />
-                <AnimeMV
-                    sourceAnime={require('~/Assets/Image/Kurumi.png')}
-                    UserName="Rikka"
-                    NameVideo="Kurumi"
-                    IsHasICon={false}
-                    flexDirection="column-reverse"
-                    ViewAvatar="3 ngày trước"
-                    IsUser={true}
-                />
+    const login = useSelector((state) => state.loginReducer);
 
-                <Text style={[{ marginLeft: 10, marginTop: 10 }, GlobalStyles.h4]}>Khám phá nhà sáng tạo khác</Text>
-                <View style={{ paddingHorizontal: 10 }}>
-                    <Avatar isSearch={true} Time="600 người theo dõi | 20 Videos" />
+    const userId = login.userInfo.id;
+
+    if (userId != undefined) {
+        useEffect(() => {
+            axios
+                .get(
+                    `http://localhost:5179/api/User/get-all-user-follow?UserId=${userId}&pageSize=3&pageIndex=1&keyword=a`,
+                )
+                .then((res) => {
+                    setUserFollow(res.data.items);
+                })
+                .catch((err) => {
+                    console.log('Lỗi Seacrh', err);
+                });
+        }, [userId]);
+    }
+
+    console.log('userFollow', userFollow);
+
+    return (
+        <>
+            {userId != undefined ? (
+                <View style={{ marginTop: 25, backgroundColor: GlobalStyles.white.color }}>
+                    <ScrollView
+                        showsHorizontalScrollIndicator={false}
+                        contentContainerStyle={{ paddingBottom: 15 }}
+                        horizontal={true}
+                    >
+                        {userFollow.map((user, index) => (
+                            <Avatar
+                                data={user.userFollowId}
+                                navigation={navigation}
+                                key={index}
+                                styleCustom={{ marginHorizontal: 10 }}
+                                Avatar={{ uri: user.avatarUrl }}
+                                UserName={user.userName}
+                            />
+                        ))}
+                    </ScrollView>
+                    <ScrollView showsVerticalScrollIndicator={false}>
+                        {userFollow.map((item, index) =>
+                            item.videoUserFollow.map((video, indexVideo) => (
+                                <AnimeMV
+                                    key={video.id}
+                                    sourceAvartar={{ uri: item.avatarUrl }}
+                                    sourceAnime={{ uri: video.avatarVideoUrl }}
+                                    UserName={item.userName}
+                                    NameVideo={video.nameVideos}
+                                    IsHasICon={false}
+                                    flexDirection="column-reverse"
+                                    ViewAvatar={video.dayAgo + ' ngày trước'}
+                                    IsUser={true}
+                                />
+                            )),
+                        )}
+
+                        <Text style={[{ marginLeft: 10, marginTop: 10 }, GlobalStyles.h4]}>
+                            Khám phá nhà sáng tạo khác
+                        </Text>
+                        <View style={{ paddingHorizontal: 10 }}>
+                            <Avatar isSearch={true} Time="600 người theo dõi | 20 Videos" />
+                        </View>
+                        {/* Footer */}
+                        <View style={{ height: 100 }}></View>
+                    </ScrollView>
                 </View>
-                {/* Footer */}
-                <View style={{ height: 100 }}></View>
-            </ScrollView>
-        </View>
+            ) : (
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                    <Text>Chưa đăng nhập</Text>
+                </View>
+            )}
+        </>
     );
 }
 

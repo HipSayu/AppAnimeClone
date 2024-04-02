@@ -17,6 +17,7 @@ const windowHeight = Dimensions.get('window').height;
 //4 . width : 40 height : 40 tên cạnh có time tên dưới
 
 export default function Avatar({
+    data,
     styleCustom = {},
     navigation = function () {},
     isSearch = false,
@@ -67,7 +68,7 @@ export default function Avatar({
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                     <TouchableOpacity
                         onPress={() => {
-                            navigation.navigate('User');
+                            navigation.navigate('User', { data: data });
                         }}
                         style={[
                             { flexDirection: NameVideoUser == '' ? 'column' : 'row', alignItems: 'center' },

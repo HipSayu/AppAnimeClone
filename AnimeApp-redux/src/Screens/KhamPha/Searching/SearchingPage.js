@@ -1,9 +1,13 @@
 import { ImageBackground, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+
 import GlobalStyles from '~/Styles/GlobalStyles';
 import SearchHistory from '../HistorySearch/SearchHistory';
+
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -11,20 +15,42 @@ const windowHeight = Dimensions.get('window').height;
 
 export default function SearchingPage() {
     const [search, setSearch] = useState('');
+    const [searchHistory, setSearchHistory] = useState([]);
 
     const navigation = useNavigation();
 
+    const login = useSelector((state) => state.loginReducer);
+
+    const userId = login.userInfo.id;
+    // console.log('userId', userId);
     let widthSearch = 1.4;
 
+    if (userId != undefined) {
+        useEffect(() => {
+            axios
+                .get(`http://localhost:5179/api/Search/get-all-page?pageSize=10&pageIndex=1&UserId=${userId}`)
+                .then((res) => {
+                    setSearchHistory(res.data.items);
+                })
+                .catch((err) => {
+                    console.log('Lỗi Seacrh', err);
+                });
+        }, [userId]);
+    }
+
+    // console.log('searchHistory', searchHistory);
+
     const HandleDeleteSearch = () => {
-        navigation.goBack();
         setSearch('');
+    };
+    const handleOnpress = (searchKey) => {
+        navigation.navigate('SearchResultPage', { data: searchKey });
     };
     return (
         <View style={styles.Page}>
             {/* Search */}
             <View style={styles.Search}>
-                <TouchableOpacity onPress={() => HandleDeleteSearch()}>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
                     <ImageBackground
                         style={{ width: 20, height: 20, marginRight: 5, marginTop: 10 }}
                         source={require('~/Assets/Icon/IconReturn.png')}
@@ -50,7 +76,7 @@ export default function SearchingPage() {
                 </View>
 
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('SearchResultPage', { data: search })}
+                    onPress={() => (search !== '' ? navigation.navigate('SearchResultPage', { data: search }) : null)}
                     style={{ marginTop: 10 }}
                 >
                     <Text style={[GlobalStyles.gray, { marginLeft: 10 }]}>Tìm kiếm</Text>
@@ -71,10 +97,44 @@ export default function SearchingPage() {
                     <ImageBackground style={{ width: 20, height: 20 }} source={require('~/Assets/Icon/trash.png')} />
                 </View>
                 {/* List */}
-                <ScrollView showsVerticalScrollIndicator={false}>
-                    <SearchHistory />
-                    <SearchHistory />
-                </ScrollView>
+                {userId != undefined ? (
+                    <ScrollView showsVerticalScrollIndicator={false}>
+                        {searchHistory.map((item, index) => (
+                            <View
+                                key={index}
+                                style={{
+                                    flexDirection: 'row',
+                                    justifyContent: 'space-between',
+                                    marginTop: 20,
+                                    paddingLeft: 10,
+                                }}
+                            >
+                                <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                                    <ImageBackground
+                                        style={{ width: 20, height: 20, marginRight: 10, marginTop: 5 }}
+                                        source={require('~/Assets/Icon/Clock.png')}
+                                    />
+                                    <TouchableOpacity
+                                        onPress={() => {
+                                            handleOnpress(item.searchKeyWord);
+                                        }}
+                                        style={{ padding: 5 }}
+                                    >
+                                        <Text>{item.searchKeyWord}</Text>
+                                    </TouchableOpacity>
+                                </View>
+                                <TouchableOpacity style={{ padding: 5 }}>
+                                    <ImageBackground
+                                        style={{ width: 20, height: 20 }}
+                                        source={require('~/Assets/Icon/Close.png')}
+                                    />
+                                </TouchableOpacity>
+                            </View>
+                        ))}
+                    </ScrollView>
+                ) : (
+                    <ScrollView showsVerticalScrollIndicator={false}></ScrollView>
+                )}
             </View>
         </View>
     );
