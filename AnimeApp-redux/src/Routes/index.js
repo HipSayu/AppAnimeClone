@@ -28,6 +28,7 @@ function HomeScreenPage() {
         <Stack.Navigator options={{ headerShown: false }}>
             <Stack.Screen name="HomePage" options={{ headerShown: false }} component={HomePage} />
             <Stack.Screen name="PlayVideoPage" options={{ headerShown: false }} component={PlayVideoPage} />
+            <Stack.Screen name="User" options={{ headerShown: false }} component={User} />
         </Stack.Navigator>
     );
 }
@@ -38,6 +39,8 @@ function SearchHomePage() {
             <Stack.Screen name="SearchPage" options={{ headerShown: false }} component={SearchPage} />
             <Stack.Screen name="SearchResultPage" options={{ headerShown: false }} component={SearchResultPage} />
             <Stack.Screen name="SearchingPage" options={{ headerShown: false }} component={SearchingPage} />
+            <Stack.Screen name="PlayVideoPage" options={{ headerShown: false }} component={PlayVideoPage} />
+            <Stack.Screen name="User" options={{ headerShown: false }} component={User} />
         </Stack.Navigator>
     );
 }
@@ -48,6 +51,8 @@ function UserPage() {
             {/* <Stack.Screen name="UserHomeAccesPage" options={{ headerShown: false }} component={UserHomeAccesPage} /> */}
             <Stack.Screen name="UserHomePage" options={{ headerShown: false }} component={UserHomePage} />
             <Stack.Screen name="LoginHome" options={{ headerShown: false }} component={LoginHome} />
+            <Stack.Screen name="PlayVideoPage" options={{ headerShown: false }} component={PlayVideoPage} />
+            <Stack.Screen name="User" options={{ headerShown: false }} component={User} />
         </Stack.Navigator>
     );
 }
@@ -68,6 +73,7 @@ function FollowPageHome() {
         <Stack.Navigator options={{ headerShown: false }}>
             <Stack.Screen name="FollowPage" options={{ headerShown: false }} component={FollowPage} />
             <Stack.Screen name="User" options={{ headerShown: false }} component={User} />
+            <Stack.Screen name="PlayVideoPage" options={{ headerShown: false }} component={PlayVideoPage} />
         </Stack.Navigator>
     );
 }

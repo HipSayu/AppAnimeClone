@@ -21,6 +21,10 @@ const GlobalStyles = StyleSheet.create({
         fontSize: 10,
         fontWeight: '800',
     },
+    h5a: {
+        fontSize: 12,
+        fontWeight: '800',
+    },
     h6: {
         fontSize: 5,
         fontWeight: '800',

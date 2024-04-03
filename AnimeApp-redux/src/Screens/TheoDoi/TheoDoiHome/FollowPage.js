@@ -59,7 +59,9 @@ export default function FollowPage() {
                         {userFollow.map((item, index) =>
                             item.videoUserFollow.map((video, indexVideo) => (
                                 <AnimeMV
+                                    navigation={navigation}
                                     key={video.id}
+                                    dataVideo={video.id}
                                     sourceAvartar={{ uri: item.avatarUrl }}
                                     sourceAnime={{ uri: video.avatarVideoUrl }}
                                     UserName={item.userName}

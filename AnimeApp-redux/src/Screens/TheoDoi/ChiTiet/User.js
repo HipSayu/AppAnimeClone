@@ -19,6 +19,7 @@ export default function User({ route }) {
     const navigation = useNavigation();
 
     const userFollowId = route.params.data;
+
     console.log('userFollowId', userFollowId);
 
     useEffect(() => {
@@ -93,6 +94,8 @@ export default function User({ route }) {
                     {!userData.length > 0 &&
                         userData.videoUserFollow.map((video, index) => (
                             <AnimeMV
+                                navigation={navigation}
+                                dataVideo={video.id}
                                 key={video.id}
                                 Width={2.1}
                                 Height={100}

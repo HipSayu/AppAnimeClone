@@ -27,7 +27,7 @@ export default function AnimeMV({
     IsUser = false,
     IsHasAvatar = true,
     dataVideo,
-    navigationAvatar = function () {},
+    dataAvatar,
     navigation = function () {},
 }) {
     return (
@@ -78,7 +78,8 @@ export default function AnimeMV({
             </TouchableOpacity>
             <View style={{ alignItems: 'flex-start' }}>
                 <Avatar
-                    navigation={navigationAvatar}
+                    navigation={navigation}
+                    data={dataAvatar}
                     Avatar={sourceAvartar}
                     IsHasIcon={IsHasICon}
                     Width={widthAvatar}

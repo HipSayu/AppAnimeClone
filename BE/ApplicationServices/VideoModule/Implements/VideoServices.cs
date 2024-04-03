@@ -57,7 +57,7 @@ namespace ApiBasic.ApplicationServices.VideoModule.Implements
                     AvatarVideoUrl = v.AvatarVideoUrl,
                     UrlVideo = v.UrlVideo,
                     Id = v.Id,
-                    VideoId = v.VideoId,
+                    UsderId = v.User.Id,
                     nameUser = v.User.UserName,
                     AvatarUserUrl = v.User.AvatarUrl,
                 });

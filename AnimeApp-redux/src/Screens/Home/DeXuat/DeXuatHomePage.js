@@ -29,7 +29,7 @@ export default function DeXuatHomePage() {
 
     useEffect(() => {
         axios
-            .get('http://localhost:5179/api/Video/get-all?pageSize=10&pageIndex=1&keyword=c')
+            .get('http://localhost:5179/api/Video/get-all?pageSize=10&pageIndex=1&keyword=a')
             .then((response) => {
                 // console.log(response);
                 setAmv(response.data.items);
@@ -67,17 +67,17 @@ export default function DeXuatHomePage() {
 
                 <View style={{ alignItems: 'center', marginTop: 20 }}>
                     {/* ImageVideo */}
-                    {amv.map((amv, index) => (
+                    {amv.map((video, index) => (
                         <AnimeMV
+                            dataAvatar={video.usderId}
                             navigation={navigation}
-                            navigationAvatar={navigation}
-                            dataVideo={amv.id}
+                            dataVideo={video.id}
                             key={index}
-                            sourceAvartar={{ uri: amv.avatarUserUrl }}
-                            sourceAnime={{ uri: amv.avatarVideoUrl }}
-                            NameVideo={amv.nameVideos}
+                            sourceAvartar={{ uri: video.avatarUserUrl }}
+                            sourceAnime={{ uri: video.avatarVideoUrl }}
+                            NameVideo={video.nameVideos}
                             Time={'01:36'}
-                            UserName={amv.nameUser}
+                            UserName={video.nameUser}
                             Viewer={'99'}
                             inViewer={true}
                         />
