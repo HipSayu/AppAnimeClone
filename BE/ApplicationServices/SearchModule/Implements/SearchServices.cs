@@ -39,6 +39,7 @@ namespace ApiBasic.ApplicationServices.SearchModule.Implements
         {
             var searches = _dbcontext
                 .Searchs.Where(s => s.UserId == input.UserId)
+                .OrderByDescending(s => s.Id)
                 .Select(s => new SearchDto { Id = s.Id, SearchKeyWord = s.SearchKeyWord, });
             searches = searches.Skip(input.PageSize * (input.PageIndex - 1)).Take(input.PageSize);
             return new PageResultDto<List<SearchDto>>

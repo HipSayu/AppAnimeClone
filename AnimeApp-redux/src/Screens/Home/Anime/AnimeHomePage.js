@@ -34,9 +34,8 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 export default function AnimeHomePage() {
-    const darkMode = useSelector((state) => state.AppReducer.darkMode);
     const backgroundColor = {
-        backgroundColor: darkMode ? 'black' : 'white',
+        backgroundColor: 'white',
     };
     return (
         <View style={[styles.Page, backgroundColor]}>

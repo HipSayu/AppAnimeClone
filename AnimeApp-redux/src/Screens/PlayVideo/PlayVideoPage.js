@@ -8,16 +8,14 @@ import * as ScreenOrientation from 'expo-screen-orientation';
 
 import axios from 'axios';
 
-import { useDispatch, useSelector } from 'react-redux';
-
 import MainVideoHomePage from './MainVideo/MainVideoHomePage';
 
 export default function PlayVideoPage({ route }) {
     const [inFullscreen, setInFullsreen] = useState(false);
     const [video, setVideo] = useState({});
+
     const refVideo = useRef(null);
 
-    const dispatch = useDispatch();
     const navigation = useNavigation();
 
     let IdVideo = route.params.data;
@@ -29,16 +27,9 @@ export default function PlayVideoPage({ route }) {
                 setVideo(res.data);
             })
             .catch((err) => {
-                console.log('Lỗi Seacrh', err);
+                console.log('Lỗi Axios', err);
             });
     }, [IdVideo]);
-
-    if (IdVideo > 0) {
-        dispatch({
-            type: 'GET_VIDEO_RESQUEST',
-            payload: { idVideo: IdVideo },
-        });
-    }
 
     console.log('video', video);
     const windowWidth = Dimensions.get('window').width;
@@ -48,7 +39,7 @@ export default function PlayVideoPage({ route }) {
 
     return (
         <>
-            <View style={{ backgroundColor: '#fff' }}>
+            <View style={{ backgroundColor: '#fff', zIndex: 2 }}>
                 <View style={{ marginTop: 30 }}>
                     {/* IconBack */}
                     <View
@@ -105,7 +96,7 @@ export default function PlayVideoPage({ route }) {
                     />
                 </View>
             </View>
-            <MainVideoHomePage />
+            <MainVideoHomePage data={video} />
         </>
     );
 }

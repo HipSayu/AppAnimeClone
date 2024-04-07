@@ -21,6 +21,7 @@ const renderScene = SceneMap({
 const renderTabBar = (props) => (
     <TabBar
         {...props}
+        inactiveColor={GlobalStyles.gray.color}
         tabStyle={{ alignItems: 'center' }}
         labelStyle={[{ color: 'black' }, GlobalStyles.h4]}
         contentContainerStyle={{ marginTop: 20 }}

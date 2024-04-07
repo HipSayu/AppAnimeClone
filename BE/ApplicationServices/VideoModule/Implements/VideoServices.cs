@@ -1,4 +1,5 @@
-﻿using ApiBasic.ApplicationServices.VideoModule.Abstract;
+﻿using ApiBasic.ApplicationServices.CommentsModule.Dtos;
+using ApiBasic.ApplicationServices.VideoModule.Abstract;
 using ApiBasic.ApplicationServices.VideoModule.Dtos;
 using ApiBasic.Domain;
 using ApiBasic.Infrastructure;
@@ -108,6 +109,66 @@ namespace ApiBasic.ApplicationServices.VideoModule.Implements
                 Items = videos.ToList(),
                 TotalItem = videos.Count(),
             };
+        }
+
+        public VideoWithCommentDto GetVideoWithCommentsById(int VideoId)
+        {
+            var commentParents = new List<GetCommentDto>();
+
+            var commentPInVideo = _dbcontext
+                .Comments.Include(c => c.User)
+                .Where(c => c.VideoId == VideoId && c.ParentCommentId == null);
+
+            foreach (var commentPV in commentPInVideo)
+            {
+                var commentChilds = _dbcontext
+                    .Comments.Include(c => c.User)
+                    .Where(c => c.VideoId == VideoId && c.ParentCommentId == commentPV.CommentId)
+                    .Select(c => new GetCommentChildDto
+                    {
+                        ParentCommentId = commentPV.CommentId,
+                        AvatarUrl = c.User.AvatarUrl,
+                        Date = c.Date,
+                        CommentId = c.CommentId,
+                        Text = c.Text,
+                        UserId = c.User.Id,
+                        UserName = c.User.UserName,
+                    })
+                    .ToList();
+
+                commentParents.Add(
+                    new GetCommentDto
+                    {
+                        CommentId = commentPV.CommentId,
+                        AvatarUrl = commentPV.User.AvatarUrl,
+                        Date = commentPV.Date,
+                        Text = commentPV.Text,
+                        UserId = commentPV.User.Id,
+                        UserName = commentPV.User.UserName,
+                        VideoId = commentPV.VideoId,
+                        CommentChilds = commentChilds
+                    }
+                );
+            }
+
+            var video =
+                _dbcontext
+                    .Videos.Include(e => e.User).Where(e => e.Id == VideoId)
+                    .Select(e => new VideoWithCommentDto
+                    {
+                        Id = VideoId,
+                        Time = e.Time,
+                        dayAgo = (DateTime.Now - e.ThoiDiemTao).Days,
+                        IdUserCreateVideo = e.UserId,
+                        AvatarVideoUrl = e.AvatarVideoUrl,
+                        NameVideos = e.NameVideos,
+                        UrlVideo = e.UrlVideo,
+                        Comments = commentParents,
+                    })
+                    .FirstOrDefault(e => e.Id == VideoId)
+                ?? throw new UserFriendlyExceptions("Video không tìm thấy");
+            return video;
+           
         }
 
         public void Update(UpdateVideoDto input)

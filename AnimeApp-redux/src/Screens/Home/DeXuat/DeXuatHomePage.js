@@ -2,14 +2,14 @@ import { ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-nativ
 
 import { Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+
 import axios from 'axios';
 
 import React, { useEffect, useState } from 'react';
+import { PacmanIndicator } from 'react-native-indicators';
 
 import GlobalStyles from '~/Styles/GlobalStyles';
-
 import AnimeVideo from '~/Components/AnimeItems/AnimeVideo';
-
 import AnimeMV from '~/Components/AMV/AnimeMV';
 
 //Anime
@@ -21,7 +21,7 @@ const Anime = [
 ];
 
 const windowWidth = Dimensions.get('window').width;
-
+const windowHeight = Dimensions.get('window').height;
 export default function DeXuatHomePage() {
     const [amv, setAmv] = useState([]);
 
@@ -64,25 +64,30 @@ export default function DeXuatHomePage() {
                         ))}
                     </ScrollView>
                 </View>
-
-                <View style={{ alignItems: 'center', marginTop: 20 }}>
-                    {/* ImageVideo */}
-                    {amv.map((video, index) => (
-                        <AnimeMV
-                            dataAvatar={video.usderId}
-                            navigation={navigation}
-                            dataVideo={video.id}
-                            key={index}
-                            sourceAvartar={{ uri: video.avatarUserUrl }}
-                            sourceAnime={{ uri: video.avatarVideoUrl }}
-                            NameVideo={video.nameVideos}
-                            Time={'01:36'}
-                            UserName={video.nameUser}
-                            Viewer={'99'}
-                            inViewer={true}
-                        />
-                    ))}
-                </View>
+                {amv.length == 0 ? (
+                    <View style={{ alignItems: 'center', marginTop: windowHeight / 5 }}>
+                        <PacmanIndicator size={100} color="black" />
+                    </View>
+                ) : (
+                    <View style={{ alignItems: 'center', marginTop: 20 }}>
+                        {/* ImageVideo */}
+                        {amv.map((video, index) => (
+                            <AnimeMV
+                                dataAvatar={video.usderId}
+                                navigation={navigation}
+                                dataVideo={video.id}
+                                key={index}
+                                sourceAvartar={{ uri: video.avatarUserUrl }}
+                                sourceAnime={{ uri: video.avatarVideoUrl }}
+                                NameVideo={video.nameVideos}
+                                Time={'01:36'}
+                                UserName={video.nameUser}
+                                Viewer={'99'}
+                                inViewer={true}
+                            />
+                        ))}
+                    </View>
+                )}
             </ScrollView>
             {/* Anime List */}
         </View>

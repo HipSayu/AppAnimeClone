@@ -4,7 +4,6 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 
 import GlobalStyles from '~/Styles/GlobalStyles';
-import SearchHistory from '../HistorySearch/SearchHistory';
 
 import { useSelector } from 'react-redux';
 import axios from 'axios';
@@ -15,6 +14,7 @@ const windowHeight = Dimensions.get('window').height;
 
 export default function SearchingPage() {
     const [search, setSearch] = useState('');
+    const [isCreate, setIsCreate] = useState(false);
     const [searchHistory, setSearchHistory] = useState([]);
 
     const navigation = useNavigation();
@@ -28,14 +28,14 @@ export default function SearchingPage() {
     if (userId != undefined) {
         useEffect(() => {
             axios
-                .get(`http://localhost:5179/api/Search/get-all-page?pageSize=10&pageIndex=1&UserId=${userId}`)
+                .get(`http://localhost:5179/api/Search/get-all-page?pageSize=20&pageIndex=1&UserId=${userId}`)
                 .then((res) => {
                     setSearchHistory(res.data.items);
                 })
                 .catch((err) => {
-                    console.log('Lỗi Seacrh', err);
+                    console.log('Lỗi Get Search', err);
                 });
-        }, [userId]);
+        }, [isCreate]);
     }
 
     // console.log('searchHistory', searchHistory);
@@ -46,6 +46,33 @@ export default function SearchingPage() {
     const handleOnpress = (searchKey) => {
         navigation.navigate('SearchResultPage', { data: searchKey });
     };
+
+    const handleSearch = () => {
+        axios
+            .post(`http://localhost:5179/api/Search/create`, {
+                userId: userId,
+                searchKeyWord: search,
+            })
+            .then((res) => {
+                navigation.navigate('SearchResultPage', { data: search });
+                setIsCreate(!isCreate);
+            })
+            .catch((err) => {
+                console.log('Lỗi Seacrh', err);
+            });
+    };
+
+    const handleDeleteSearch = (idSearch) => {
+        axios
+            .delete(`http://localhost:5179/api/Search/delete/${idSearch}`)
+            .then((res) => {
+                setIsCreate(!isCreate);
+            })
+            .catch((err) => {
+                console.log('Lỗi Xóa Search', err);
+            });
+    };
+
     return (
         <View style={styles.Page}>
             {/* Search */}
@@ -76,7 +103,9 @@ export default function SearchingPage() {
                 </View>
 
                 <TouchableOpacity
-                    onPress={() => (search !== '' ? navigation.navigate('SearchResultPage', { data: search }) : null)}
+                    onPress={() => {
+                        search !== '' ? handleSearch() : null;
+                    }}
                     style={{ marginTop: 10 }}
                 >
                     <Text style={[GlobalStyles.gray, { marginLeft: 10 }]}>Tìm kiếm</Text>
@@ -123,7 +152,12 @@ export default function SearchingPage() {
                                         <Text>{item.searchKeyWord}</Text>
                                     </TouchableOpacity>
                                 </View>
-                                <TouchableOpacity style={{ padding: 5 }}>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        handleDeleteSearch(item.id);
+                                    }}
+                                    style={{ padding: 5 }}
+                                >
                                     <ImageBackground
                                         style={{ width: 20, height: 20 }}
                                         source={require('~/Assets/Icon/Close.png')}

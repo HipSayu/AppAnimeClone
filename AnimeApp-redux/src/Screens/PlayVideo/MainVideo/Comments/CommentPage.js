@@ -1,260 +1,259 @@
-import { Dimensions, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React from 'react';
+import {
+    Dimensions,
+    ImageBackground,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
+} from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import GlobalStyles from '~/Styles/GlobalStyles';
+import axios from 'axios';
+import { PacmanIndicator } from 'react-native-indicators';
 
-export default function CommentPage() {
+export default function CommentPage({ data }) {
+    const [commentVideos, setCommentVideos] = useState([]);
+    const [isCreate, setIsCreate] = useState(false);
+
+    const [idComment, setidComment] = useState(0);
+    const [comment, setComment] = useState('');
+
+    const inputRef = useRef(null);
+
     const windowWidth = Dimensions.get('window').width;
     const windowHeight = Dimensions.get('window').height;
+
+    const login = useSelector((state) => state.loginReducer);
+
+    const userId = login.userInfo.id;
+
+    useEffect(() => {
+        axios
+            .get(`http://localhost:5179/api/Video/get-video-with-comment/${data.id}`)
+            .then((res) => {
+                setCommentVideos(res.data.comments);
+            })
+            .catch((err) => {
+                console.log('Lỗi GetComment', err);
+            });
+    }, [isCreate]);
+
+    const handleComment = () => {
+        if (userId > 0) {
+            console.log('check dâta', {
+                text: comment,
+                videoId: data.id,
+                userId: userId,
+            });
+            axios
+                .post(`http://localhost:5179/api/Comments/Create`, {
+                    text: comment,
+                    videoId: data.id,
+                    userId: userId,
+                })
+                .then((res) => {
+                    setIsCreate(!isCreate);
+                })
+                .catch((err) => {
+                    console.log('Lỗi Comments', err);
+                });
+        } else {
+            console.log('Chưa đăng nhập');
+        }
+    };
+    const handleCommentChild = () => {
+        if (userId > 0) {
+            console.log('check data Childs', {
+                text: comment,
+                videoId: data.id,
+                userId: userId,
+                parentCommentId: idComment,
+            });
+            axios
+                .post(`http://localhost:5179/api/Comments/Create-comment-child`, {
+                    text: comment,
+                    videoId: data.id,
+                    userId: userId,
+                    parentCommentId: idComment,
+                })
+                .then((res) => {
+                    setIsCreate(!isCreate);
+                })
+                .catch((err) => {
+                    console.log('Lỗi Comments Childs', err);
+                });
+        } else {
+            console.log('Chưa đăng nhập');
+        }
+    };
+
     return (
-        <View style={{ backgroundColor: GlobalStyles.white.color, flex: 1 }}>
-            {/* Comments */}
-            <ScrollView>
-                <View style={{ flexDirection: 'row', marginLeft: 10, marginTop: 10 }}>
-                    <TouchableOpacity>
-                        <Text style={[GlobalStyles.h4, { marginRight: 10 }]}>Nổi bật nhất</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Text style={[GlobalStyles.h4, GlobalStyles.gray, {}]}>Gần đây</Text>
-                    </TouchableOpacity>
+        <View style={{ backgroundColor: GlobalStyles.white.color, flex: 1, justifyContent: 'space-between' }}>
+            {commentVideos.length == 0 ? (
+                <View style={{ alignItems: 'center', flex: 1, justifyContent: 'center' }}>
+                    <Text>Hãy là người đầu tiên comment Video này</Text>
                 </View>
-                {/* Comment */}
-                <View style={{ marginLeft: 10, marginTop: 10, flexDirection: 'row' }}>
-                    {/* Comment Parents */}
-                    <View>
-                        {/* Avatar */}
-                        <ImageBackground
-                            borderRadius={30}
-                            style={{ width: 50, height: 50 }}
-                            source={require('~/Assets/Avatar/AiHoshino.png')}
-                        />
+            ) : (
+                <ScrollView>
+                    <View style={{ flexDirection: 'row', marginLeft: 10, marginTop: 10 }}>
+                        <TouchableOpacity>
+                            <Text style={[GlobalStyles.h4, { marginRight: 10 }]}>Nổi bật nhất</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <Text style={[GlobalStyles.h4, GlobalStyles.gray, {}]}>Gần đây</Text>
+                        </TouchableOpacity>
                     </View>
-                    <View style={{ marginLeft: 10 }}>
-                        {/* Name Date */}
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Text style={[GlobalStyles.h5a, {}]}>ShikimoriCute</Text>
-                            <ImageBackground
-                                style={{ width: 15, height: 15, marginLeft: 2 }}
-                                source={require('~/Assets/Icon/InstagramCheckMark.png')}
-                            />
-                            <Text style={[GlobalStyles.h5a, GlobalStyles.gray, { marginLeft: 10 }]}>19/04/2024</Text>
-                        </View>
-                        <View style={{ width: windowWidth / 1.29 }}>
-                            <Text numberOfLines={4} ellipsizeMode="clip">
-                                Một nữ sinh trung học, bạn gái của Izumi. Bình thường cô ấy thường rất dễ thương và dịu
-                                dàng, nhưng khi Izumi gặp vấn đề gì đó hoặc những gì liên quan đến Izumi, tính cách của
-                                cô thay đổi thành một trái tim lạnh lùng với đôi mắt long lanh sắc bén khiến mọi người
-                                xung quanh bị doạ hết hồn.
-                            </Text>
-                            {/* Like,dislike, comments */}
-                            <View
-                                style={{
-                                    flexDirection: 'row',
-                                    marginTop: 5,
-                                    justifyContent: 'space-between',
-                                    width: windowWidth / 3,
-                                }}
-                            >
-                                <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 10 }}>
-                                    <ImageBackground
-                                        style={{ width: 20, height: 20 }}
-                                        source={require('~/Assets/Icon/IconVideo/Like.png')}
-                                    />
-                                    <Text style={[GlobalStyles.h5a, { marginLeft: 5, marginTop: 5 }]}>1036</Text>
-                                </View>
-                                <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 5 }}>
-                                    <ImageBackground
-                                        style={{ width: 20, height: 20, marginTop: 5 }}
-                                        source={require('~/Assets/Icon/IconVideo/Dislike.png')}
-                                    />
-                                    <Text style={[GlobalStyles.h5a, { marginLeft: 5, marginTop: 5 }]}>1036</Text>
-                                </View>
-                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                    <ImageBackground
-                                        style={{ width: 20, height: 20, marginTop: 5 }}
-                                        source={require('~/Assets/Icon/IconVideo/comments.png')}
-                                    />
-                                    {/* <Text style={[GlobalStyles.h5a, { marginLeft: 5, marginTop: 5 }]}>1036</Text> */}
-                                </View>
+                    {/* Comment */}
+                    {commentVideos.map((comment, index) => (
+                        <View key={index} style={{ marginLeft: 10, marginTop: 20, flexDirection: 'row' }}>
+                            {/* Comment Parents */}
+                            <View>
+                                {/* Avatar */}
+                                <ImageBackground
+                                    borderRadius={30}
+                                    style={{ width: 50, height: 50 }}
+                                    source={{ uri: comment.avatarUrl }}
+                                />
                             </View>
-                            {/* Comment child */}
-                            <View
-                                style={{
-                                    flexDirection: 'column',
-                                    marginTop: 10,
-                                    backgroundColor: '#d9d9d973',
-                                    padding: 10,
-                                }}
-                            >
-                                <View style={{ flexDirection: 'row' }}>
-                                    {/* Avatar */}
-                                    <View>
-                                        <ImageBackground
-                                            borderRadius={30}
-                                            style={{ width: 40, height: 40 }}
-                                            source={require('~/Assets/Avatar/MaiSan.png')}
-                                        />
-                                    </View>
-                                    {/* Name Date */}
-                                    <View style={{ marginLeft: 10 }}>
-                                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                            <Text style={[GlobalStyles.h5a, {}]}>ShikimoriCute</Text>
-                                        </View>
-                                        {/* Comments */}
-                                        <View style={{ width: windowWidth / 1.8 }}>
-                                            <Text numberOfLines={1} ellipsizeMode="clip">
-                                                Một nữ sinh trung học, bạn gái của Izumi. Bình thường cô ấy thường rất
-                                                dễ thương
-                                            </Text>
-                                        </View>
-                                    </View>
-                                </View>
-                                <View style={{ marginLeft: 50, marginTop: 10 }}>
-                                    <Text style={[GlobalStyles.gray, GlobalStyles.h5a, {}]}>
-                                        Xem tất cả 99 câu trả lời
+                            <View style={{ marginLeft: 10 }}>
+                                {/* Name Date */}
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    <Text style={[GlobalStyles.h5a, {}]}>{comment.userName}</Text>
+                                    <ImageBackground
+                                        style={{ width: 15, height: 15, marginLeft: 2 }}
+                                        source={require('~/Assets/Icon/InstagramCheckMark.png')}
+                                    />
+                                    <Text style={[GlobalStyles.h5a, GlobalStyles.gray, { marginLeft: 10 }]}>
+                                        {` ${new Date(comment.date).getDate()}/${
+                                            new Date(comment.date).getMonth() + 1
+                                        }/${new Date(comment.date).getFullYear()}`}
                                     </Text>
                                 </View>
-                            </View>
-                        </View>
-                    </View>
-                </View>
-                {/* Comment */}
-                <View style={{ marginLeft: 10, marginTop: 10, flexDirection: 'row' }}>
-                    {/* Comment Parents */}
-                    <View>
-                        {/* Avatar */}
-                        <ImageBackground
-                            borderRadius={30}
-                            style={{ width: 50, height: 50 }}
-                            source={require('~/Assets/Avatar/AiHoshino.png')}
-                        />
-                    </View>
-                    <View style={{ marginLeft: 10 }}>
-                        {/* Name Date */}
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Text style={[GlobalStyles.h5a, {}]}>ShikimoriCute</Text>
-                            <ImageBackground
-                                style={{ width: 15, height: 15, marginLeft: 2 }}
-                                source={require('~/Assets/Icon/InstagramCheckMark.png')}
-                            />
-                            <Text style={[GlobalStyles.h5a, GlobalStyles.gray, { marginLeft: 10 }]}>19/04/2024</Text>
-                        </View>
-                        <View style={{ width: windowWidth / 1.29 }}>
-                            <Text numberOfLines={4} ellipsizeMode="clip">
-                                Một nữ sinh trung học, bạn gái của Izumi. Bình thường cô ấy thường rất dễ thương và dịu
-                                dàng, nhưng khi Izumi gặp vấn đề gì đó hoặc những gì liên quan đến Izumi, tính cách của
-                                cô thay đổi thành một trái tim lạnh lùng với đôi mắt long lanh sắc bén khiến mọi người
-                                xung quanh bị doạ hết hồn.
-                            </Text>
-                            {/* Like,dislike, comments */}
-                            <View
-                                style={{
-                                    flexDirection: 'row',
-                                    marginTop: 5,
-                                    justifyContent: 'space-between',
-                                    width: windowWidth / 3,
-                                }}
-                            >
-                                <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 10 }}>
-                                    <ImageBackground
-                                        style={{ width: 20, height: 20 }}
-                                        source={require('~/Assets/Icon/IconVideo/Like.png')}
-                                    />
-                                    <Text style={[GlobalStyles.h5a, { marginLeft: 5, marginTop: 5 }]}>1036</Text>
-                                </View>
-                                <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 5 }}>
-                                    <ImageBackground
-                                        style={{ width: 20, height: 20, marginTop: 5 }}
-                                        source={require('~/Assets/Icon/IconVideo/Dislike.png')}
-                                    />
-                                    <Text style={[GlobalStyles.h5a, { marginLeft: 5, marginTop: 5 }]}>1036</Text>
-                                </View>
-                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                    <ImageBackground
-                                        style={{ width: 20, height: 20, marginTop: 5 }}
-                                        source={require('~/Assets/Icon/IconVideo/comments.png')}
-                                    />
-                                    {/* <Text style={[GlobalStyles.h5a, { marginLeft: 5, marginTop: 5 }]}>1036</Text> */}
-                                </View>
-                            </View>
-                            {/* Comment child */}
-                        </View>
-                    </View>
-                </View>
-                {/* Comment */}
-                <View style={{ marginLeft: 10, marginTop: 10, flexDirection: 'row' }}>
-                    {/* Comment Parents */}
-                    <View>
-                        {/* Avatar */}
-                        <ImageBackground
-                            borderRadius={30}
-                            style={{ width: 50, height: 50 }}
-                            source={require('~/Assets/Avatar/AiHoshino.png')}
-                        />
-                    </View>
-                    <View style={{ marginLeft: 10 }}>
-                        {/* Name Date */}
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Text style={[GlobalStyles.h5a, {}]}>ShikimoriCute</Text>
-                            <ImageBackground
-                                style={{ width: 15, height: 15, marginLeft: 2 }}
-                                source={require('~/Assets/Icon/InstagramCheckMark.png')}
-                            />
-                            <Text style={[GlobalStyles.h5a, GlobalStyles.gray, { marginLeft: 10 }]}>19/04/2024</Text>
-                        </View>
-                        <View style={{ width: windowWidth / 1.29 }}>
-                            <Text numberOfLines={4} ellipsizeMode="clip">
-                                Một nữ sinh trung học, bạn gái của Izumi. Bình thường cô ấy thường rất dễ thương và dịu
-                                dàng, nhưng khi Izumi gặp vấn đề gì đó hoặc những gì liên quan đến Izumi, tính cách của
-                                cô thay đổi thành một trái tim lạnh lùng với đôi mắt long lanh sắc bén khiến mọi người
-                                xung quanh bị doạ hết hồn.
-                            </Text>
-                            {/* Like,dislike, comments */}
-                            <View
-                                style={{
-                                    flexDirection: 'row',
-                                    marginTop: 5,
-                                    justifyContent: 'space-between',
-                                    width: windowWidth / 3,
-                                }}
-                            >
-                                <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 10 }}>
-                                    <ImageBackground
-                                        style={{ width: 20, height: 20 }}
-                                        source={require('~/Assets/Icon/IconVideo/Like.png')}
-                                    />
-                                    <Text style={[GlobalStyles.h5a, { marginLeft: 5, marginTop: 5 }]}>1036</Text>
-                                </View>
-                                <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 5 }}>
-                                    <ImageBackground
-                                        style={{ width: 20, height: 20, marginTop: 5 }}
-                                        source={require('~/Assets/Icon/IconVideo/Dislike.png')}
-                                    />
-                                    <Text style={[GlobalStyles.h5a, { marginLeft: 5, marginTop: 5 }]}>1036</Text>
-                                </View>
-                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                    <ImageBackground
-                                        style={{ width: 20, height: 20, marginTop: 5 }}
-                                        source={require('~/Assets/Icon/IconVideo/comments.png')}
-                                    />
-                                    {/* <Text style={[GlobalStyles.h5a, { marginLeft: 5, marginTop: 5 }]}>1036</Text> */}
+                                <View style={{ width: windowWidth / 1.29 }}>
+                                    <Text numberOfLines={4} ellipsizeMode="clip">
+                                        {comment.text}
+                                    </Text>
+                                    {/* Like,dislike, comments */}
+                                    <View
+                                        style={{
+                                            flexDirection: 'row',
+                                            marginTop: 5,
+                                            justifyContent: 'space-between',
+                                            width: windowWidth / 3,
+                                        }}
+                                    >
+                                        <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 10 }}>
+                                            <ImageBackground
+                                                style={{ width: 20, height: 20 }}
+                                                source={require('~/Assets/Icon/IconVideo/Like.png')}
+                                            />
+                                            <Text style={[GlobalStyles.h5a, { marginLeft: 5, marginTop: 5 }]}>
+                                                1036
+                                            </Text>
+                                        </View>
+                                        <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 5 }}>
+                                            <ImageBackground
+                                                style={{ width: 20, height: 20, marginTop: 5 }}
+                                                source={require('~/Assets/Icon/IconVideo/Dislike.png')}
+                                            />
+                                            <Text style={[GlobalStyles.h5a, { marginLeft: 5, marginTop: 5 }]}>
+                                                1036
+                                            </Text>
+                                        </View>
+                                        <TouchableOpacity
+                                            onPress={() => {
+                                                setidComment(comment.commentId);
+                                                inputRef.current.focus();
+                                            }}
+                                        >
+                                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                                <ImageBackground
+                                                    style={{ width: 20, height: 20, marginTop: 5 }}
+                                                    source={require('~/Assets/Icon/IconVideo/comments.png')}
+                                                />
+                                                {/* <Text style={[GlobalStyles.h5a, { marginLeft: 5, marginTop: 5 }]}>1036</Text> */}
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
+                                    {/* Comment child */}
+                                    {comment.commentChilds.map((cc, index) => (
+                                        <View
+                                            key={index}
+                                            style={{
+                                                flexDirection: 'column',
+                                                marginTop: 10,
+                                                backgroundColor: '#d9d9d973',
+                                                padding: 10,
+                                            }}
+                                        >
+                                            <View style={{ flexDirection: 'row' }}>
+                                                {/* Avatar */}
+                                                <View>
+                                                    <ImageBackground
+                                                        borderRadius={30}
+                                                        style={{ width: 40, height: 40 }}
+                                                        source={{ uri: cc.avatarUrl }}
+                                                    />
+                                                </View>
+                                                {/* Name Date */}
+                                                <View style={{ marginLeft: 10 }}>
+                                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                                        <Text style={[GlobalStyles.h5a, {}]}>{cc.userName}</Text>
+                                                    </View>
+                                                    {/* Comments */}
+                                                    <View style={{ width: windowWidth / 1.8 }}>
+                                                        <Text numberOfLines={2} ellipsizeMode="clip">
+                                                            {cc.text}
+                                                        </Text>
+                                                    </View>
+                                                </View>
+                                            </View>
+                                            {/* <View style={{ marginLeft: 50, marginTop: 10 }}>
+                                                <Text style={[GlobalStyles.gray, GlobalStyles.h5a, {}]}>
+                                                    Xem tất cả 99 câu trả lời
+                                                </Text>
+                                            </View> */}
+                                        </View>
+                                    ))}
                                 </View>
                             </View>
-                            {/* Comment child */}
                         </View>
-                    </View>
-                </View>
-            </ScrollView>
+                    ))}
+
+                    {/* Comment */}
+                </ScrollView>
+            )}
+
             {/* CommentsAdd */}
-            <View style={{ alignItems: 'center', marginTop: 10 }}>
+            <View style={{ alignItems: 'center', backgroundColor: '#00000000' }}>
                 <View
                     style={{
                         width: windowWidth / 1.1,
                         backgroundColor: '#8181813d',
                         padding: 10,
+                        borderRadius: 10,
                         justifyContent: 'center',
                     }}
                 >
-                    <Text style={[GlobalStyles.h4_Regular]}>Để lại bình luận thân thiện </Text>
+                    <TextInput
+                        ref={inputRef}
+                        onBlur={() => {
+                            setidComment(0);
+                        }}
+                        placeholder="Để lại bình luận thân thiện"
+                        value={comment}
+                        onChangeText={setComment}
+                        onSubmitEditing={() => {
+                            if (idComment == 0) {
+                                handleComment();
+                            } else {
+                                handleCommentChild();
+                            }
+                        }}
+                    />
                 </View>
             </View>
         </View>

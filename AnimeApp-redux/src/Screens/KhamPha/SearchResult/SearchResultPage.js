@@ -15,9 +15,7 @@ const windowHeight = Dimensions.get('window').height;
 export default function SearchResultPage({ route }) {
     const searchValue = route.params.data;
     const [search, setSearch] = useState(searchValue);
-
     const navigation = useNavigation();
-
     let widthSearch = 1.4;
 
     return (
@@ -50,7 +48,7 @@ export default function SearchResultPage({ route }) {
                 </TouchableOpacity>
             </View>
 
-            <SeacrResultHomePage />
+            <SeacrResultHomePage data={searchValue} />
         </>
     );
 }

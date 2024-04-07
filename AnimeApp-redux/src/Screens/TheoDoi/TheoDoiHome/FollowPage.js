@@ -18,27 +18,23 @@ export default function FollowPage() {
 
     const userId = login.userInfo.id;
 
-    if (userId != undefined) {
-        useEffect(() => {
-            axios
-                .get(
-                    `http://localhost:5179/api/User/get-all-user-follow?UserId=${userId}&pageSize=3&pageIndex=1&keyword=a`,
-                )
-                .then((res) => {
-                    setUserFollow(res.data.items);
-                })
-                .catch((err) => {
-                    console.log('Lỗi Seacrh', err);
-                });
-        }, [userId]);
-    }
+    useEffect(() => {
+        axios
+            .get(`http://localhost:5179/api/User/get-all-user-follow?UserId=${userId}&pageSize=3&pageIndex=1&keyword=a`)
+            .then((res) => {
+                setUserFollow(res.data.items);
+            })
+            .catch((err) => {
+                console.log('Chưa đăng nhập', err);
+            });
+    }, [userId]);
 
     console.log('userFollow', userFollow);
 
     return (
-        <>
+        <View style={{ backgroundColor: GlobalStyles.white.color, flex: 1 }}>
             {userId != undefined ? (
-                <View style={{ marginTop: 25, backgroundColor: GlobalStyles.white.color }}>
+                <View style={{ marginTop: 25 }}>
                     <ScrollView
                         showsHorizontalScrollIndicator={false}
                         contentContainerStyle={{ paddingBottom: 15 }}
@@ -89,7 +85,7 @@ export default function FollowPage() {
                     <Text>Chưa đăng nhập</Text>
                 </View>
             )}
-        </>
+        </View>
     );
 }
 

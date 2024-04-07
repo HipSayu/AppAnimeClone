@@ -13,21 +13,22 @@ import CommentPage from './Comments/CommentPage';
 // Chiều rộng điện thoại
 const windowWidth = Dimensions.get('window').width;
 
-const renderScene = SceneMap({
-    first: IntroduceVideoPage,
-    second: CommentPage,
-});
-
 const renderTabBar = (props) => (
     <TabBar
         {...props}
+        inactiveColor={GlobalStyles.gray.color}
         labelStyle={[{ color: 'black' }, GlobalStyles.h4]}
         contentContainerStyle={{ height: 40 }}
         indicatorStyle={{ backgroundColor: 'black', width: 60, marginLeft: windowWidth / 5.9, borderColor: '#fff' }}
-        style={{ backgroundColor: 'white', borderColor: '#fff', height: 40 }}
+        indicatorContainerStyle={{ shadowOpacity: 1 }}
+        style={{ backgroundColor: 'white', borderColor: '#fff', height: 40, borderWidth: 0 }}
     />
 );
-export default function MainVideoHomePage() {
+export default function MainVideoHomePage({ data }) {
+    const renderScene = SceneMap({
+        first: () => <IntroduceVideoPage data={data} />,
+        second: () => <CommentPage data={data} />,
+    });
     const layout = useWindowDimensions();
 
     const [index, setIndex] = useState(0);

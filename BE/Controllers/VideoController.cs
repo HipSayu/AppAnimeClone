@@ -100,5 +100,18 @@ namespace ApiBasic.Controllers
                 return HandleException(ex);
             }
         }
+
+        [HttpGet("get-video-with-comment/{IdVideo}")]
+        public ActionResult GetVideoWithComments(int IdVideo)
+        {
+            try
+            {
+                return Ok(_iVideoServices.GetVideoWithCommentsById(IdVideo));
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
     }
 }

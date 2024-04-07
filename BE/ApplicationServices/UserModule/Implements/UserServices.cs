@@ -63,6 +63,7 @@ namespace ApiBasic.ApplicationServices.UserModule.Implements
                 .Where(u => u.Id == UserId)
                 .Select(e => new FindUserDto
                 {
+                    
                     UserName = e.UserName,
                     AvatarUrl = e.AvatarUrl,
                     BackgroundUrl = e.BackgroundUrl,
@@ -84,6 +85,7 @@ namespace ApiBasic.ApplicationServices.UserModule.Implements
                 .Where(u => u.UserName.ToLower().Contains(input.Keyword.ToLower()))
                 .Select(e => new FindUserDto
                 {
+                    Id=e.Id,    
                     UserName = e.UserName,
                     AvatarUrl = e.AvatarUrl,
                     BackgroundUrl = e.BackgroundUrl,

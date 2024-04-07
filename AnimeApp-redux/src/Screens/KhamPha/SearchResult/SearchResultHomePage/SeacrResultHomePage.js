@@ -16,12 +16,6 @@ const windowWidth = Dimensions.get('window').width;
 // Chiều dài điện thoại
 const windowHeight = Dimensions.get('window').height;
 
-const renderScene = SceneMap({
-    first: AllResultPage,
-    second: AnimeResultPage,
-    third: UserResultPage,
-});
-
 const renderTabBar = (props) => (
     <TabBar
         {...props}
@@ -31,8 +25,14 @@ const renderTabBar = (props) => (
         style={{ backgroundColor: 'white', borderColor: '#fff' }}
     />
 );
-export default function SeacrResultHomePage() {
+export default function SeacrResultHomePage({ data }) {
     const layout = useWindowDimensions();
+
+    const renderScene = SceneMap({
+        first: () => <AllResultPage data={data} />,
+        second: () => <AnimeResultPage data={data} />,
+        third: () => <UserResultPage data={data} />,
+    });
 
     const [index, setIndex] = useState(0);
     const [routes] = useState([

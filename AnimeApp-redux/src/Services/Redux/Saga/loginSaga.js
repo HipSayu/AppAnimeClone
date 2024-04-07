@@ -17,7 +17,7 @@ export default function* loginSaga(action) {
         console.log('user :', response.data);
         yield put({ type: LOGIN_SUCCESS, payload: response.data });
     } catch (error) {
-        console.log('Looixii');
+        console.log('Lỗi Login');
         yield put({ type: LOGIN_FAILURE, payload: error.message });
     }
 }

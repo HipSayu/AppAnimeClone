@@ -1,5 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
+using ApiBasic.ApplicationServices.CommentsModule.Abstract;
+using ApiBasic.ApplicationServices.CommentsModule.Implements;
 using ApiBasic.ApplicationServices.LoginModule.Abstract;
 using ApiBasic.ApplicationServices.LoginModule.implements;
 using ApiBasic.ApplicationServices.ModuleFile.Abstract;
@@ -27,18 +29,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var apiCorsPolicy = "ApiCorsPolicy";
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: apiCorsPolicy,
-                      builder =>
-                      {
-                          builder.WithOrigins("http://localhost:4200", "https://localhost:4200")
-                            .AllowAnyHeader()
-                            .AllowAnyMethod()
-                            .AllowCredentials()
-                            .WithMethods("OPTIONS", "GET");
-                      });
-});
+
 
 // Add services to the container.
 builder.Services.AddDbContext<AnimeAppContext>(options =>
@@ -126,6 +117,7 @@ builder.Services.AddScoped<IUserDownloadVideoService, UserDownloadVideoService>(
 builder.Services.AddScoped<IUserLikeVideoService, UserLikeVideoService>();
 builder.Services.AddScoped<IUserXemVideoService, UserXemVideoService>();
 builder.Services.AddScoped<ILoginServices, LoginServices>();
+builder.Services.AddScoped<ICommentServices, CommentService>();
 builder.Services.AddScoped<ISearchServices, SearchServices>();
 
 var app = builder.Build();

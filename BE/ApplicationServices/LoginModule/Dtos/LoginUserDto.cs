@@ -6,6 +6,7 @@ namespace ApiBasic.ApplicationServices.LoginModule.Dtos
     {
         public int Id { get; set; }
         public string UserName { get; set; } = null!;
+        public string Token { get; set; } = null!;
 
         public string SĐT { get; set; }
 

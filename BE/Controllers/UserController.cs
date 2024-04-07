@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace ApiBasic.Controllers
 {
     [Route("api/[controller]")]
-    [EnableCors("ApiCorsPolicy")]
     [ApiController]
     public class UserController : ApiControllerBase
     {
@@ -88,6 +87,7 @@ namespace ApiBasic.Controllers
                 return HandleException(ex);
             }
         }
+
         [HttpGet("get-all-user-follow")]
         public ActionResult GetAllUserFollow(FilterUserFollowDto input)
         {
@@ -100,6 +100,7 @@ namespace ApiBasic.Controllers
                 return HandleException(ex);
             }
         }
+
         [HttpGet("get-user-with-Video-by-id/{UserId}")]
         public ActionResult GetUserWithVideoById(int UserId)
         {
@@ -112,6 +113,5 @@ namespace ApiBasic.Controllers
                 return HandleException(ex);
             }
         }
-
     }
 }

@@ -1,15 +1,15 @@
 ﻿using ApiBasic.ApplicationServices.SearchModule.Abstract;
 using ApiBasic.ApplicationServices.SearchModule.Dtos;
-using ApiBasic.ApplicationServices.UserModule.Dtos;
 using ApiBasic.Shared.Filter;
-using ApiBasic.Shared.Shared;
 using ApiWebBasicPlatFrom.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiBasic.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+   
     public class SearchController : ApiControllerBase
     {
         private readonly ISearchServices _searchServices;
