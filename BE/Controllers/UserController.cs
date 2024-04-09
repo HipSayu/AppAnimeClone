@@ -113,5 +113,18 @@ namespace ApiBasic.Controllers
                 return HandleException(ex);
             }
         }
+
+        [HttpGet("get-all-user-not-follow")]
+        public ActionResult GetAllUserNotFollow(FilterUserFollowDto input)
+        {
+            try
+            {
+                return Ok(_iUserServices.GetAllUserNotFollow(input));
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
     }
 }

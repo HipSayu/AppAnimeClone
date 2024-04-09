@@ -6,8 +6,9 @@ import { PacmanIndicator } from 'react-native-indicators';
 import GlobalStyles from '~/Styles/GlobalStyles';
 import AnimeMV from '~/Components/AMV/AnimeMV';
 import axios from 'axios';
+import { TouchableOpacity } from 'react-native';
 
-export default function IntroduceVideoPage({ data }) {
+export default function IntroduceVideoPage({ data, animeVideo }) {
     const [video, setVideo] = useState([]);
     const navigation = useNavigation();
 
@@ -15,6 +16,7 @@ export default function IntroduceVideoPage({ data }) {
 
     const windowHeight = Dimensions.get('window').height;
 
+    console.log('animeVideo Introduce', animeVideo);
     useEffect(() => {
         axios
             .get(`http://localhost:5179/api/Video/get-all?pageSize=10&pageIndex=1&keyword=v`)
@@ -82,6 +84,40 @@ export default function IntroduceVideoPage({ data }) {
                         <Text style={GlobalStyles.h5_Medium}>Share</Text>
                     </View>
                 </View>
+                {animeVideo == undefined ? (
+                    <></>
+                ) : (
+                    <ScrollView
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        style={{ flexDirection: 'row', marginTop: 10 }}
+                    >
+                        {animeVideo.map((item, index) => (
+                            <TouchableOpacity
+                                onPress={() => {
+                                    navigation.navigate('PlayVideoPage', {
+                                        data: item.idVideo,
+                                        AnimeVideos: animeVideo,
+                                    });
+                                }}
+                                key={index}
+                            >
+                                <View
+                                    style={{
+                                        marginRight: 20,
+                                        borderRadius: 10,
+                                        backgroundColor: data.id == item.idVideo ? '#979797' : '#e3e3e3',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        padding: 15,
+                                    }}
+                                >
+                                    <Text style={GlobalStyles.h4}>{index + 1}</Text>
+                                </View>
+                            </TouchableOpacity>
+                        ))}
+                    </ScrollView>
+                )}
                 <View>
                     <Text style={[GlobalStyles.h3_Medium, { marginTop: 10 }]}>Đề xuất cho bạn</Text>
                 </View>

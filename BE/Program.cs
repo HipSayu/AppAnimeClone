@@ -1,5 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
+using ApiBasic.ApplicationServices.AnimeModule.Abstract;
+using ApiBasic.ApplicationServices.AnimeModule.Implements;
 using ApiBasic.ApplicationServices.CommentsModule.Abstract;
 using ApiBasic.ApplicationServices.CommentsModule.Implements;
 using ApiBasic.ApplicationServices.LoginModule.Abstract;
@@ -11,6 +13,8 @@ using ApiBasic.ApplicationServices.SearchModule.Implements;
 using ApiBasic.ApplicationServices.UserDisLikeVideoModule.Abstract;
 using ApiBasic.ApplicationServices.UserDisLikeVideoModule.Implements;
 using ApiBasic.ApplicationServices.UserDownloadVideoModule.Abstract;
+using ApiBasic.ApplicationServices.UserFollowModule.Abstract;
+using ApiBasic.ApplicationServices.UserFollowModule.Implements;
 using ApiBasic.ApplicationServices.UserLikeModule.Abstract;
 using ApiBasic.ApplicationServices.UserLikeVideoModule.Implements;
 using ApiBasic.ApplicationServices.UserModule.Abstract;
@@ -28,8 +32,6 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 var apiCorsPolicy = "ApiCorsPolicy";
-
-
 
 // Add services to the container.
 builder.Services.AddDbContext<AnimeAppContext>(options =>
@@ -119,6 +121,9 @@ builder.Services.AddScoped<IUserXemVideoService, UserXemVideoService>();
 builder.Services.AddScoped<ILoginServices, LoginServices>();
 builder.Services.AddScoped<ICommentServices, CommentService>();
 builder.Services.AddScoped<ISearchServices, SearchServices>();
+builder.Services.AddScoped<IAnimeServices, AnimeServices>();
+builder.Services.AddScoped<IUserFollowServices, UserFollowService>();
+
 
 var app = builder.Build();
 

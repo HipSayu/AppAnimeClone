@@ -20,6 +20,10 @@ export default function PlayVideoPage({ route }) {
 
     let IdVideo = route.params.data;
 
+    let animevideo = route.params.AnimeVideos;
+
+    // console.log('animevideo', animevideo);
+
     useEffect(() => {
         axios
             .get(`http://localhost:5179/api/Video/get-video-by-id/${IdVideo}`)
@@ -96,7 +100,7 @@ export default function PlayVideoPage({ route }) {
                     />
                 </View>
             </View>
-            <MainVideoHomePage data={video} />
+            <MainVideoHomePage data={video} animeVideo={animevideo} />
         </>
     );
 }

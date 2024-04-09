@@ -3,36 +3,20 @@
   "WorkspaceRootPath": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\da nen tang\\appanime\\be\\applicationservices\\searchmodule\\implements\\searchservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:applicationservices\\searchmodule\\implements\\searchservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\da nen tang\\appanime\\be\\applicationservices\\usermodule\\implements\\userservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:applicationservices\\usermodule\\implements\\userservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\da nen tang\\appanime\\be\\controllers\\searchcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:controllers\\searchcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\da nen tang\\appanime\\be\\applicationservices\\usermodule\\dtos\\usernotfollowdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:applicationservices\\usermodule\\dtos\\usernotfollowdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\da nen tang\\appanime\\be\\controllers\\commentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:controllers\\commentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\da nen tang\\appanime\\be\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\da nen tang\\appanime\\be\\applicationservices\\commentsmodule\\implements\\commentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:applicationservices\\commentsmodule\\implements\\commentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\da nen tang\\appanime\\be\\applicationservices\\commentsmodule\\dtos\\createcommentchilddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:applicationservices\\commentsmodule\\dtos\\createcommentchilddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\da nen tang\\appanime\\be\\applicationservices\\commentsmodule\\dtos\\getcommentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:applicationservices\\commentsmodule\\dtos\\getcommentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\da nen tang\\appanime\\be\\applicationservices\\commentsmodule\\dtos\\createcommentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:applicationservices\\commentsmodule\\dtos\\createcommentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\da nen tang\\appanime\\be\\applicationservices\\commentsmodule\\abstract\\icommentservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:applicationservices\\commentsmodule\\abstract\\icommentservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\da nen tang\\appanime\\be\\applicationservices\\usermodule\\abstract\\iuserservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:applicationservices\\usermodule\\abstract\\iuserservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 11,
           "Children": [
             {
               "$type": "Bookmark",
@@ -78,106 +62,54 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "SearchController.cs",
-              "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\Controllers\\SearchController.cs",
-              "RelativeDocumentMoniker": "Controllers\\SearchController.cs",
-              "ToolTip": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\Controllers\\SearchController.cs",
-              "RelativeToolTip": "Controllers\\SearchController.cs",
-              "ViewState": "AQIAADEAAAAAAAAAAAAuwAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-07T14:13:17.723Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "SearchServices.cs",
-              "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\SearchModule\\Implements\\SearchServices.cs",
-              "RelativeDocumentMoniker": "ApplicationServices\\SearchModule\\Implements\\SearchServices.cs",
-              "ToolTip": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\SearchModule\\Implements\\SearchServices.cs",
-              "RelativeToolTip": "ApplicationServices\\SearchModule\\Implements\\SearchServices.cs",
-              "ViewState": "AQIAABgAAAAAAAAAAAAqwBwAAAAoAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-07T14:11:49.513Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "CommentsController.cs",
-              "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\Controllers\\CommentsController.cs",
-              "RelativeDocumentMoniker": "Controllers\\CommentsController.cs",
-              "ToolTip": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\Controllers\\CommentsController.cs",
-              "RelativeToolTip": "Controllers\\CommentsController.cs",
-              "ViewState": "AQIAABkAAAAAAAAAAAAAAC0AAAANAAAA",
+              "Title": "UserController.cs",
+              "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UserController.cs",
+              "ToolTip": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\Controllers\\UserController.cs",
+              "RelativeToolTip": "Controllers\\UserController.cs",
+              "ViewState": "AQIAAGEAAAAAAAAAAAAAAHIAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-07T08:47:52.681Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "CreateCommentChildDto.cs",
-              "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\CommentsModule\\Dtos\\CreateCommentChildDto.cs",
-              "RelativeDocumentMoniker": "ApplicationServices\\CommentsModule\\Dtos\\CreateCommentChildDto.cs",
-              "ToolTip": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\CommentsModule\\Dtos\\CreateCommentChildDto.cs",
-              "RelativeToolTip": "ApplicationServices\\CommentsModule\\Dtos\\CreateCommentChildDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAjAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-07T08:43:28.509Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "ICommentServices.cs",
-              "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\CommentsModule\\Abstract\\ICommentServices.cs",
-              "RelativeDocumentMoniker": "ApplicationServices\\CommentsModule\\Abstract\\ICommentServices.cs",
-              "ToolTip": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\CommentsModule\\Abstract\\ICommentServices.cs",
-              "RelativeToolTip": "ApplicationServices\\CommentsModule\\Abstract\\ICommentServices.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-07T08:42:55.926Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "CreateCommentDto.cs",
-              "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\CommentsModule\\Dtos\\CreateCommentDto.cs",
-              "RelativeDocumentMoniker": "ApplicationServices\\CommentsModule\\Dtos\\CreateCommentDto.cs",
-              "ToolTip": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\CommentsModule\\Dtos\\CreateCommentDto.cs",
-              "RelativeToolTip": "ApplicationServices\\CommentsModule\\Dtos\\CreateCommentDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAHAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-07T06:17:42.265Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "GetCommentDto.cs",
-              "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\CommentsModule\\Dtos\\GetCommentDto.cs",
-              "RelativeDocumentMoniker": "ApplicationServices\\CommentsModule\\Dtos\\GetCommentDto.cs",
-              "ToolTip": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\CommentsModule\\Dtos\\GetCommentDto.cs",
-              "RelativeToolTip": "ApplicationServices\\CommentsModule\\Dtos\\GetCommentDto.cs",
-              "ViewState": "AQIAAAEAAAAAAAAAAAAAAAkAAAAmAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-05T03:36:25.521Z",
+              "WhenOpened": "2024-04-09T07:07:04.042Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "CommentService.cs",
-              "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\CommentsModule\\Implements\\CommentService.cs",
-              "RelativeDocumentMoniker": "ApplicationServices\\CommentsModule\\Implements\\CommentService.cs",
-              "ToolTip": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\CommentsModule\\Implements\\CommentService.cs",
-              "RelativeToolTip": "ApplicationServices\\CommentsModule\\Implements\\CommentService.cs",
-              "ViewState": "AQIAABUAAAAAAAAAAAAkwCgAAAAUAAAA",
+              "Title": "IUserServices.cs",
+              "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\UserModule\\Abstract\\IUserServices.cs",
+              "RelativeDocumentMoniker": "ApplicationServices\\UserModule\\Abstract\\IUserServices.cs",
+              "ToolTip": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\UserModule\\Abstract\\IUserServices.cs",
+              "RelativeToolTip": "ApplicationServices\\UserModule\\Abstract\\IUserServices.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAABVAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-05T03:27:00.396Z",
+              "WhenOpened": "2024-04-09T06:45:23.499Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UserNotFollowDto.cs",
+              "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\UserModule\\Dtos\\UserNotFollowDto.cs",
+              "RelativeDocumentMoniker": "ApplicationServices\\UserModule\\Dtos\\UserNotFollowDto.cs",
+              "ToolTip": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\UserModule\\Dtos\\UserNotFollowDto.cs",
+              "RelativeToolTip": "ApplicationServices\\UserModule\\Dtos\\UserNotFollowDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-09T06:43:51.018Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UserServices.cs",
+              "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\UserModule\\Implements\\UserServices.cs",
+              "RelativeDocumentMoniker": "ApplicationServices\\UserModule\\Implements\\UserServices.cs",
+              "ToolTip": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\UserModule\\Implements\\UserServices.cs",
+              "RelativeToolTip": "ApplicationServices\\UserModule\\Implements\\UserServices.cs",
+              "ViewState": "AQIAAJMAAAAAAAAAAAAiwKQAAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-09T04:46:34.45Z",
               "EditorCaption": ""
             }
           ]

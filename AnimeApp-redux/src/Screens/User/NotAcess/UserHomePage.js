@@ -81,7 +81,7 @@ export default function UserHomePage({}) {
                                 </View>
                                 <View style={{ marginRight: 15, justifyContent: 'center', alignItems: 'center' }}>
                                     <Text style={[GlobalStyles.h4, { color: GlobalStyles.gray.color }]}>
-                                        {userInfo.follower}
+                                        {userInfo.following}
                                     </Text>
                                     <Text style={[GlobalStyles.h4, { color: GlobalStyles.gray.color }]}>
                                         Người theo dõi
@@ -89,7 +89,7 @@ export default function UserHomePage({}) {
                                 </View>
                                 <View style={{ marginRight: 15, justifyContent: 'center', alignItems: 'center' }}>
                                     <Text style={[GlobalStyles.h4, { color: GlobalStyles.gray.color }]}>
-                                        {userInfo.following}
+                                        {userInfo.follower}
                                     </Text>
                                     <Text style={[GlobalStyles.h4, { color: GlobalStyles.gray.color }]}>
                                         Đang theo dõi

@@ -92,7 +92,7 @@ namespace ApiBasic.ApplicationServices.VideoModule.Implements
             var videos =
                 from video in _dbcontext.Videos
                 join user in _dbcontext.Users on video.UserId equals user.Id
-                where user.Id == input.IdUser
+                where user.Id == input.IdUser && video.AnimeId == 1
                 select new GetVideoByUserId
                 {
                     AvatarVideoUrl = video.AvatarVideoUrl,

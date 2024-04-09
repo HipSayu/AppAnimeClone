@@ -1,7 +1,10 @@
 import { StyleSheet, Text, View, ImageBackground, TouchableOpacity } from 'react-native';
 import React from 'react';
 import GlobalStyles from '~/Styles/GlobalStyles';
+import axios from 'axios';
+
 export default function AnimeVideo({
+    idAnime,
     IsSearch = false,
     Quality = '',
     ContinueText = '',
@@ -12,13 +15,35 @@ export default function AnimeVideo({
     marginTop = 10,
     Name = 'Noname',
     Image = require('~/Assets/Image/Shikimori.png'),
+    navigation = function () {},
 }) {
     const styleIsSearch = {
         marginLeft: IsSearch ? 10 : 0,
     };
     !IsSearch ? (Searchlayout = 'column') : (Searchlayout = 'row');
+
+    const handleOnpressNavigation = () => {
+        axios
+            .get(`http://localhost:5179/api/Anime/get-anime-video?AnimeId=${idAnime}`)
+            .then((res) => {
+                // console.log(res.data);
+                navigation.navigate('PlayVideoPage', {
+                    data: res.data.animeVideos[0].idVideo,
+                    AnimeVideos: res.data.animeVideos,
+                });
+            })
+            .catch((err) => {
+                console.log('Lỗi Axios', err);
+            });
+    };
+
     return (
-        <TouchableOpacity style={{ marginRight: marginRight, marginTop: marginTop }}>
+        <TouchableOpacity
+            onPress={() => {
+                handleOnpressNavigation();
+            }}
+            style={{ marginRight: marginRight, marginTop: marginTop }}
+        >
             {/* Image */}
             {ContinueText !== '' ? (
                 <View style={{ flexDirection: Searchlayout }}>

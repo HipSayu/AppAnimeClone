@@ -1,13 +1,13 @@
 import { ImageBackground, ScrollView, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Dimensions } from 'react-native';
 import { UseSelector, useDispatch, useSelector } from 'react-redux';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
+import axios from 'axios';
 
 import GlobalStyles from '~/Styles/GlobalStyles';
 
 import AnimeVideo from '~/Components/AnimeItems/AnimeVideo';
-
-/*Data fake*/
 
 //Anime
 const Anime = [
@@ -34,11 +34,35 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 export default function AnimeHomePage() {
-    const backgroundColor = {
-        backgroundColor: 'white',
-    };
+    const [animeContinuce, SetAnimeContinuce] = useState([]);
+    const [anime, setAnime] = useState([]);
+
+    useEffect(() => {
+        axios
+            .get('http://localhost:5179/api/Anime/get?pageSize=4&pageIndex=1&keyword=a')
+            .then((response) => {
+                // console.log(response);
+                setAnime(response.data.items);
+            })
+            .catch((error) => {
+                console.log('Lỗi Anime');
+            });
+    }, []);
+
+    useEffect(() => {
+        axios
+            .get('http://localhost:5179/api/Anime/get?pageSize=5&pageIndex=2&keyword=a')
+            .then((response) => {
+                // console.log(response);
+                SetAnimeContinuce(response.data.items);
+            })
+            .catch((error) => {
+                console.log('Lỗi Anime');
+            });
+    }, []);
+
     return (
-        <View style={[styles.Page, backgroundColor]}>
+        <View style={[styles.Page, { backgroundColor: 'white' }]}>
             {/* Header Title */}
             <ScrollView showsVerticalScrollIndicator={false}>
                 {/* Image */}
@@ -81,13 +105,14 @@ export default function AnimeHomePage() {
                         showsHorizontalScrollIndicator={false}
                         style={{ flexDirection: 'row', marginLeft: 10 }}
                     >
-                        {Continue.map((item, index) => (
+                        {anime.map((item, index) => (
                             <AnimeVideo
                                 key={index}
+                                Quality={item.quality}
                                 width={windowWidth / 2.5}
                                 height={96}
-                                Image={item.Image}
-                                Name={item.Name}
+                                Image={{ uri: item.animeUrl }}
+                                Name={item.nameAnime}
                             />
                         ))}
                     </ScrollView>
@@ -103,13 +128,14 @@ export default function AnimeHomePage() {
                             marginLeft: 10,
                         }}
                     >
-                        {Continue.map((item, index) => (
+                        {animeContinuce.map((item, index) => (
                             <AnimeVideo
                                 key={index}
+                                Quality={item.quality}
                                 width={windowWidth / 2.2}
                                 height={96}
-                                Image={item.Image}
-                                Name={item.Name}
+                                Image={{ uri: item.animeUrl }}
+                                Name={item.nameAnime}
                             />
                         ))}
                     </View>

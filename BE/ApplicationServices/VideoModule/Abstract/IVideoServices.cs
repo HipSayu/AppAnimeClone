@@ -16,5 +16,7 @@ namespace ApiBasic.ApplicationServices.VideoModule.Abstract
 
         VideoDto GetById (int IdVideo);
         VideoWithCommentDto GetVideoWithCommentsById (int VideoId);
+
+
     }
 }

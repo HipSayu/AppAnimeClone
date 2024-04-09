@@ -24,7 +24,7 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 export default function DeXuatHomePage() {
     const [amv, setAmv] = useState([]);
-
+    const [anime, setAnime] = useState([]);
     const navigation = useNavigation();
 
     useEffect(() => {
@@ -35,10 +35,20 @@ export default function DeXuatHomePage() {
                 setAmv(response.data.items);
             })
             .catch((error) => {
-                console.log('Lỗi');
+                console.log('Lỗi Video');
             });
     }, []);
 
+    useEffect(() => {
+        axios
+            .get('http://localhost:5179/api/Anime/get?pageSize=5&pageIndex=1&keyword=a')
+            .then((response) => {
+                setAnime(response.data.items);
+            })
+            .catch((error) => {
+                console.log('Lỗi Anime');
+            });
+    }, []);
     return (
         <View style={styles.Page}>
             <ScrollView showsVerticalScrollIndicator={false}>
@@ -51,13 +61,15 @@ export default function DeXuatHomePage() {
                 </View>
                 <View>
                     <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ paddingLeft: 10 }}>
-                        {Anime.map((anime, index) => (
+                        {anime.map((item, index) => (
                             <AnimeVideo
+                                idAnime={item.id}
+                                navigation={navigation}
                                 key={index}
                                 marginRight={20}
-                                Quality={anime.Quality}
-                                Image={anime.Image}
-                                Name={anime.Name}
+                                Quality={item.quality}
+                                Image={{ uri: item.animeUrl }}
+                                Name={item.nameAnime}
                                 width={windowWidth / 2.6}
                                 height={182}
                             />

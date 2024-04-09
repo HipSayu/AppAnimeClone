@@ -63,7 +63,6 @@ namespace ApiBasic.ApplicationServices.UserModule.Implements
                 .Where(u => u.Id == UserId)
                 .Select(e => new FindUserDto
                 {
-                    
                     UserName = e.UserName,
                     AvatarUrl = e.AvatarUrl,
                     BackgroundUrl = e.BackgroundUrl,
@@ -85,7 +84,7 @@ namespace ApiBasic.ApplicationServices.UserModule.Implements
                 .Where(u => u.UserName.ToLower().Contains(input.Keyword.ToLower()))
                 .Select(e => new FindUserDto
                 {
-                    Id=e.Id,    
+                    Id = e.Id,
                     UserName = e.UserName,
                     AvatarUrl = e.AvatarUrl,
                     BackgroundUrl = e.BackgroundUrl,
@@ -108,7 +107,7 @@ namespace ApiBasic.ApplicationServices.UserModule.Implements
             var usersFollowingIdS =
                 from u in _dbcontext.Users
                 join userFollowing in _dbcontext.UserFollows on u.Id equals userFollowing.FollowerId
-                where (u.Id == input.UserId)
+                where u.Id == input.UserId
                 select new { usersFollowingId = userFollowing.FollowingId };
 
             var users =
@@ -155,6 +154,28 @@ namespace ApiBasic.ApplicationServices.UserModule.Implements
             };
         }
 
+        public PageResultDto<List<UserNotFollowDto>> GetAllUserNotFollow(FilterUserFollowDto input)
+        {
+            var userfollow = _dbcontext.UserFollows;
+            var user = _dbcontext
+                .Users.Where(u =>
+                    !userfollow.Any(uf => uf.FollowingId == u.Id && uf.FollowerId == input.UserId) && u.Id != input.UserId
+                )
+                .Select(u => new UserNotFollowDto
+                {
+                    AvatarUrl = u.AvatarUrl,
+                    UserFollowId = u.Id,
+                    UserName = u.UserName
+                }).Skip(input.PageSize * (input.PageIndex - 1))
+                    .Take(input.PageSize);
+
+            return new PageResultDto<List<UserNotFollowDto>>
+            {
+                Items = user.ToList(),
+                TotalItem = user.Count(),
+            };
+        }
+
         public UserWithVideoDto GetUserWithVideoById(int UserId)
         {
             var result =
@@ -198,7 +219,6 @@ namespace ApiBasic.ApplicationServices.UserModule.Implements
             user.AvatarUrl = input.AvatarUrl;
             user.BackgroundUrl = input.BackgroundUrl;
             user.TieuSu = input.TieuSu;
-
             _dbcontext.SaveChanges();
         }
     }
