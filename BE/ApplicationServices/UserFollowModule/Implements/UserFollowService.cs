@@ -17,10 +17,24 @@ namespace ApiBasic.ApplicationServices.UserFollowModule.Implements
 
         public void Create(CreateUserFollowDto input)
         {
-            _dbContext.UserFollows.Add(
-                new UserFollow { FollowerId = input.IdFollower, FollowingId = input.IdFollowing }
+            var check = _dbContext.UserFollows.FirstOrDefault(a =>
+                a.FollowerId == input.IdFollower && a.FollowingId == input.IdFollowing
             );
-            _dbContext.SaveChanges();
+            if (check != null)
+            {
+                throw new UserFriendlyExceptions("UserFollow đã tồn tại");
+            }
+            else
+            {
+                _dbContext.UserFollows.Add(
+                    new UserFollow
+                    {
+                        FollowerId = input.IdFollower,
+                        FollowingId = input.IdFollowing
+                    }
+                );
+                _dbContext.SaveChanges();
+            }
         }
 
         public void Delete(int Id)

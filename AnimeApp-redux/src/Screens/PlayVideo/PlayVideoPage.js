@@ -100,7 +100,7 @@ export default function PlayVideoPage({ route }) {
                     />
                 </View>
             </View>
-            <MainVideoHomePage data={video} animeVideo={animevideo} />
+            <MainVideoHomePage data={video} animeVideo={animevideo} likes={video.likes} />
         </>
     );
 }

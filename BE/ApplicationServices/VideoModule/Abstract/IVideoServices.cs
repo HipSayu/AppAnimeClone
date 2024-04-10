@@ -14,9 +14,9 @@ namespace ApiBasic.ApplicationServices.VideoModule.Abstract
         PageResultDto<List<FindVideoDto>> GetAll(FilterDto input);
         PageResultDto<List<GetVideoByUserId>> GetVideoByUserId(FilterGetVideoById input);
 
-        VideoDto GetById (int IdVideo);
-        VideoWithCommentDto GetVideoWithCommentsById (int VideoId);
+        VideoDto GetById(int IdVideo);
+        VideoWithCommentDto GetVideoWithCommentsById(int VideoId);
 
-
+        GetLikeVideoDtos GetLikeVideoByIdVideos(int VideoId);
     }
 }

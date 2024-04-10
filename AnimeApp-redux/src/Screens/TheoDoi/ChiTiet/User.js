@@ -19,6 +19,7 @@ export default function User({ route }) {
     const login = useSelector((state) => state.loginReducer);
 
     const userId = login.userInfo.id;
+
     console.log('userId', userId);
 
     const [userData, setUserData] = useState({ videoUserFollow: [] });

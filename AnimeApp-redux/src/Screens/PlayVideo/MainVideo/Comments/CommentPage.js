@@ -56,6 +56,7 @@ export default function CommentPage({ data }) {
                 })
                 .then((res) => {
                     setIsCreate(!isCreate);
+                    setComment('');
                 })
                 .catch((err) => {
                     console.log('Lỗi Comments', err);
@@ -81,6 +82,7 @@ export default function CommentPage({ data }) {
                 })
                 .then((res) => {
                     setIsCreate(!isCreate);
+                    setComment('');
                 })
                 .catch((err) => {
                     console.log('Lỗi Comments Childs', err);

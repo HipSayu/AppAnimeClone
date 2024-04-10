@@ -51,7 +51,7 @@ export default function AnimeHomePage() {
 
     useEffect(() => {
         axios
-            .get('http://localhost:5179/api/Anime/get?pageSize=5&pageIndex=2&keyword=a')
+            .get('http://localhost:5179/api/Anime/get?pageSize=3&pageIndex=2&keyword=c')
             .then((response) => {
                 // console.log(response);
                 SetAnimeContinuce(response.data.items);

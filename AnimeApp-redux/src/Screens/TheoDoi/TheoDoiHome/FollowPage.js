@@ -19,6 +19,7 @@ export default function FollowPage() {
 
     const userId = login.userInfo.id;
 
+    console.log('userId', userId);
     useEffect(() => {
         axios
             .get(`http://localhost:5179/api/User/get-all-user-follow?UserId=${userId}&pageSize=3&pageIndex=1&keyword=a`)

@@ -1,5 +1,4 @@
 ﻿using ApiBasic.ApplicationServices.UserLikeVideoModule.Dtos;
-using ApiBasic.ApplicationServices.UserXemVideoModule.Dtos;
 
 namespace ApiBasic.ApplicationServices.UserLikeModule.Abstract
 {
@@ -9,5 +8,8 @@ namespace ApiBasic.ApplicationServices.UserLikeModule.Abstract
         void Delete(int id);
         void Update(UpdateUserLikeVideoDto input);
         UserLikeVideoDto GetLike(int id);
+
+        bool CheckLike(CreateUserLikeVideoDto input);
+        void DeleteLike(CreateUserLikeVideoDto input);
     }
 }

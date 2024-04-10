@@ -73,18 +73,30 @@ namespace ApiBasic.ApplicationServices.VideoModule.Implements
         public VideoDto GetById(int IdVideo)
         {
             var video =
-                _dbcontext.Videos.FirstOrDefault(v => v.Id == IdVideo)
+                _dbcontext
+                    .Videos.Include(v => v.UserLikeVideos)
+                    .FirstOrDefault(v => v.Id == IdVideo)
                 ?? throw new UserFriendlyExceptions("Video không tìm thấy");
             return new VideoDto
             {
                 UrlVideo = video.UrlVideo,
                 Time = video.Time,
                 AvatarVideoUrl = video.AvatarVideoUrl,
-
+                Likes = video.UserLikeVideos.Count(),
                 Id = video.Id,
                 NameVideos = video.NameVideos,
                 DayAgo = (DateTime.Now - video.ThoiDiemTao).Days
             };
+        }
+
+        public GetLikeVideoDtos GetLikeVideoByIdVideos(int VideoId)
+        {
+            var video =
+                _dbcontext
+                    .Videos.Include(a => a.UserLikeVideos)
+                    .FirstOrDefault(v => v.Id == VideoId)
+                ?? throw new UserFriendlyExceptions("Video không tìm thấy");
+            return new GetLikeVideoDtos { likes = video.UserLikeVideos.Count() };
         }
 
         public PageResultDto<List<GetVideoByUserId>> GetVideoByUserId(FilterGetVideoById input)
@@ -153,7 +165,8 @@ namespace ApiBasic.ApplicationServices.VideoModule.Implements
 
             var video =
                 _dbcontext
-                    .Videos.Include(e => e.User).Where(e => e.Id == VideoId)
+                    .Videos.Include(e => e.User)
+                    .Where(e => e.Id == VideoId)
                     .Select(e => new VideoWithCommentDto
                     {
                         Id = VideoId,
@@ -168,7 +181,6 @@ namespace ApiBasic.ApplicationServices.VideoModule.Implements
                     .FirstOrDefault(e => e.Id == VideoId)
                 ?? throw new UserFriendlyExceptions("Video không tìm thấy");
             return video;
-           
         }
 
         public void Update(UpdateVideoDto input)

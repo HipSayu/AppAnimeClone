@@ -24,9 +24,9 @@ const renderTabBar = (props) => (
         style={{ backgroundColor: 'white', borderColor: '#fff', height: 40, borderWidth: 0 }}
     />
 );
-export default function MainVideoHomePage({ data, animeVideo }) {
+export default function MainVideoHomePage({ data, animeVideo, likes }) {
     const renderScene = SceneMap({
-        first: () => <IntroduceVideoPage data={data} animeVideo={animeVideo} />,
+        first: () => <IntroduceVideoPage data={data} animeVideo={animeVideo} likes={likes} />,
         second: () => <CommentPage data={data} />,
     });
     const layout = useWindowDimensions();

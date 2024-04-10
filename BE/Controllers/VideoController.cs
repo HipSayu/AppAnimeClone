@@ -113,5 +113,18 @@ namespace ApiBasic.Controllers
                 return HandleException(ex);
             }
         }
+
+        [HttpGet("get-like-video-by-idVideo/{IdVideo}")]
+        public ActionResult GetLikeVideoById(int IdVideo)
+        {
+            try
+            {
+                return Ok(_iVideoServices.GetLikeVideoByIdVideos(IdVideo));
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
     }
 }

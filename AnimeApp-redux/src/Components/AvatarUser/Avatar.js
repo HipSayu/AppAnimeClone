@@ -61,6 +61,7 @@ export default function Avatar({
     }
 
     const [isfollows, setIfollows] = useState(isFollow);
+
     const handleTheoDoi = (userIdLogin, userFollow) => {
         if (!isfollows) {
             axios

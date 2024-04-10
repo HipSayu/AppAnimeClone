@@ -1,22 +1,39 @@
 import { Dimensions, ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 
-import { useNavigation } from '@react-navigation/native';
-import { PacmanIndicator } from 'react-native-indicators';
-import GlobalStyles from '~/Styles/GlobalStyles';
-import AnimeMV from '~/Components/AMV/AnimeMV';
 import axios from 'axios';
+
 import { TouchableOpacity } from 'react-native';
 
-export default function IntroduceVideoPage({ data, animeVideo }) {
+import { useNavigation } from '@react-navigation/native';
+
+import { useSelector } from 'react-redux';
+
+import { PacmanIndicator } from 'react-native-indicators';
+
+import GlobalStyles from '~/Styles/GlobalStyles';
+import AnimeMV from '~/Components/AMV/AnimeMV';
+
+export default function IntroduceVideoPage({ data, animeVideo, likes }) {
     const [video, setVideo] = useState([]);
+    const [isLike, setIsLike] = useState(false);
+    const [like, setLike] = useState(likes);
+
     const navigation = useNavigation();
 
     const windowWidth = Dimensions.get('window').width;
 
     const windowHeight = Dimensions.get('window').height;
 
+    const login = useSelector((state) => state.loginReducer);
+
+    const userId = login.userInfo.id;
+
     console.log('animeVideo Introduce', animeVideo);
+
+    console.log('Data Introduce', data);
+
+    //GetVideo DeXuat
     useEffect(() => {
         axios
             .get(`http://localhost:5179/api/Video/get-all?pageSize=10&pageIndex=1&keyword=v`)
@@ -27,7 +44,69 @@ export default function IntroduceVideoPage({ data, animeVideo }) {
                 console.log('Lỗi Axios', err);
             });
     }, [data]);
+
+    //GetLike
+    useEffect(() => {
+        axios
+            .get(`http://localhost:5179/api/Video/get-like-video-by-idVideo/${data.id}`)
+            .then((res) => {
+                setLike(res.data.likes);
+            })
+            .catch((err) => {
+                console.log('Lỗi Axios', err);
+            });
+    }, [like]);
+
+    //Check isLike
+
+    useEffect(() => {
+        axios
+            .get(`http://localhost:5179/api/UserLikeVideo/CheckLikes?UserId=${userId}&VideoId=${data.id}`)
+            .then((res) => {
+                setIsLike(res.data);
+            })
+            .catch((err) => {
+                console.log('Lỗi CheckIsLike', err);
+            });
+    }, []);
+
+    const handleLike = (userId, idVideo) => {
+        if (userId != undefined && !isLike) {
+            axios
+                .post(`http://localhost:5179/api/UserLikeVideo/Create`, {
+                    userId: userId,
+                    videoId: idVideo,
+                })
+                .then((res) => {
+                    setLike((prev) => prev + 1);
+                    setIsLike(!isLike);
+                })
+                .catch((err) => {
+                    console.log('Lỗi Like', err);
+                });
+        } else {
+            axios
+                .delete(`http://localhost:5179/api/UserLikeVideo/deleteLike`, {
+                    data: {
+                        userId: userId,
+                        videoId: idVideo,
+                    },
+                })
+                .then((res) => {
+                    setLike((prev) => prev - 1);
+                    setIsLike(!isLike);
+                })
+                .catch((err) => {
+                    console.log('Lỗi unLike', err);
+                });
+        }
+    };
+
     console.log('video Introduce', video);
+
+    if (likes > 1000) {
+        setLike(likes / 1000 + 'K');
+    }
     return (
         <ScrollView
             showsVerticalScrollIndicator={false}
@@ -55,13 +134,26 @@ export default function IntroduceVideoPage({ data, animeVideo }) {
                         marginTop: 10,
                     }}
                 >
-                    <View style={{ alignItems: 'center', marginLeft: 5 }}>
-                        <ImageBackground
-                            source={require('~/Assets/Icon/IconActive/Like.png')}
-                            style={{ width: 30, height: 30 }}
-                        />
-                        <Text style={GlobalStyles.h5_Medium}>99.K</Text>
-                    </View>
+                    <TouchableOpacity
+                        onPress={() => {
+                            handleLike(userId, data.id);
+                        }}
+                        style={{ alignItems: 'center', marginLeft: 5 }}
+                    >
+                        {!isLike ? (
+                            <ImageBackground
+                                source={require('~/Assets/Icon/IconActive/Like.png')}
+                                style={{ width: 30, height: 30 }}
+                            />
+                        ) : (
+                            <ImageBackground
+                                source={require('~/Assets/Icon/IconActive/LikeActive.png')}
+                                style={{ width: 30, height: 30 }}
+                            />
+                        )}
+
+                        <Text style={GlobalStyles.h5_Medium}>{like}</Text>
+                    </TouchableOpacity>
                     <View style={{ alignItems: 'center', marginHorizontal: 10 }}>
                         <ImageBackground
                             source={require('~/Assets/Icon/IconActive/Bookmark.png')}
