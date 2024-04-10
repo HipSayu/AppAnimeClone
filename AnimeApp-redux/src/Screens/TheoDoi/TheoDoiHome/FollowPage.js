@@ -11,6 +11,7 @@ import axios from 'axios';
 
 export default function FollowPage() {
     const [userFollow, setUserFollow] = useState([]);
+    const [userNotFollow, setUserNotFollow] = useState([]);
 
     const navigation = useNavigation();
 
@@ -23,6 +24,19 @@ export default function FollowPage() {
             .get(`http://localhost:5179/api/User/get-all-user-follow?UserId=${userId}&pageSize=3&pageIndex=1&keyword=a`)
             .then((res) => {
                 setUserFollow(res.data.items);
+            })
+            .catch((err) => {
+                console.log('Chưa đăng nhập', err);
+            });
+    }, [userId]);
+
+    useEffect(() => {
+        axios
+            .get(
+                `http://localhost:5179/api/User/get-all-user-not-follow?UserId=${userId}&pageSize=5&pageIndex=1&keyword=a`,
+            )
+            .then((res) => {
+                setUserNotFollow(res.data.items);
             })
             .catch((err) => {
                 console.log('Chưa đăng nhập', err);
@@ -42,6 +56,7 @@ export default function FollowPage() {
                     >
                         {userFollow.map((user, index) => (
                             <Avatar
+                                isFollow={true}
                                 data={user.userFollowId}
                                 navigation={navigation}
                                 key={index}
@@ -74,7 +89,18 @@ export default function FollowPage() {
                             Khám phá nhà sáng tạo khác
                         </Text>
                         <View style={{ paddingHorizontal: 10 }}>
-                            <Avatar isSearch={true} Time="600 người theo dõi | 20 Videos" />
+                            {userNotFollow.map((item, index) => (
+                                <Avatar
+                                    userIdLogin={userId}
+                                    navigation={navigation}
+                                    key={index}
+                                    Avatar={{ uri: item.avatarUrl }}
+                                    UserName={item.userName}
+                                    isSearch={true}
+                                    data={item.userFollowId}
+                                    Time="600 người theo dõi | 20 Videos"
+                                />
+                            ))}
                         </View>
                         {/* Footer */}
                         <View style={{ height: 100 }}></View>

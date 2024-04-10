@@ -104,7 +104,11 @@ export default function SearchingPage() {
 
                 <TouchableOpacity
                     onPress={() => {
-                        search !== '' ? handleSearch() : null;
+                        if (userId == undefined) {
+                            search !== '' ? handleOnpress(search) : null;
+                        } else {
+                            search !== '' ? handleSearch() : null;
+                        }
                     }}
                     style={{ marginTop: 10 }}
                 >

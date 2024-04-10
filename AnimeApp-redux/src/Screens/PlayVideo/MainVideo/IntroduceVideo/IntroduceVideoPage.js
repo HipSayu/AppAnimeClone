@@ -104,12 +104,13 @@ export default function IntroduceVideoPage({ data, animeVideo }) {
                             >
                                 <View
                                     style={{
-                                        marginRight: 20,
+                                        marginRight: 15,
                                         borderRadius: 10,
                                         backgroundColor: data.id == item.idVideo ? '#979797' : '#e3e3e3',
                                         alignItems: 'center',
                                         justifyContent: 'center',
-                                        padding: 15,
+                                        paddingVertical: 15,
+                                        paddingHorizontal: 20,
                                     }}
                                 >
                                     <Text style={GlobalStyles.h4}>{index + 1}</Text>

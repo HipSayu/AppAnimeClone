@@ -6,5 +6,6 @@ namespace ApiBasic.ApplicationServices.UserFollowModule.Abstract
     {
         void Create(CreateUserFollowDto input);
         void Delete(int Id);
+        void Unfollow(UnFollowDtto input);
     }
 }

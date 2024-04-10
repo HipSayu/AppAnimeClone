@@ -3,20 +3,32 @@
   "WorkspaceRootPath": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\da nen tang\\appanime\\be\\applicationservices\\usermodule\\implements\\userservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:applicationservices\\usermodule\\implements\\userservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\da nen tang\\appanime\\be\\applicationservices\\animemodule\\implements\\animeservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:applicationservices\\animemodule\\implements\\animeservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\da nen tang\\appanime\\be\\applicationservices\\usermodule\\dtos\\usernotfollowdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:applicationservices\\usermodule\\dtos\\usernotfollowdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\da nen tang\\appanime\\be\\applicationservices\\animemodule\\abstract\\ianimeservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:applicationservices\\animemodule\\abstract\\ianimeservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\da nen tang\\appanime\\be\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\da nen tang\\appanime\\be\\applicationservices\\animemodule\\dtos\\animeviewdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:applicationservices\\animemodule\\dtos\\animeviewdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\da nen tang\\appanime\\be\\applicationservices\\usermodule\\abstract\\iuserservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:applicationservices\\usermodule\\abstract\\iuserservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\da nen tang\\appanime\\be\\applicationservices\\animemodule\\dtos\\animewithvideodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:applicationservices\\animemodule\\dtos\\animewithvideodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\da nen tang\\appanime\\be\\applicationservices\\animemodule\\dtos\\animedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:applicationservices\\animemodule\\dtos\\animedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\da nen tang\\appanime\\be\\controllers\\userfollowcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:controllers\\userfollowcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\da nen tang\\appanime\\be\\applicationservices\\userfollowmodule\\implements\\userfollowservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:applicationservices\\userfollowmodule\\implements\\userfollowservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 11,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
@@ -62,54 +74,93 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "Controllers\\UserController.cs",
-              "ToolTip": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\Controllers\\UserController.cs",
-              "RelativeToolTip": "Controllers\\UserController.cs",
-              "ViewState": "AQIAAGEAAAAAAAAAAAAAAHIAAAAJAAAA",
+              "DocumentIndex": 0,
+              "Title": "AnimeServices.cs",
+              "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\AnimeModule\\Implements\\AnimeServices.cs",
+              "RelativeDocumentMoniker": "ApplicationServices\\AnimeModule\\Implements\\AnimeServices.cs",
+              "ToolTip": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\AnimeModule\\Implements\\AnimeServices.cs",
+              "RelativeToolTip": "ApplicationServices\\AnimeModule\\Implements\\AnimeServices.cs",
+              "ViewState": "AQIAACoAAAAAAAAAAAAQwC8AAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-09T07:07:04.042Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "IUserServices.cs",
-              "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\UserModule\\Abstract\\IUserServices.cs",
-              "RelativeDocumentMoniker": "ApplicationServices\\UserModule\\Abstract\\IUserServices.cs",
-              "ToolTip": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\UserModule\\Abstract\\IUserServices.cs",
-              "RelativeToolTip": "ApplicationServices\\UserModule\\Abstract\\IUserServices.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAABVAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-09T06:45:23.499Z",
+              "WhenOpened": "2024-04-10T01:10:36.809Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "UserNotFollowDto.cs",
-              "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\UserModule\\Dtos\\UserNotFollowDto.cs",
-              "RelativeDocumentMoniker": "ApplicationServices\\UserModule\\Dtos\\UserNotFollowDto.cs",
-              "ToolTip": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\UserModule\\Dtos\\UserNotFollowDto.cs",
-              "RelativeToolTip": "ApplicationServices\\UserModule\\Dtos\\UserNotFollowDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAAAAAA",
+              "Title": "IAnimeServices.cs",
+              "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\AnimeModule\\Abstract\\IAnimeServices.cs",
+              "RelativeDocumentMoniker": "ApplicationServices\\AnimeModule\\Abstract\\IAnimeServices.cs",
+              "ToolTip": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\AnimeModule\\Abstract\\IAnimeServices.cs",
+              "RelativeToolTip": "ApplicationServices\\AnimeModule\\Abstract\\IAnimeServices.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAVAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-09T06:43:51.018Z",
+              "WhenOpened": "2024-04-10T01:10:16.066Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "UserServices.cs",
-              "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\UserModule\\Implements\\UserServices.cs",
-              "RelativeDocumentMoniker": "ApplicationServices\\UserModule\\Implements\\UserServices.cs",
-              "ToolTip": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\UserModule\\Implements\\UserServices.cs",
-              "RelativeToolTip": "ApplicationServices\\UserModule\\Implements\\UserServices.cs",
-              "ViewState": "AQIAAJMAAAAAAAAAAAAiwKQAAAARAAAA",
+              "DocumentIndex": 2,
+              "Title": "AnimeViewDto.cs",
+              "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\AnimeModule\\Dtos\\AnimeViewDto.cs",
+              "RelativeDocumentMoniker": "ApplicationServices\\AnimeModule\\Dtos\\AnimeViewDto.cs",
+              "ToolTip": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\AnimeModule\\Dtos\\AnimeViewDto.cs",
+              "RelativeToolTip": "ApplicationServices\\AnimeModule\\Dtos\\AnimeViewDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-09T04:46:34.45Z",
+              "WhenOpened": "2024-04-10T01:10:07.177Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AnimeWithVideoDto.cs",
+              "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\AnimeModule\\Dtos\\AnimeWithVideoDto.cs",
+              "RelativeDocumentMoniker": "ApplicationServices\\AnimeModule\\Dtos\\AnimeWithVideoDto.cs",
+              "ToolTip": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\AnimeModule\\Dtos\\AnimeWithVideoDto.cs",
+              "RelativeToolTip": "ApplicationServices\\AnimeModule\\Dtos\\AnimeWithVideoDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-10T01:10:04.668Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AnimeDto.cs",
+              "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\AnimeModule\\Dtos\\AnimeDto.cs",
+              "RelativeDocumentMoniker": "ApplicationServices\\AnimeModule\\Dtos\\AnimeDto.cs",
+              "ToolTip": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\AnimeModule\\Dtos\\AnimeDto.cs",
+              "RelativeToolTip": "ApplicationServices\\AnimeModule\\Dtos\\AnimeDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-10T01:10:00.754Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "UserFollowController.cs",
+              "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\Controllers\\UserFollowController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UserFollowController.cs",
+              "ToolTip": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\Controllers\\UserFollowController.cs",
+              "RelativeToolTip": "Controllers\\UserFollowController.cs",
+              "ViewState": "AQIAACwAAAAAAAAAAAAQwDoAAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-09T23:35:04.55Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "UserFollowService.cs",
+              "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\UserFollowModule\\Implements\\UserFollowService.cs",
+              "RelativeDocumentMoniker": "ApplicationServices\\UserFollowModule\\Implements\\UserFollowService.cs",
+              "ToolTip": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\UserFollowModule\\Implements\\UserFollowService.cs",
+              "RelativeToolTip": "ApplicationServices\\UserFollowModule\\Implements\\UserFollowService.cs",
+              "ViewState": "AQIAABkAAAAAAAAAAAAQwCEAAAAcAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-09T14:07:01.929Z",
               "EditorCaption": ""
             }
           ]

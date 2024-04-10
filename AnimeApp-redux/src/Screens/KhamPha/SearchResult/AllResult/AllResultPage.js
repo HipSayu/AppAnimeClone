@@ -9,12 +9,26 @@ import { PacmanIndicator } from 'react-native-indicators';
 
 export default function AllResultPage({ data }) {
     const [result, setResult] = useState([]);
+
+    const [anime, setAnime] = useState([]);
+
     const navigation = useNavigation();
     useEffect(() => {
         axios
             .get(`http://localhost:5179/api/Video/get-all?pageSize=10&pageIndex=1&keyword=${data}`)
             .then((res) => {
                 setResult(res.data.items);
+            })
+            .catch((err) => {
+                console.log('Lỗi Seacrh', err);
+            });
+    }, [data]);
+
+    useEffect(() => {
+        axios
+            .get(`http://localhost:5179/api/Anime/get?pageSize=2&pageIndex=1&keyword=${data}`)
+            .then((res) => {
+                setAnime(res.data.items);
             })
             .catch((err) => {
                 console.log('Lỗi Seacrh', err);
@@ -40,11 +54,19 @@ export default function AllResultPage({ data }) {
                         </View>
                     ) : (
                         <>
-                            <AnimeVideo
-                                IsSearch={true}
-                                Name="Shikimori không chỉ dễ thương thôi đâu"
-                                ContinueText="2023 | Anime"
-                            />
+                            {anime.map((item, index) => (
+                                <AnimeVideo
+                                    key={index}
+                                    IsSearch={true}
+                                    ContinueText="2023 | Anime"
+                                    idAnime={item.id}
+                                    navigation={navigation}
+                                    Quality={item.quality}
+                                    Image={{ uri: item.animeUrl }}
+                                    Name={item.nameAnime}
+                                />
+                            ))}
+
                             {result.map((item, index) => (
                                 <AnimeMV
                                     key={index}

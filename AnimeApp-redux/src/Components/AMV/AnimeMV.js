@@ -29,6 +29,7 @@ export default function AnimeMV({
     dataVideo,
     dataAvatar,
     navigation = function () {},
+    userIsFollow = false,
 }) {
     return (
         <View style={{ flexDirection: flexDirection, marginTop: IsUser ? 10 : 0 }}>
@@ -78,6 +79,7 @@ export default function AnimeMV({
             </TouchableOpacity>
             <View style={{ alignItems: 'flex-start' }}>
                 <Avatar
+                    isFollow={userIsFollow}
                     navigation={navigation}
                     data={dataAvatar}
                     Avatar={sourceAvartar}

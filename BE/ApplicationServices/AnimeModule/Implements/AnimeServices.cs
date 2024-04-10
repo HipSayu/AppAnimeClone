@@ -47,7 +47,9 @@ namespace ApiBasic.ApplicationServices.AnimeModule.Implements
         public PageResultDto<List<AnimeViewDto>> Get(FilterDto input)
         {
             var animes = _dbcontext
-                .Animes.Where(a => a.Id > 1)
+                .Animes.Where(a =>
+                    a.Id > 1 && a.NameAnime.ToLower().Contains(input.Keyword.ToLower())
+                )
                 .Select(s => new AnimeViewDto
                 {
                     Id = s.Id,

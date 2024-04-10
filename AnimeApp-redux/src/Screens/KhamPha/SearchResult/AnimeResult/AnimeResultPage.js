@@ -1,13 +1,39 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import AnimeVideo from '~/Components/AnimeItems/AnimeVideo';
 import GlobalStyles from '~/Styles/GlobalStyles';
+import axios from 'axios';
 
-export default function AnimeResultPage() {
+export default function AnimeResultPage({ data }) {
+    const [anime, setAnime] = useState([]);
+    const navigation = useNavigation();
+    useEffect(() => {
+        axios
+            .get(`http://localhost:5179/api/Anime/get?pageSize=5&pageIndex=1&keyword=${data}`)
+            .then((res) => {
+                setAnime(res.data.items);
+            })
+            .catch((err) => {
+                console.log('Lỗi Seacrh', err);
+            });
+    }, [data]);
+
     return (
         <ScrollView style={{ flex: 1, paddingLeft: 10, backgroundColor: GlobalStyles.white.color }}>
             {/* Anime */}
-            <AnimeVideo IsSearch={true} Name="Shikimori không chỉ dễ thương thôi đâu" ContinueText="2023 | Anime" />
+            {anime.map((item, index) => (
+                <AnimeVideo
+                    key={index}
+                    IsSearch={true}
+                    ContinueText="2023 | Anime"
+                    idAnime={item.id}
+                    navigation={navigation}
+                    Quality={item.quality}
+                    Image={{ uri: item.animeUrl }}
+                    Name={item.nameAnime}
+                />
+            ))}
         </ScrollView>
     );
 }

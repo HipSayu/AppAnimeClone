@@ -39,6 +39,9 @@ builder.Services.AddDbContext<AnimeAppContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MyDB"));
 });
 
+
+
+
 // Cấu hình JWT
 JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 builder

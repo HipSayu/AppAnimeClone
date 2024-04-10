@@ -1,7 +1,9 @@
 import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Dimensions } from 'react-native';
 
-import React from 'react';
+import axios from 'axios';
+
+import React, { useState } from 'react';
 
 import GlobalStyles from '~/Styles/GlobalStyles';
 
@@ -10,14 +12,10 @@ const windowWidth = Dimensions.get('window').width;
 // Chiều dài điện thoại
 const windowHeight = Dimensions.get('window').height;
 
-//User
-//1.witdh : 44 height 44: Tên cạch text cạch có icon
-//2.width : 20 hegiht 20 : tến cạnh text trên view dưới
-// 3. width :50 height 59 : tên dưới
-//4 . width : 40 height : 40 tên cạnh có time tên dưới
-
 export default function Avatar({
+    userIdLogin,
     data,
+    isFollow = false,
     styleCustom = {},
     navigation = function () {},
     isSearch = false,
@@ -62,13 +60,43 @@ export default function Avatar({
         marginTopAvatar = 5;
     }
 
+    const [isfollows, setIfollows] = useState(isFollow);
+    const handleTheoDoi = (userIdLogin, userFollow) => {
+        if (!isfollows) {
+            axios
+                .post(`http://localhost:5179/api/UserFollow/Create`, {
+                    idFollower: userIdLogin,
+                    idFollowing: userFollow,
+                })
+                .then((res) => {
+                    setIfollows(!isfollows);
+                })
+                .catch((err) => {
+                    console.log('Lỗi Follow', err);
+                });
+        } else {
+            axios
+                .delete(`http://localhost:5179/api/UserFollow/Unfollow`, {
+                    data: {
+                        idFollower: userIdLogin,
+                        idFollowing: userFollow,
+                    },
+                })
+                .then((res) => {
+                    setIfollows(!isfollows);
+                })
+                .catch((err) => {
+                    console.log('Lỗi UnFollow', err);
+                });
+        }
+    };
     return (
         <>
             {!isUser ? (
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                     <TouchableOpacity
                         onPress={() => {
-                            navigation.navigate('User', { data: data });
+                            navigation.navigate('User', { data: data, isFollow: isfollows });
                         }}
                         style={[
                             { flexDirection: NameVideoUser == '' ? 'column' : 'row', alignItems: 'center' },
@@ -222,7 +250,10 @@ export default function Avatar({
                         </View>
                     </TouchableOpacity>
                     {isSearch ? (
-                        <View
+                        <TouchableOpacity
+                            onPress={() => {
+                                handleTheoDoi(userIdLogin, data);
+                            }}
                             style={{
                                 backgroundColor: GlobalStyles.blue.color,
                                 paddingHorizontal: 9,
@@ -232,8 +263,10 @@ export default function Avatar({
                                 justifyContent: 'center',
                             }}
                         >
-                            <Text style={[GlobalStyles.white, GlobalStyles.h5]}>Theo dõi</Text>
-                        </View>
+                            <Text style={[GlobalStyles.white, GlobalStyles.h5]}>
+                                {isfollows ? 'Đã theo dõi' : 'Theo dõi'}
+                            </Text>
+                        </TouchableOpacity>
                     ) : (
                         <></>
                     )}

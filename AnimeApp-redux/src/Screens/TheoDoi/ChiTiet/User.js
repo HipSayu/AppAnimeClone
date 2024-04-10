@@ -3,22 +3,33 @@ import { Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+
+import axios from 'axios';
 
 import GlobalStyles from '~/Styles/GlobalStyles';
 import Avatar from '~/Components/AvatarUser/Avatar';
 import AnimeMV from '~/Components/AMV/AnimeMV';
-import axios from 'axios';
 
 const windowWidth = Dimensions.get('window').width;
 
 const windowHeight = Dimensions.get('window').height;
 
 export default function User({ route }) {
+    const login = useSelector((state) => state.loginReducer);
+
+    const userId = login.userInfo.id;
+    console.log('userId', userId);
+
     const [userData, setUserData] = useState({ videoUserFollow: [] });
 
     const navigation = useNavigation();
 
     const userFollowId = route.params.data;
+
+    const isFollow = route.params.isFollow;
+
+    console.log('isFollow', isFollow);
 
     console.log('userFollowId', userFollowId);
 
@@ -32,6 +43,38 @@ export default function User({ route }) {
                 console.log('Lỗi Seacrh', err);
             });
     }, []);
+
+    const [isfollows, setIfollows] = useState(isFollow);
+
+    const handleTheoDoi = (userIdLogin, userFollow) => {
+        if (!isfollows) {
+            axios
+                .post(`http://localhost:5179/api/UserFollow/Create`, {
+                    idFollower: userIdLogin,
+                    idFollowing: userFollow,
+                })
+                .then((res) => {
+                    setIfollows(!isfollows);
+                })
+                .catch((err) => {
+                    console.log('Lỗi Follow Chưa đăng nhập', err);
+                });
+        } else {
+            axios
+                .delete(`http://localhost:5179/api/UserFollow/Unfollow`, {
+                    data: {
+                        idFollower: userIdLogin,
+                        idFollowing: userFollow,
+                    },
+                })
+                .then((res) => {
+                    setIfollows(!isfollows);
+                })
+                .catch((err) => {
+                    console.log('Lỗi UnFollow', err);
+                });
+        }
+    };
 
     console.log('userData', userData);
     return (
@@ -75,7 +118,23 @@ export default function User({ route }) {
                             borderColor: GlobalStyles.blue.color,
                         }}
                     >
-                        <Text style={[GlobalStyles.h5, GlobalStyles.blue]}>Đang theo dõi</Text>
+                        {isfollows ? (
+                            <TouchableOpacity
+                                onPress={() => {
+                                    handleTheoDoi(userId, userFollowId);
+                                }}
+                            >
+                                <Text style={[GlobalStyles.h5, GlobalStyles.blue]}>Đang theo dõi</Text>
+                            </TouchableOpacity>
+                        ) : (
+                            <TouchableOpacity
+                                onPress={() => {
+                                    handleTheoDoi(userId, userFollowId);
+                                }}
+                            >
+                                <Text style={[GlobalStyles.h5, GlobalStyles.blue]}>Theo dõi</Text>
+                            </TouchableOpacity>
+                        )}
                     </View>
                 </View>
             </ImageBackground>

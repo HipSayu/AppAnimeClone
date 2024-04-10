@@ -107,7 +107,7 @@ namespace ApiBasic.ApplicationServices.UserModule.Implements
             var usersFollowingIdS =
                 from u in _dbcontext.Users
                 join userFollowing in _dbcontext.UserFollows on u.Id equals userFollowing.FollowerId
-                where u.Id == input.UserId
+                where u.Id == input.UserId && userFollowing.FollowingId != 1
                 select new { usersFollowingId = userFollowing.FollowingId };
 
             var users =
@@ -162,7 +162,7 @@ namespace ApiBasic.ApplicationServices.UserModule.Implements
                     !userfollow.Any(uf => uf.FollowingId == u.Id && uf.FollowerId == input.UserId) && u.Id != input.UserId
                 )
                 .Select(u => new UserNotFollowDto
-                {
+                { 
                     AvatarUrl = u.AvatarUrl,
                     UserFollowId = u.Id,
                     UserName = u.UserName

@@ -47,5 +47,19 @@ namespace ApiBasic.Controllers
                 return HandleException(ex);
             }
         }
+
+        [HttpDelete("Unfollow")]
+        public ActionResult Delete(UnFollowDtto input)
+        {
+            try
+            {
+                _userFollowService.Unfollow(input);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
     }
 }

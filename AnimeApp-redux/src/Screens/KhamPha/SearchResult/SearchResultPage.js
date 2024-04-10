@@ -17,7 +17,7 @@ export default function SearchResultPage({ route }) {
     const [search, setSearch] = useState(searchValue);
     const navigation = useNavigation();
     let widthSearch = 1.4;
-
+    console.log('searchValue', searchValue);
     return (
         <>
             <View style={[styles.Search]}>
