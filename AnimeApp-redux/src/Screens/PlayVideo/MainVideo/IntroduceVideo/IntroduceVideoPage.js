@@ -36,7 +36,7 @@ export default function IntroduceVideoPage({ data, animeVideo, likes }) {
     //GetVideo DeXuat
     useEffect(() => {
         axios
-            .get(`http://localhost:5179/api/Video/get-all?pageSize=10&pageIndex=1&keyword=v`)
+            .get(`http://localhost:5179/api/Video/get-all?IdVideo=${data.id}&pageSize=10&pageIndex=1&keyword=a`)
             .then((res) => {
                 setVideo(res.data.items);
             })

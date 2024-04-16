@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import GlobalStyles from '~/Styles/GlobalStyles';
 
 import axios from 'axios';
+
 const regexNumberPhone = /(84|0[3|5|7|8|9])+([0-9]{8})\b/g;
 
 export default function SDTPage() {
@@ -27,7 +28,6 @@ export default function SDTPage() {
                     navigation.navigate('LoginSDTPage', { SDT: number });
                 })
                 .catch((error) => {
-                    setValidate('Số điện thoại không tồn tại');
                     navigation.navigate('ResgisterSDTPage', { SDT: number });
                 });
         } else {

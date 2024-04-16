@@ -35,7 +35,7 @@ namespace ApiBasic.Controllers
         }
 
         [HttpGet("get-all")]
-        public ActionResult GetAll(FilterDto input)
+        public ActionResult GetAll(FilterVideoDto input)
         {
             try
             {

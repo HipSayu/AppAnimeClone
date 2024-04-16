@@ -11,32 +11,34 @@ import { PacmanIndicator } from 'react-native-indicators';
 import GlobalStyles from '~/Styles/GlobalStyles';
 import AnimeVideo from '~/Components/AnimeItems/AnimeVideo';
 import AnimeMV from '~/Components/AMV/AnimeMV';
+import { getVideoHomePage } from '~/Services/Api';
 
-//Anime
-const Anime = [
-    { Name: 'Shikimori không chỉ dễ thương thôi đâu', Image: require('~/Assets/Image/Shikimori.png'), Quality: '4K' },
-    { Name: 'Rồng hầu gái nhà kobayashi', Image: require('~/Assets/Image/Torhu.jpg'), Quality: '4K' },
-    { Name: 'Lycoris Recoil', Image: require('~/Assets/Image/LycorisRecoil.png'), Quality: '2K' },
-    { Name: 'Nhà có 5 tô bún', Image: require('~/Assets/Image/NhaCoNamNangDau.jpg'), Quality: '2K' },
-];
-
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
 export default function DeXuatHomePage() {
     const [amv, setAmv] = useState([]);
     const [anime, setAnime] = useState([]);
     const navigation = useNavigation();
 
+    const windowWidth = Dimensions.get('window').width;
+    const windowHeight = Dimensions.get('window').height;
+
     useEffect(() => {
-        axios
-            .get('http://localhost:5179/api/Video/get-all?pageSize=10&pageIndex=1&keyword=a')
+        getVideoHomePage()
             .then((response) => {
-                // console.log(response);
                 setAmv(response.data.items);
             })
             .catch((error) => {
                 console.log('Lỗi Video');
             });
+
+        // axios
+        //     .get('http://localhost:5179/api/Video/get-all?pageSize=10&pageIndex=1&keyword=a')
+        //     .then((response) => {
+        //         // console.log(response);
+        //         setAmv(response.data.items);
+        //     })
+        //     .catch((error) => {
+        //         console.log('Lỗi Video');
+        //     });
     }, []);
 
     useEffect(() => {
@@ -49,6 +51,7 @@ export default function DeXuatHomePage() {
                 console.log('Lỗi Anime');
             });
     }, []);
+    console.log(amv);
     return (
         <View style={styles.Page}>
             <ScrollView showsVerticalScrollIndicator={false}>

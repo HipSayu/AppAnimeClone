@@ -45,11 +45,11 @@ namespace ApiBasic.ApplicationServices.VideoModule.Implements
             _dbcontext.SaveChanges();
         }
 
-        public PageResultDto<List<FindVideoDto>> GetAll(FilterDto input)
+        public PageResultDto<List<FindVideoDto>> GetAll(FilterVideoDto input)
         {
             var videos = _dbcontext
                 .Videos.Include(v => v.User)
-                .Where(v => v.NameVideos.ToLower().Contains(input.Keyword.ToLower()))
+                .Where(v => v.NameVideos.ToLower().Contains(input.Keyword.ToLower()) && v.Id != input.IdVideo)
                 .Select(v => new FindVideoDto
                 {
                     NameVideos = v.NameVideos,
