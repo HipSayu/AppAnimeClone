@@ -1,18 +1,26 @@
 import { ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Dimensions } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import AnimeVideo from '~/Components/AnimeItems/AnimeVideo';
+import { getAnimeHomePage } from '~/Services/Api';
 
 const windowWidth = Dimensions.get('window').width;
 
 const windowHeight = Dimensions.get('window').height;
-const Anime = [
-    { Name: 'Shikimori không chỉ dễ thương thôi đâu', Image: require('~/Assets/Image/Shikimori.png'), Quality: '4K' },
-    { Name: 'Rồng hầu gái nhà kobayashi', Image: require('~/Assets/Image/Torhu.jpg'), Quality: '4K' },
-    { Name: 'Lycoris Recoil', Image: require('~/Assets/Image/LycorisRecoil.png'), Quality: '2K' },
-    { Name: 'Nhà có 5 tô bún', Image: require('~/Assets/Image/NhaCoNamNangDau.jpg'), Quality: '2K' },
-];
+
 export default function SearchHomePage() {
+    const [anime, setAnime] = useState([]);
+
+    useEffect(() => {
+        getAnimeHomePage((pageSize = 4), (pageIndex = 1), (keyword = 'a'))
+            .then((response) => {
+                setAnime(response.data.items);
+            })
+            .catch((error) => {
+                console.log('Lỗi Anime');
+            });
+    }, []);
+
     return (
         <View>
             <View style={{ alignItems: 'center' }}>
@@ -28,13 +36,13 @@ export default function SearchHomePage() {
             </View>
             <View>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ paddingLeft: 10 }}>
-                    {Anime.map((anime, index) => (
+                    {anime.map((item, index) => (
                         <AnimeVideo
                             key={index}
+                            Quality={item.quality}
+                            Image={{ uri: item.animeUrl }}
+                            Name={item.nameAnime}
                             marginRight={20}
-                            Quality={anime.Quality}
-                            Image={anime.Image}
-                            Name={anime.Name}
                             width={windowWidth / 2.6}
                             height={182}
                         />

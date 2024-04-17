@@ -11,7 +11,7 @@ import { PacmanIndicator } from 'react-native-indicators';
 import GlobalStyles from '~/Styles/GlobalStyles';
 import AnimeVideo from '~/Components/AnimeItems/AnimeVideo';
 import AnimeMV from '~/Components/AMV/AnimeMV';
-import { getVideoHomePage } from '~/Services/Api';
+import { getAnimeHomePage, getVideoHomePage } from '~/Services/Api';
 
 export default function DeXuatHomePage() {
     const [amv, setAmv] = useState([]);
@@ -29,21 +29,10 @@ export default function DeXuatHomePage() {
             .catch((error) => {
                 console.log('Lỗi Video');
             });
-
-        // axios
-        //     .get('http://localhost:5179/api/Video/get-all?pageSize=10&pageIndex=1&keyword=a')
-        //     .then((response) => {
-        //         // console.log(response);
-        //         setAmv(response.data.items);
-        //     })
-        //     .catch((error) => {
-        //         console.log('Lỗi Video');
-        //     });
     }, []);
 
     useEffect(() => {
-        axios
-            .get('http://localhost:5179/api/Anime/get?pageSize=5&pageIndex=1&keyword=a')
+        getAnimeHomePage()
             .then((response) => {
                 setAnime(response.data.items);
             })
@@ -51,7 +40,7 @@ export default function DeXuatHomePage() {
                 console.log('Lỗi Anime');
             });
     }, []);
-    console.log(amv);
+
     return (
         <View style={styles.Page}>
             <ScrollView showsVerticalScrollIndicator={false}>

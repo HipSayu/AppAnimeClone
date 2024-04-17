@@ -6,9 +6,8 @@ import VideoPlayer from 'expo-video-player';
 import { setStatusBarHidden } from 'expo-status-bar';
 import * as ScreenOrientation from 'expo-screen-orientation';
 
-import axios from 'axios';
-
 import MainVideoHomePage from './MainVideo/MainVideoHomePage';
+import { getVideoById } from '~/Services/Api';
 
 export default function PlayVideoPage({ route }) {
     const [inFullscreen, setInFullsreen] = useState(false);
@@ -22,16 +21,13 @@ export default function PlayVideoPage({ route }) {
 
     let animevideo = route.params.AnimeVideos;
 
-    // console.log('animevideo', animevideo);
-
     useEffect(() => {
-        axios
-            .get(`http://localhost:5179/api/Video/get-video-by-id/${IdVideo}`)
+        getVideoById(IdVideo)
             .then((res) => {
                 setVideo(res.data);
             })
             .catch((err) => {
-                console.log('Lỗi Axios', err);
+                console.log('Lỗi GetVideoById', err);
             });
     }, [IdVideo]);
 

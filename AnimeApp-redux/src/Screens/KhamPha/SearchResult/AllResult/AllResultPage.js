@@ -6,6 +6,7 @@ import AnimeMV from '~/Components/AMV/AnimeMV';
 import GlobalStyles from '~/Styles/GlobalStyles';
 import axios from 'axios';
 import { PacmanIndicator } from 'react-native-indicators';
+import { getAnimeHomePage, getVideoHomePage } from '~/Services/Api';
 
 export default function AllResultPage({ data }) {
     const [result, setResult] = useState([]);
@@ -14,8 +15,7 @@ export default function AllResultPage({ data }) {
 
     const navigation = useNavigation();
     useEffect(() => {
-        axios
-            .get(`http://localhost:5179/api/Video/get-all?pageSize=10&pageIndex=1&keyword=${data}`)
+        getVideoHomePage(10, 1, data)
             .then((res) => {
                 setResult(res.data.items);
             })
@@ -25,8 +25,7 @@ export default function AllResultPage({ data }) {
     }, [data]);
 
     useEffect(() => {
-        axios
-            .get(`http://localhost:5179/api/Anime/get?pageSize=2&pageIndex=1&keyword=${data}`)
+        getAnimeHomePage(2, 1, data)
             .then((res) => {
                 setAnime(res.data.items);
             })
@@ -35,7 +34,6 @@ export default function AllResultPage({ data }) {
             });
     }, [data]);
 
-    console.log('resultSearch', result);
     return (
         <ScrollView style={{ flex: 1, paddingLeft: 10, backgroundColor: GlobalStyles.white.color }}>
             {!Array.isArray(result) ? (

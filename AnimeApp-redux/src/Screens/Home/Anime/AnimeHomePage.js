@@ -8,6 +8,7 @@ import axios from 'axios';
 import GlobalStyles from '~/Styles/GlobalStyles';
 
 import AnimeVideo from '~/Components/AnimeItems/AnimeVideo';
+import { getAnimeHomePage } from '~/Services/Api';
 
 //Anime
 const Anime = [
@@ -38,10 +39,8 @@ export default function AnimeHomePage() {
     const [anime, setAnime] = useState([]);
 
     useEffect(() => {
-        axios
-            .get('http://localhost:5179/api/Anime/get?pageSize=4&pageIndex=1&keyword=a')
+        getAnimeHomePage((pageSize = 4), (pageIndex = 1), (keyword = 'a'))
             .then((response) => {
-                // console.log(response);
                 setAnime(response.data.items);
             })
             .catch((error) => {
@@ -50,10 +49,8 @@ export default function AnimeHomePage() {
     }, []);
 
     useEffect(() => {
-        axios
-            .get('http://localhost:5179/api/Anime/get?pageSize=3&pageIndex=2&keyword=c')
+        getAnimeHomePage((pageSize = 3), (pageIndex = 2), (keyword = 'c'))
             .then((response) => {
-                // console.log(response);
                 SetAnimeContinuce(response.data.items);
             })
             .catch((error) => {

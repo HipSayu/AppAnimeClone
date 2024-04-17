@@ -4,13 +4,14 @@ import { useNavigation } from '@react-navigation/native';
 import AnimeVideo from '~/Components/AnimeItems/AnimeVideo';
 import GlobalStyles from '~/Styles/GlobalStyles';
 import axios from 'axios';
+import { getAnimeHomePage } from '~/Services/Api';
 
 export default function AnimeResultPage({ data }) {
     const [anime, setAnime] = useState([]);
     const navigation = useNavigation();
+
     useEffect(() => {
-        axios
-            .get(`http://localhost:5179/api/Anime/get?pageSize=5&pageIndex=1&keyword=${data}`)
+        getAnimeHomePage(5, 1, data)
             .then((res) => {
                 setAnime(res.data.items);
             })

@@ -17,31 +17,42 @@ export default function FollowPage() {
 
     const login = useSelector((state) => state.loginReducer);
 
-    const userId = login.userInfo.id;
+    var userId = login.userInfo.id;
 
     console.log('userId', userId);
+
     useEffect(() => {
-        axios
-            .get(`http://localhost:5179/api/User/get-all-user-follow?UserId=${userId}&pageSize=3&pageIndex=1&keyword=a`)
-            .then((res) => {
-                setUserFollow(res.data.items);
-            })
-            .catch((err) => {
-                console.log('Chưa đăng nhập', err);
-            });
+        if (userId != undefined) {
+            axios
+                .get(
+                    `http://localhost:5179/api/User/get-all-user-follow?UserId=${userId}&pageSize=3&pageIndex=1&keyword=a`,
+                )
+                .then((res) => {
+                    setUserFollow(res.data.items);
+                })
+                .catch((err) => {
+                    console.log('Lỗi get User Follow', err);
+                });
+        } else {
+            console.log('Chưa đăng nhập');
+        }
     }, [userId]);
 
     useEffect(() => {
-        axios
-            .get(
-                `http://localhost:5179/api/User/get-all-user-not-follow?UserId=${userId}&pageSize=5&pageIndex=1&keyword=a`,
-            )
-            .then((res) => {
-                setUserNotFollow(res.data.items);
-            })
-            .catch((err) => {
-                console.log('Chưa đăng nhập', err);
-            });
+        if (userId != undefined) {
+            axios
+                .get(
+                    `http://localhost:5179/api/User/get-all-user-not-follow?UserId=${userId}&pageSize=5&pageIndex=1&keyword=a`,
+                )
+                .then((res) => {
+                    setUserNotFollow(res.data.items);
+                })
+                .catch((err) => {
+                    console.log('Lỗi get User not Follow', err);
+                });
+        } else {
+            console.log('Chưa đăng nhập');
+        }
     }, [userId]);
 
     console.log('userFollow', userFollow);

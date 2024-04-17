@@ -5,23 +5,22 @@ import { useNavigation } from '@react-navigation/native';
 import GlobalStyles from '~/Styles/GlobalStyles';
 import axios from 'axios';
 import { PacmanIndicator } from 'react-native-indicators';
+import { getUserSearch } from '~/Services/Api';
 
 export default function UserResultPage({ data }) {
     const [result, setResult] = useState();
     const navigation = useNavigation();
 
     useEffect(() => {
-        axios
-            .get(`http://localhost:5179/api/User/get-all?pageSize=10&pageIndex=1&keyword=${data}`)
+        getUserSearch(10, 1, data)
             .then((res) => {
                 setResult(res.data.items);
             })
             .catch((err) => {
-                console.log('Lỗi Seacrh', err);
+                console.log('Lỗi Seacrh User', err);
             });
     }, [data]);
 
-    console.log('resultSearch', result);
     return (
         <ScrollView style={{ flex: 1, paddingLeft: 10, backgroundColor: GlobalStyles.white.color }}>
             {!Array.isArray(result) ? (

@@ -12,7 +12,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import GlobalStyles from '~/Styles/GlobalStyles';
 import axios from 'axios';
+
 import { PacmanIndicator } from 'react-native-indicators';
+import { CreateComment, CreateCommentChild, Getcomment } from '~/Services/Api';
 
 export default function CommentPage({ data }) {
     const [commentVideos, setCommentVideos] = useState([]);
@@ -24,15 +26,15 @@ export default function CommentPage({ data }) {
     const inputRef = useRef(null);
 
     const windowWidth = Dimensions.get('window').width;
+
     const windowHeight = Dimensions.get('window').height;
 
     const login = useSelector((state) => state.loginReducer);
 
-    const userId = login.userInfo.id;
+    let userId = login.userInfo.id;
 
     useEffect(() => {
-        axios
-            .get(`http://localhost:5179/api/Video/get-video-with-comment/${data.id}`)
+        Getcomment(data)
             .then((res) => {
                 setCommentVideos(res.data.comments);
             })
@@ -43,17 +45,12 @@ export default function CommentPage({ data }) {
 
     const handleComment = () => {
         if (userId > 0) {
-            console.log('check dâta', {
+            console.log('check data', {
                 text: comment,
                 videoId: data.id,
                 userId: userId,
             });
-            axios
-                .post(`http://localhost:5179/api/Comments/Create`, {
-                    text: comment,
-                    videoId: data.id,
-                    userId: userId,
-                })
+            CreateComment(comment, data, userId)
                 .then((res) => {
                     setIsCreate(!isCreate);
                     setComment('');
@@ -73,13 +70,7 @@ export default function CommentPage({ data }) {
                 userId: userId,
                 parentCommentId: idComment,
             });
-            axios
-                .post(`http://localhost:5179/api/Comments/Create-comment-child`, {
-                    text: comment,
-                    videoId: data.id,
-                    userId: userId,
-                    parentCommentId: idComment,
-                })
+            CreateCommentChild(comment, data, userId, idComment)
                 .then((res) => {
                     setIsCreate(!isCreate);
                     setComment('');

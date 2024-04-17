@@ -10,6 +10,7 @@ import axios from 'axios';
 import GlobalStyles from '~/Styles/GlobalStyles';
 import Avatar from '~/Components/AvatarUser/Avatar';
 import AnimeMV from '~/Components/AMV/AnimeMV';
+import { CreateFollow, GetUserVideo, UnFollow } from '~/Services/Api';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -18,25 +19,26 @@ const windowHeight = Dimensions.get('window').height;
 export default function User({ route }) {
     const login = useSelector((state) => state.loginReducer);
 
+    const isFollow = route.params.isFollow;
+
     const userId = login.userInfo.id;
 
     console.log('userId', userId);
 
     const [userData, setUserData] = useState({ videoUserFollow: [] });
 
+    const [isfollows, setIfollows] = useState(isFollow);
+
     const navigation = useNavigation();
 
     const userFollowId = route.params.data;
-
-    const isFollow = route.params.isFollow;
 
     console.log('isFollow', isFollow);
 
     console.log('userFollowId', userFollowId);
 
     useEffect(() => {
-        axios
-            .get(`http://localhost:5179/api/User/get-user-with-Video-by-id/${userFollowId}`)
+        GetUserVideo(userFollowId)
             .then((res) => {
                 setUserData(res.data);
             })
@@ -45,15 +47,9 @@ export default function User({ route }) {
             });
     }, []);
 
-    const [isfollows, setIfollows] = useState(isFollow);
-
     const handleTheoDoi = (userIdLogin, userFollow) => {
         if (!isfollows) {
-            axios
-                .post(`http://localhost:5179/api/UserFollow/Create`, {
-                    idFollower: userIdLogin,
-                    idFollowing: userFollow,
-                })
+            CreateFollow(userIdLogin, userFollow)
                 .then((res) => {
                     setIfollows(!isfollows);
                 })
@@ -61,13 +57,7 @@ export default function User({ route }) {
                     console.log('Lỗi Follow Chưa đăng nhập', err);
                 });
         } else {
-            axios
-                .delete(`http://localhost:5179/api/UserFollow/Unfollow`, {
-                    data: {
-                        idFollower: userIdLogin,
-                        idFollowing: userFollow,
-                    },
-                })
+            UnFollow(userIdLogin, userFollow)
                 .then((res) => {
                     setIfollows(!isfollows);
                 })

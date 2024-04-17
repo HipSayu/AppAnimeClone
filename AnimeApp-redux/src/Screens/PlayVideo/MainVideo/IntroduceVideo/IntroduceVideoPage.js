@@ -13,6 +13,7 @@ import { PacmanIndicator } from 'react-native-indicators';
 
 import GlobalStyles from '~/Styles/GlobalStyles';
 import AnimeMV from '~/Components/AMV/AnimeMV';
+import { CheckIslike, disLikeVideo, getLikeVideoById, getVideoDeXuat, likeVideo } from '~/Services/Api';
 
 export default function IntroduceVideoPage({ data, animeVideo, likes }) {
     const [video, setVideo] = useState([]);
@@ -27,28 +28,27 @@ export default function IntroduceVideoPage({ data, animeVideo, likes }) {
 
     const login = useSelector((state) => state.loginReducer);
 
-    const userId = login.userInfo.id;
+    let userId = login.userInfo.id;
 
-    console.log('animeVideo Introduce', animeVideo);
+    // console.log('animeVideo Introduce', animeVideo);
 
-    console.log('Data Introduce', data);
+    // console.log('Data Introduce', data);
 
     //GetVideo DeXuat
     useEffect(() => {
-        axios
-            .get(`http://localhost:5179/api/Video/get-all?IdVideo=${data.id}&pageSize=10&pageIndex=1&keyword=a`)
+        getVideoDeXuat(data)
             .then((res) => {
+                console.log('Get Video De Xuat succsses');
                 setVideo(res.data.items);
             })
             .catch((err) => {
-                console.log('Lỗi Axios', err);
+                console.log('Lỗi Get Video De Xuat Introduce', err);
             });
     }, [data]);
 
     //GetLike
     useEffect(() => {
-        axios
-            .get(`http://localhost:5179/api/Video/get-like-video-by-idVideo/${data.id}`)
+        getLikeVideoById(data)
             .then((res) => {
                 setLike(res.data.likes);
             })
@@ -60,23 +60,22 @@ export default function IntroduceVideoPage({ data, animeVideo, likes }) {
     //Check isLike
 
     useEffect(() => {
-        axios
-            .get(`http://localhost:5179/api/UserLikeVideo/CheckLikes?UserId=${userId}&VideoId=${data.id}`)
-            .then((res) => {
-                setIsLike(res.data);
-            })
-            .catch((err) => {
-                console.log('Lỗi CheckIsLike', err);
-            });
+        if (userId != undefined) {
+            CheckIslike(userId, data)
+                .then((res) => {
+                    setIsLike(res.data);
+                })
+                .catch((err) => {
+                    console.log('Lỗi CheckIsLike ', err);
+                });
+        } else {
+            console.log('Chưa đăng nhập');
+        }
     }, []);
 
     const handleLike = (userId, idVideo) => {
         if (userId != undefined && !isLike) {
-            axios
-                .post(`http://localhost:5179/api/UserLikeVideo/Create`, {
-                    userId: userId,
-                    videoId: idVideo,
-                })
+            likeVideo(userId, idVideo)
                 .then((res) => {
                     setLike((prev) => prev + 1);
                     setIsLike(!isLike);
@@ -85,13 +84,7 @@ export default function IntroduceVideoPage({ data, animeVideo, likes }) {
                     console.log('Lỗi Like', err);
                 });
         } else {
-            axios
-                .delete(`http://localhost:5179/api/UserLikeVideo/deleteLike`, {
-                    data: {
-                        userId: userId,
-                        videoId: idVideo,
-                    },
-                })
+            disLikeVideo(userId, idVideo)
                 .then((res) => {
                     setLike((prev) => prev - 1);
                     setIsLike(!isLike);
@@ -102,7 +95,7 @@ export default function IntroduceVideoPage({ data, animeVideo, likes }) {
         }
     };
 
-    console.log('video Introduce', video);
+    // console.log('video Introduce', video);
 
     if (likes > 1000) {
         setLike(likes / 1000 + 'K');

@@ -10,6 +10,7 @@ import { LOGIN_REQUEST } from '~/Services/Action/action';
 
 import GlobalStyles from '~/Styles/GlobalStyles';
 import axios from 'axios';
+import { LoginUser } from '~/Services/Api';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -19,24 +20,12 @@ export default function LoginSDTPage({ route }) {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
 
-    // const [error, setError] = useState('');
-    // const [isLoading, setIsLoading] = useState(false);
-    // const [userInfo, setUserInfo] = useState([]);
-
     const dispatch = useDispatch();
 
     const [isUserName, setIsUserName] = useState(true);
     const [isPassword, setIsPassword] = useState(true);
 
     const SDT = route.params.SDT;
-
-    // var login = useSelector((state) => state.loginReducer);
-
-    // useEffect(() => {
-    //     setError(login.error);
-    //     setIsLoading(login.isLoading);
-    //     setUserInfo(login.userInfo);
-    // }, [error]);
 
     const handleSubmit = () => {
         if (isUserName && isPassword && userName.length > 0 && password.length > 0) {
@@ -49,10 +38,7 @@ export default function LoginSDTPage({ route }) {
                 {
                     text: 'OK',
                     onPress: () => {
-                        axios
-                            .get(
-                                `http://localhost:5179/api/Login/Login?NumberPhone=${SDT}&UserName=${userName}&Password=${password}`,
-                            )
+                        LoginUser(SDT, userName, password)
                             .then((res) => {
                                 dispatch({
                                     type: LOGIN_REQUEST,

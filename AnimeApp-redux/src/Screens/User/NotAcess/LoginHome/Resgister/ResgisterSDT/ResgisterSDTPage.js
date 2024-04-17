@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 
 import GlobalStyles from '~/Styles/GlobalStyles';
 import axios from 'axios';
+import { CreateUser } from '~/Services/Api';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -80,16 +81,7 @@ export default function ResgisterSDTPage({ route }) {
                     text: 'OK',
                     onPress: () => {
                         //API
-
-                        axios
-                            .post(`http://localhost:5179/api/User/create`, {
-                                userName: userName,
-                                password: password,
-                                sđt: SDT,
-                                tieuSu: '',
-                                avatarUrl: '',
-                                backgroundUrl: '',
-                            })
+                        CreateUser(userName, password)
                             .then((res) => {
                                 console.log('>>Check Response', res);
                                 Alert.alert('Thông báo', 'đăng ký thành công vui lòng đăng nhập', [

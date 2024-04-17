@@ -7,6 +7,7 @@ import GlobalStyles from '~/Styles/GlobalStyles';
 
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import { createSearchHistiory, deleteSearchHistiory, getHistorySearchById } from '~/Services/Api';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -21,14 +22,14 @@ export default function SearchingPage() {
 
     const login = useSelector((state) => state.loginReducer);
 
-    const userId = login.userInfo.id;
-    // console.log('userId', userId);
+    let userId = login.userInfo.id;
+
     let widthSearch = 1.4;
 
     if (userId != undefined) {
         useEffect(() => {
-            axios
-                .get(`http://localhost:5179/api/Search/get-all-page?pageSize=20&pageIndex=1&UserId=${userId}`)
+            axios;
+            getHistorySearchById((pageSize = 20), (pageIndex = 1), (userId = userId))
                 .then((res) => {
                     setSearchHistory(res.data.items);
                 })
@@ -38,8 +39,6 @@ export default function SearchingPage() {
         }, [isCreate]);
     }
 
-    // console.log('searchHistory', searchHistory);
-
     const HandleDeleteSearch = () => {
         setSearch('');
     };
@@ -48,11 +47,7 @@ export default function SearchingPage() {
     };
 
     const handleSearch = () => {
-        axios
-            .post(`http://localhost:5179/api/Search/create`, {
-                userId: userId,
-                searchKeyWord: search,
-            })
+        createSearchHistiory(search, userId)
             .then((res) => {
                 navigation.navigate('SearchResultPage', { data: search });
                 setIsCreate(!isCreate);
@@ -63,8 +58,7 @@ export default function SearchingPage() {
     };
 
     const handleDeleteSearch = (idSearch) => {
-        axios
-            .delete(`http://localhost:5179/api/Search/delete/${idSearch}`)
+        deleteSearchHistiory(idSearch)
             .then((res) => {
                 setIsCreate(!isCreate);
             })

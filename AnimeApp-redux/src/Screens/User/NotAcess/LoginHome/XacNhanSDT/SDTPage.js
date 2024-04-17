@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import GlobalStyles from '~/Styles/GlobalStyles';
 
 import axios from 'axios';
+import { CheckSdt } from '~/Services/Api';
 
 const regexNumberPhone = /(84|0[3|5|7|8|9])+([0-9]{8})\b/g;
 
@@ -22,8 +23,7 @@ export default function SDTPage() {
 
     const HandleValidation = (number) => {
         if (!regexNumberPhone.test(number.trim())) {
-            axios
-                .get(`http://localhost:5179/api/Login/CheckSDT/${number}`)
+            CheckSdt(number)
                 .then((response) => {
                     navigation.navigate('LoginSDTPage', { SDT: number });
                 })
