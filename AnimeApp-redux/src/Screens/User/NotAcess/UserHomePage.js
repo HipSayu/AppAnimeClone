@@ -1,16 +1,17 @@
-import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import React, { useEffect, useState } from 'react';
 
 import ActionList from '../Action/ActionList';
 import GlobalStyles from '~/Styles/GlobalStyles';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { LOGOUT_REQUEST } from '~/Services/Action/action';
 
 export default function UserHomePage({}) {
     const [isLogin, setIsLogin] = useState(false);
     const [userInfo, setUserInfo] = useState([]);
-
+    const dispatch = useDispatch();
     const navigation = useNavigation();
 
     const login = useSelector((state) => state.loginReducer);
@@ -19,6 +20,28 @@ export default function UserHomePage({}) {
         setIsLogin(login.isLogin);
         setUserInfo(login.userInfo);
     }, [login]);
+    console.log('userInfo', userInfo);
+
+    const handleLogout = () => {
+        Alert.alert('Thông báo', 'Bạn có muốn đăng xuất ', [
+            {
+                text: 'OK',
+                onPress: () => {
+                    dispatch({
+                        type: LOGOUT_REQUEST,
+                        payload: { SDT: 'Logout', userName: 'Logout', password: 'Logout' },
+                    });
+                    navigation.navigate('HomeScreenPage');
+                },
+                style: 'cancel',
+            },
+            {
+                text: 'No',
+                onPress: () => {},
+                style: 'cancel',
+            },
+        ]);
+    };
 
     // console.log('CheckUserInfor login', login);
 
@@ -64,7 +87,12 @@ export default function UserHomePage({}) {
                     </TouchableOpacity>
                 ) : (
                     // Login
-                    <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <TouchableOpacity
+                        onPress={() => {
+                            navigation.navigate('User', { data: userInfo.id, isFollow: false, isUser: true });
+                        }}
+                        style={{ flexDirection: 'row', alignItems: 'center' }}
+                    >
                         <ImageBackground
                             borderRadius={30}
                             style={{ width: 60, height: 60 }}
@@ -107,6 +135,9 @@ export default function UserHomePage({}) {
                 <ActionList IconLeft={require('~/Assets/Icon/settings.png')} Name="Cài đặt" />
                 <ActionList IconLeft={require('~/Assets/Icon/help.png')} Name="Trợ giúp" />
                 <ActionList IconLeft={require('~/Assets/Icon/message.png')} Name="Phản hồi" />
+                {isLogin && (
+                    <ActionList onPress={handleLogout} IconLeft={require('~/Assets/Icon/help.png')} Name="Logout" />
+                )}
             </View>
         </View>
     );

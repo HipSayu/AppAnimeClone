@@ -1,4 +1,5 @@
 ﻿using ApiBasic.ApplicationServices.ModuleFile.Abstract;
+using ApiBasic.ApplicationServices.ModuleFile.Dtos;
 using ApiBasic.ApplicationServices.UserModule.Abstract;
 using ApiBasic.Helper;
 using ApiWebBasicPlatFrom.Controllers;
@@ -26,11 +27,26 @@ namespace ApiBasic.Controllers
         }
 
         [HttpPost("uploadfile")]
-        public async Task<IActionResult> UploadFile(IFormFile _IFormFile)
+        public async Task<IActionResult> UploadFile([FromForm] UploadFileDto _IFormFile)
         {
-            var result = await _manageImageServices.UploadFile(_IFormFile);
+            var result = await _manageImageServices.UploadFile(_IFormFile.files);
             return Ok(result);
         }
+
+
+/*
+        [HttpPost("uploadfile_Video")]
+        public async Task<IActionResult> UploadFileVideo([FromForm] UploadFileDto obj)
+        {
+           if(obj.files.Length > 0)
+            {
+                try
+                {
+                    if(!Directory.Exists(_webHostEnvironment.WebRootPath + "\\Uploads\\"))
+                }
+            }
+        }*/
+
 
         [HttpGet("downloadfile")]
         public async Task<IActionResult> DownloadFile(string FileName)

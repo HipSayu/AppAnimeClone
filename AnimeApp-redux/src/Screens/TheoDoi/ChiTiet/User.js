@@ -20,7 +20,8 @@ export default function User({ route }) {
     const login = useSelector((state) => state.loginReducer);
 
     const isFollow = route.params.isFollow;
-
+    const isUser = route.params.isUser;
+    console.log('isUser', isUser);
     const userId = login.userInfo.id;
 
     console.log('userId', userId);
@@ -97,37 +98,39 @@ export default function User({ route }) {
                         </TouchableOpacity>
                     </View>
                 </View>
-                <View style={{ flexDirection: 'row-reverse' }}>
-                    <View
-                        style={{
-                            borderWidth: 1,
-                            paddingVertical: 5,
-                            paddingHorizontal: 10,
-                            borderRadius: 10,
-                            marginBottom: 10,
-                            marginRight: 10,
-                            borderColor: GlobalStyles.blue.color,
-                        }}
-                    >
-                        {isfollows ? (
-                            <TouchableOpacity
-                                onPress={() => {
-                                    handleTheoDoi(userId, userFollowId);
-                                }}
-                            >
-                                <Text style={[GlobalStyles.h5, GlobalStyles.blue]}>Đang theo dõi</Text>
-                            </TouchableOpacity>
-                        ) : (
-                            <TouchableOpacity
-                                onPress={() => {
-                                    handleTheoDoi(userId, userFollowId);
-                                }}
-                            >
-                                <Text style={[GlobalStyles.h5, GlobalStyles.blue]}>Theo dõi</Text>
-                            </TouchableOpacity>
-                        )}
+                {isUser == undefined && (
+                    <View style={{ flexDirection: 'row-reverse' }}>
+                        <View
+                            style={{
+                                borderWidth: 1,
+                                paddingVertical: 5,
+                                paddingHorizontal: 10,
+                                borderRadius: 10,
+                                marginBottom: 10,
+                                marginRight: 10,
+                                borderColor: GlobalStyles.blue.color,
+                            }}
+                        >
+                            {isfollows ? (
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        handleTheoDoi(userId, userFollowId);
+                                    }}
+                                >
+                                    <Text style={[GlobalStyles.h5, GlobalStyles.blue]}>Đang theo dõi</Text>
+                                </TouchableOpacity>
+                            ) : (
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        handleTheoDoi(userId, userFollowId);
+                                    }}
+                                >
+                                    <Text style={[GlobalStyles.h5, GlobalStyles.blue]}>Theo dõi</Text>
+                                </TouchableOpacity>
+                            )}
+                        </View>
                     </View>
-                </View>
+                )}
             </ImageBackground>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={{ alignItems: 'center' }}>

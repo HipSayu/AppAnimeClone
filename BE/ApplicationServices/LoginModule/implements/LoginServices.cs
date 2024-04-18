@@ -115,5 +115,15 @@ namespace ApiBasic.ApplicationServices.LoginModule.implements
                 throw new UserFriendlyExceptions($"Mật khẩu không chính xác");
             }
         }
+
+        public LogoutDto Logout(LogoutDto input)
+        {
+            return new LogoutDto {
+                NumberPhone = "",
+                Password= "",
+                UserName= "",
+            };
+            
+        }
     }
 }

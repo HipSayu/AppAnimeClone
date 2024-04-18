@@ -42,5 +42,18 @@ namespace ApiBasic.Controllers
                 return HandleException(ex);
             }
         }
+
+        [HttpGet("Logout")]
+        public IActionResult Logout([FromQuery] LogoutDto input)
+        {
+            try
+            {
+                return Ok(_loginServices.Logout(input));
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
     }
 }

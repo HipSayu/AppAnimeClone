@@ -1,5 +1,6 @@
 ﻿using ApiBasic.ApplicationServices.ModuleFile.Abstract;
 using ApiBasic.Helper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
 
 namespace ApiBasic.ApplicationServices.ModuleFile.Implements

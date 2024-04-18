@@ -1,4 +1,11 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from '~/Services/Action/action';
+import {
+    LOGIN_REQUEST,
+    LOGIN_SUCCESS,
+    LOGIN_FAILURE,
+    LOGOUT_REQUEST,
+    LOGOUT_SUCCESS,
+    LOGOUT_FAILURE,
+} from '~/Services/Action/action';
 
 const initialState = {
     userInfo: [],
@@ -16,6 +23,15 @@ function loginReducer(state = initialState, { type, payload }) {
             return { ...state, isLoading: false, userInfo: payload, isLogin: true };
         }
         case LOGIN_FAILURE: {
+            return { ...state, isLoading: false, error: payload };
+        }
+        case LOGOUT_REQUEST: {
+            return { ...state, isLoading: true, error: null };
+        }
+        case LOGOUT_SUCCESS: {
+            return { ...state, isLoading: false, userInfo: payload, isLogin: false };
+        }
+        case LOGOUT_FAILURE: {
             return { ...state, isLoading: false, error: payload };
         }
         default:
