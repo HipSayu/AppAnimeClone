@@ -2,12 +2,14 @@
 using ApiBasic.ApplicationServices.AnimeModule.Dtos;
 using ApiBasic.Shared.Shared;
 using ApiWebBasicPlatFrom.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiBasic.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AnimeController : ApiControllerBase
     {
         private readonly IAnimeServices _animeServices;

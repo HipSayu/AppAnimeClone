@@ -24,6 +24,7 @@ using ApiBasic.ApplicationServices.UserXemVideoModule.Implements;
 using ApiBasic.ApplicationServices.VideoModule.Abstract;
 using ApiBasic.ApplicationServices.VideoModule.Implements;
 using ApiBasic.Infrastructure;
+using ApiBasic.Shared.Constant;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -39,34 +40,28 @@ builder.Services.AddDbContext<AnimeAppContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MyDB"));
 });
 
+builder.Services.Configure<AppSetting>(builder.Configuration.GetSection("AppSettings"));
 
-
+var secretKey = builder.Configuration["AppSettings:SecretKey"];
+var secretKeyBytes = Encoding.UTF8.GetBytes(secretKey);
 
 // Cấu hình JWT
-JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 builder
-    .Services.AddAuthentication(options =>
+    .Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(opt =>
     {
-        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-    })
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
+        opt.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidAudience = builder.Configuration["JWT:ValidAudience"],
-            ValidateAudience = true,
-            ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
-            ValidateIssuer = true,
-            ValidateLifetime = true,
+            //tự cấp token
+            ValidateIssuer = false,
+            ValidateAudience = false,
+
+            //ký vào token
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"])
-            ),
+            IssuerSigningKey = new SymmetricSecurityKey(secretKeyBytes),
+
             ClockSkew = TimeSpan.Zero
         };
-        options.RequireHttpsMetadata = false;
     });
 
 // cấu hình httpContext
@@ -126,7 +121,6 @@ builder.Services.AddScoped<ICommentServices, CommentService>();
 builder.Services.AddScoped<ISearchServices, SearchServices>();
 builder.Services.AddScoped<IAnimeServices, AnimeServices>();
 builder.Services.AddScoped<IUserFollowServices, UserFollowService>();
-
 
 var app = builder.Build();
 

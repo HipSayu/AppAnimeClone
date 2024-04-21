@@ -27,6 +27,8 @@ namespace ApiBasic.Domain
 
         public int UserType { get; set; }
 
+        public UserToken userToken { get; set; }
+
         public ICollection<Comment> Comments { get; set; }
 
         // Danh sách các user mà user này đang theo dõi

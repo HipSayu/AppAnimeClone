@@ -6,7 +6,7 @@ namespace ApiBasic.ApplicationServices.LoginModule.Abstract
     {
         bool CheckSoDienThoai(string SDT);
         LoginUserDto Login(LoginDto input);
-
+        LoginTokenDto LoginToken(LoginDto input);
         LogoutDto Logout (LogoutDto input);
         
     }

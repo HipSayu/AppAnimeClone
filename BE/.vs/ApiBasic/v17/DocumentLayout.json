@@ -1,20 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\da nen tang\\appanime\\be\\applicationservices\\loginmodule\\implements\\loginservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:applicationservices\\loginmodule\\implements\\loginservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\da nen tang\\appanime\\be\\applicationservices\\loginmodule\\abstract\\iloginservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:applicationservices\\loginmodule\\abstract\\iloginservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\da nen tang\\appanime\\be\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -22,7 +9,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 10,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -55,45 +42,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "LoginController.cs",
-              "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\Controllers\\LoginController.cs",
-              "RelativeDocumentMoniker": "Controllers\\LoginController.cs",
-              "ToolTip": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\Controllers\\LoginController.cs",
-              "RelativeToolTip": "Controllers\\LoginController.cs",
-              "ViewState": "AQIAABcAAAAAAAAAAADwvzcAAAANAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-18T09:27:07.791Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ILoginServices.cs",
-              "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\LoginModule\\Abstract\\ILoginServices.cs",
-              "RelativeDocumentMoniker": "ApplicationServices\\LoginModule\\Abstract\\ILoginServices.cs",
-              "ToolTip": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\LoginModule\\Abstract\\ILoginServices.cs",
-              "RelativeToolTip": "ApplicationServices\\LoginModule\\Abstract\\ILoginServices.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-18T09:24:59.156Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "LoginServices.cs",
-              "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\LoginModule\\implements\\LoginServices.cs",
-              "RelativeDocumentMoniker": "ApplicationServices\\LoginModule\\implements\\LoginServices.cs",
-              "ToolTip": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\LoginModule\\implements\\LoginServices.cs",
-              "RelativeToolTip": "ApplicationServices\\LoginModule\\implements\\LoginServices.cs",
-              "ViewState": "AQIAAG4AAAAAAAAAAAAQwIEAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-18T09:21:16.043Z",
-              "EditorCaption": ""
             }
           ]
         },
