@@ -297,6 +297,45 @@ namespace ApiBasic.Migrations
                     b.ToTable("UserLikeVideo", (string)null);
                 });
 
+            modelBuilder.Entity("ApiBasic.Domain.UserToken", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("ExpiredAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsRevoked")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsUsed")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("IssuedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("JwtId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("idUser")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("idUser")
+                        .IsUnique();
+
+                    b.ToTable("UserToken", (string)null);
+                });
+
             modelBuilder.Entity("ApiBasic.Domain.UserXemVideo", b =>
                 {
                     b.Property<int>("Id")
@@ -505,6 +544,17 @@ namespace ApiBasic.Migrations
                     b.Navigation("Video");
                 });
 
+            modelBuilder.Entity("ApiBasic.Domain.UserToken", b =>
+                {
+                    b.HasOne("ApiBasic.Domain.User", "user")
+                        .WithOne("userToken")
+                        .HasForeignKey("ApiBasic.Domain.UserToken", "idUser")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("user");
+                });
+
             modelBuilder.Entity("ApiBasic.Domain.UserXemVideo", b =>
                 {
                     b.HasOne("ApiBasic.Domain.User", "User")
@@ -581,6 +631,9 @@ namespace ApiBasic.Migrations
                     b.Navigation("UserXemVideos");
 
                     b.Navigation("Videos");
+
+                    b.Navigation("userToken")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ApiBasic.Domain.Video", b =>

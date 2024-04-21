@@ -33,6 +33,8 @@ namespace ApiBasic.Infrastructure
 
         public DbSet<Video> Videos { get; set; }
 
+        public DbSet<UserToken> UserToken { get; set; }
+
         #endregion
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -123,6 +125,12 @@ namespace ApiBasic.Infrastructure
                 entity.HasIndex(u => u.SĐT).IsUnique();
             });
 
+            modelBuilder.Entity<UserToken>(entity =>
+            {
+                entity.ToTable("UserToken");
+                entity.HasKey(u => u.Id);
+                entity.HasOne(t => t.user).WithOne(t => t.userToken).HasForeignKey<UserToken>(t => t.idUser);
+            });
             //UserFollow
             modelBuilder.Entity<UserFollow>(entity =>
             {

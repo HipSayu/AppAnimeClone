@@ -1,15 +1,19 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using ApiBasic.ApplicationServices.LoginModule.Abstract;
 using ApiBasic.ApplicationServices.LoginModule.Dtos;
 using ApiBasic.ApplicationServices.UserModule.Dtos;
+using ApiBasic.Domain;
 using ApiBasic.Infrastructure;
 using ApiBasic.Shared.Constant;
 using ApiBasic.Shared.Exceptions;
 using ApiBasic.Shared.Utils;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Linq;
 
 namespace ApiBasic.ApplicationServices.LoginModule.implements
 {
@@ -17,11 +21,16 @@ namespace ApiBasic.ApplicationServices.LoginModule.implements
     {
         private readonly AnimeAppContext _dbcontext;
         private readonly IConfiguration _configuration;
+        private readonly AppSetting _appSetting;
 
-        public LoginServices(AnimeAppContext dbcontext, IConfiguration configuration)
+        public LoginServices(
+            AnimeAppContext dbcontext,
+            IConfiguration configuration,
+            IOptionsMonitor<AppSetting> optionsMonitor
+        )
         {
             _dbcontext = dbcontext;
-
+            _appSetting = optionsMonitor.CurrentValue;
             _configuration = configuration;
         }
 
@@ -70,11 +79,11 @@ namespace ApiBasic.ApplicationServices.LoginModule.implements
                 Follower = result.Follower,
                 Following = result.Following,
                 Videos = result.Videos,
-                Token = LoginToken(input)
+                Token = GetToken(input)
             };
         }
 
-        public string LoginToken(LoginDto input)
+        public string GetToken(LoginDto input)
         {
             var user = _dbcontext.Users.FirstOrDefault(u => u.SĐT == input.NumberPhone);
             if (user == null)
@@ -113,6 +122,92 @@ namespace ApiBasic.ApplicationServices.LoginModule.implements
             else
             {
                 throw new UserFriendlyExceptions($"Mật khẩu không chính xác");
+            }
+        }
+
+        public LoginTokenDto LoginToken(LoginDto input)
+        {
+            var users = _dbcontext
+                .Users.Include(u => u.Followers)
+                .ThenInclude(u => u.Following)
+                .ThenInclude(u => u.Videos)
+                .Where(u =>
+                    u.SĐT.Equals(input.NumberPhone)
+                    && u.UserName.Equals(input.UserName)
+                    && u.Password.Equals(CommonUtils.CreateMD5(input.Password))
+                )
+                .Select(e => new FindUserDto
+                {
+                    Id = e.Id,
+                    UserName = e.UserName,
+                    AvatarUrl = e.AvatarUrl,
+                    BackgroundUrl = e.BackgroundUrl,
+                    SĐT = e.SĐT,
+                    TieuSu = e.TieuSu,
+                    Follower = e.Following.Count(),
+                    Following = e.Followers.Count(),
+                    Videos = e.Videos.Count(),
+                });
+
+            var result =
+                users.FirstOrDefault() ?? throw new UserFriendlyExceptions("User không tìm thấy");
+            return new LoginTokenDto
+            {
+                Id = result.Id,
+                UserName = result.UserName,
+                AvatarUrl = result.AvatarUrl,
+                BackgroundUrl = result.BackgroundUrl,
+                SĐT = result.SĐT,
+                TieuSu = result.TieuSu,
+                Follower = result.Follower,
+                Following = result.Following,
+                Videos = result.Videos,
+                TokenResponse = new ApiResponse
+                {
+                    Success = true,
+                    Message = "Authenticate success",
+                    Data = GenerationToken(result)
+                }
+            };
+        }
+
+        private async Task<AccountToken> GenerationToken(FindUserDto input)
+        {
+            var jwtTokenHandler = new JwtSecurityTokenHandler();
+            var secretKeyBytes = Encoding.UTF8.GetBytes(_appSetting.SecretKey);
+            var tokenDescription = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(
+                    new[]
+                    {
+                        new Claim(JwtRegisteredClaimNames.Name, input.UserName),
+                        new Claim(JwtRegisteredClaimNames.Sub, input.SĐT),
+                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                        new Claim("UserName", input.UserName),
+                        new Claim("PhoneNumber", input.SĐT),
+                        new Claim("Id", input.Id.ToString()),
+                        //Roles
+                    }
+                ),
+                Expires = DateTime.UtcNow.AddSeconds(300000),
+                SigningCredentials = new SigningCredentials(
+                    new SymmetricSecurityKey(secretKeyBytes),
+                    SecurityAlgorithms.HmacSha512Signature
+                )
+            };
+            var token = jwtTokenHandler.CreateToken(tokenDescription);
+            var accessToken = jwtTokenHandler.WriteToken(token); 
+            var refreshToken = GenerationRefreshToken();
+            return new AccountToken { AccessToken = accessToken, RefreshToken = refreshToken, };
+        }
+
+        private string GenerationRefreshToken()
+        {
+            var random = new byte[32];
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(random);
+                return Convert.ToBase64String(random);
             }
         }
     }
