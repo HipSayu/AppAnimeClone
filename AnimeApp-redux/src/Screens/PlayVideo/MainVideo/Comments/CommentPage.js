@@ -11,10 +11,10 @@ import {
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import GlobalStyles from '~/Styles/GlobalStyles';
-import axios from 'axios';
 
 import { PacmanIndicator } from 'react-native-indicators';
 import { CreateComment, CreateCommentChild, Getcomment } from '~/Services/Api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function CommentPage({ data }) {
     const [commentVideos, setCommentVideos] = useState([]);
@@ -22,6 +22,7 @@ export default function CommentPage({ data }) {
 
     const [idComment, setidComment] = useState(0);
     const [comment, setComment] = useState('');
+    const [userInfor, setUserInfor] = useState({ token: { accessToken: '' } });
 
     const inputRef = useRef(null);
 
@@ -31,7 +32,31 @@ export default function CommentPage({ data }) {
 
     const login = useSelector((state) => state.loginReducer);
 
-    let userId = login.userInfo.id;
+    // let userId = login.userInfo.id;
+
+    const getData = async () => {
+        try {
+            var jsonValue = await AsyncStorage.getItem('my_login');
+            jsonValue = JSON.parse(jsonValue);
+            setUserInfor(jsonValue);
+        } catch (e) {
+            console.log('get AsyncStogare', e);
+        }
+    };
+
+    if (userInfor != undefined) {
+        var userId = userInfor.id;
+        console.log('userId', userId);
+    }
+
+    if (userInfor != undefined) {
+        var token = userInfor.token.accessToken;
+        console.log('token', token);
+    }
+
+    useEffect(() => {
+        getData();
+    }, []);
 
     useEffect(() => {
         Getcomment(data)
@@ -50,7 +75,7 @@ export default function CommentPage({ data }) {
                 videoId: data.id,
                 userId: userId,
             });
-            CreateComment(comment, data, userId)
+            CreateComment(comment, data, userId, token)
                 .then((res) => {
                     setIsCreate(!isCreate);
                     setComment('');
@@ -70,7 +95,7 @@ export default function CommentPage({ data }) {
                 userId: userId,
                 parentCommentId: idComment,
             });
-            CreateCommentChild(comment, data, userId, idComment)
+            CreateCommentChild(comment, data, userId, idComment, token)
                 .then((res) => {
                     setIsCreate(!isCreate);
                     setComment('');

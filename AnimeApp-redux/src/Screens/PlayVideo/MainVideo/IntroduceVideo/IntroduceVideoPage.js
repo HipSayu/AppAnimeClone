@@ -14,11 +14,13 @@ import { PacmanIndicator } from 'react-native-indicators';
 import GlobalStyles from '~/Styles/GlobalStyles';
 import AnimeMV from '~/Components/AMV/AnimeMV';
 import { CheckIslike, disLikeVideo, getLikeVideoById, getVideoDeXuat, likeVideo } from '~/Services/Api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function IntroduceVideoPage({ data, animeVideo, likes }) {
     const [video, setVideo] = useState([]);
     const [isLike, setIsLike] = useState(false);
     const [like, setLike] = useState(likes);
+    const [userInfor, setUserInfor] = useState({ token: { accessToken: '' } });
 
     const navigation = useNavigation();
 
@@ -28,13 +30,35 @@ export default function IntroduceVideoPage({ data, animeVideo, likes }) {
 
     const login = useSelector((state) => state.loginReducer);
 
-    let userId = login.userInfo.id;
+    // let userId = login.userInfo.id;
 
     // console.log('animeVideo Introduce', animeVideo);
 
     // console.log('Data Introduce', data);
 
     //GetVideo DeXuat
+    if (userInfor != undefined) {
+        var userId = userInfor.id;
+        console.log('userId', userId);
+    }
+
+    if (userInfor != undefined) {
+        var token = userInfor.token.accessToken;
+    }
+
+    const getData = async () => {
+        try {
+            var jsonValue = await AsyncStorage.getItem('my_login');
+            jsonValue = JSON.parse(jsonValue);
+            setUserInfor(jsonValue);
+        } catch (e) {
+            console.log('get AsyncStogare', e);
+        }
+    };
+    useEffect(() => {
+        getData();
+    }, []);
+
     useEffect(() => {
         getVideoDeXuat(data)
             .then((res) => {

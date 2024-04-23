@@ -6,8 +6,8 @@ import React, { useEffect, useState } from 'react';
 import GlobalStyles from '~/Styles/GlobalStyles';
 
 import { useSelector } from 'react-redux';
-import axios from 'axios';
 import { createSearchHistiory, deleteSearchHistiory, getHistorySearchById } from '~/Services/Api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -17,27 +17,50 @@ export default function SearchingPage() {
     const [search, setSearch] = useState('');
     const [isCreate, setIsCreate] = useState(false);
     const [searchHistory, setSearchHistory] = useState([]);
+    const [userInfor, setUserInfor] = useState({ token: { accessToken: '' } });
 
     const navigation = useNavigation();
 
     const login = useSelector((state) => state.loginReducer);
 
-    let userId = login.userInfo.id;
+    // let userId = login.userInfo.id;
+
+    // let token = login.userInfo.tokenResponse.data.result.accessToken;
 
     let widthSearch = 1.4;
 
-    if (userId != undefined) {
-        useEffect(() => {
-            axios;
-            getHistorySearchById((pageSize = 20), (pageIndex = 1), (userId = userId))
-                .then((res) => {
-                    setSearchHistory(res.data.items);
-                })
-                .catch((err) => {
-                    console.log('Lỗi Get Search', err);
-                });
-        }, [isCreate]);
+    if (userInfor != undefined) {
+        var userId = userInfor.id;
     }
+
+    const getData = async () => {
+        try {
+            var jsonValue = await AsyncStorage.getItem('my_login');
+            jsonValue = JSON.parse(jsonValue);
+            setUserInfor(jsonValue);
+        } catch (e) {
+            console.log('get AsyncStogare', e);
+        }
+    };
+    useEffect(() => {
+        getData();
+    }, []);
+
+    console.log('userInfor Search', userInfor);
+
+    if (userInfor != undefined) {
+        var token = userInfor.token.accessToken;
+    }
+
+    useEffect(() => {
+        getHistorySearchById((pageSize = 20), (pageIndex = 1), (userId = userId), token)
+            .then((res) => {
+                setSearchHistory(res.data.items);
+            })
+            .catch((err) => {
+                console.log('Lỗi Get Search', err);
+            });
+    }, [isCreate, token]);
 
     const HandleDeleteSearch = () => {
         setSearch('');
@@ -47,7 +70,7 @@ export default function SearchingPage() {
     };
 
     const handleSearch = () => {
-        createSearchHistiory(search, userId)
+        createSearchHistiory(search, userId, token)
             .then((res) => {
                 navigation.navigate('SearchResultPage', { data: search });
                 setIsCreate(!isCreate);
@@ -58,7 +81,7 @@ export default function SearchingPage() {
     };
 
     const handleDeleteSearch = (idSearch) => {
-        deleteSearchHistiory(idSearch)
+        deleteSearchHistiory(idSearch, token)
             .then((res) => {
                 setIsCreate(!isCreate);
             })

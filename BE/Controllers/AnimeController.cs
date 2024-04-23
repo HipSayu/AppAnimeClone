@@ -9,7 +9,7 @@ namespace ApiBasic.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    
     public class AnimeController : ApiControllerBase
     {
         private readonly IAnimeServices _animeServices;
@@ -19,7 +19,7 @@ namespace ApiBasic.Controllers
         {
             _animeServices = animeServices;
         }
-
+        [Authorize]
         [HttpPost("Create")]
         public IActionResult Create(CreateAnimeDto input)
         {
@@ -33,7 +33,7 @@ namespace ApiBasic.Controllers
                 return HandleException(ex);
             }
         }
-
+        [Authorize]
         [HttpDelete("delete/{AnimeId}")]
         public ActionResult Delete(int AnimeId)
         {
@@ -47,7 +47,7 @@ namespace ApiBasic.Controllers
                 return HandleException(ex);
             }
         }
-
+        [Authorize]
         [HttpPut("update")]
         public ActionResult Update(UpdateAnimeDto input)
         {

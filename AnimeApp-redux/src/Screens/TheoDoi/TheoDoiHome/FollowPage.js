@@ -8,55 +8,69 @@ import AnimeMV from '~/Components/AMV/AnimeMV';
 import GlobalStyles from '~/Styles/GlobalStyles';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function FollowPage() {
     const [userFollow, setUserFollow] = useState([]);
     const [userNotFollow, setUserNotFollow] = useState([]);
+    const [userInfor, setUserInfor] = useState({ token: { accessToken: '' } });
 
     const navigation = useNavigation();
 
+    const HOST = process.env.EXPO_PUBLIC_API_URL_HOST;
+    const USER = process.env.EXPO_PUBLIC_API_URL_USER;
+
     const login = useSelector((state) => state.loginReducer);
 
-    var userId = login.userInfo.id;
+    if (userInfor != undefined) {
+        var userId = userInfor.id;
+    } else {
+        var userId = login.userInfo.id;
+    }
+
+    if (userInfor != undefined) {
+        var token = userInfor.token.accessToken;
+    }
+    console.log('userId', userId);
+    const getData = async () => {
+        try {
+            var jsonValue = await AsyncStorage.getItem('my_login');
+            jsonValue = JSON.parse(jsonValue);
+            setUserInfor(jsonValue);
+        } catch (e) {
+            console.log('get AsyncStogare', e);
+        }
+    };
 
     console.log('userId', userId);
+    useEffect(() => {
+        getData();
+    }, []);
 
     useEffect(() => {
-        if (userId != undefined) {
-            axios
-                .get(
-                    `http://localhost:5179/api/User/get-all-user-follow?UserId=${userId}&pageSize=3&pageIndex=1&keyword=a`,
-                )
-                .then((res) => {
-                    setUserFollow(res.data.items);
-                })
-                .catch((err) => {
-                    console.log('Lỗi get User Follow', err);
-                });
-        } else {
-            console.log('Chưa đăng nhập');
-        }
-    }, [userId]);
+        axios
+            .get(`${HOST}${USER}/get-all-user-follow?UserId=${userId}&pageSize=3&pageIndex=1&keyword=a`)
+            .then((res) => {
+                setUserFollow(res.data.items);
+            })
+            .catch((err) => {
+                console.log('Lỗi get User Follow', err);
+            });
+    }, [token, userId]);
 
     useEffect(() => {
-        if (userId != undefined) {
-            axios
-                .get(
-                    `http://localhost:5179/api/User/get-all-user-not-follow?UserId=${userId}&pageSize=5&pageIndex=1&keyword=a`,
-                )
-                .then((res) => {
-                    setUserNotFollow(res.data.items);
-                })
-                .catch((err) => {
-                    console.log('Lỗi get User not Follow', err);
-                });
-        } else {
-            console.log('Chưa đăng nhập');
-        }
-    }, [userId]);
+        axios
+            .get(`${HOST}${USER}/get-all-user-not-follow?UserId=${userId}&pageSize=5&pageIndex=1&keyword=a`)
+            .then((res) => {
+                setUserNotFollow(res.data.items);
+            })
+            .catch((err) => {
+                console.log('Lỗi get User not Follow', err);
+            });
+    }, [token, userId]);
 
     console.log('userFollow', userFollow);
-
+    console.log('userInfor', userInfor);
     return (
         <View style={{ backgroundColor: GlobalStyles.white.color, flex: 1 }}>
             {userId != undefined ? (

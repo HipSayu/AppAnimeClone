@@ -3,6 +3,7 @@ using ApiBasic.ApplicationServices.ModuleFile.Dtos;
 using ApiBasic.ApplicationServices.UserModule.Abstract;
 using ApiBasic.Helper;
 using ApiWebBasicPlatFrom.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiBasic.Controllers
@@ -25,7 +26,7 @@ namespace ApiBasic.Controllers
             _manageImageServices = manageImageServices;
             _webHostEnvironment = webHostEnvironment;
         }
-
+        /*[Authorize]*/
         [HttpPost("uploadfile")]
         public async Task<IActionResult> UploadFile([FromForm] UploadFileDto _IFormFile)
         {
@@ -34,20 +35,20 @@ namespace ApiBasic.Controllers
         }
 
 
-/*
-        [HttpPost("uploadfile_Video")]
-        public async Task<IActionResult> UploadFileVideo([FromForm] UploadFileDto obj)
-        {
-           if(obj.files.Length > 0)
-            {
-                try
+        /*
+                [HttpPost("uploadfile_Video")]
+                public async Task<IActionResult> UploadFileVideo([FromForm] UploadFileDto obj)
                 {
-                    if(!Directory.Exists(_webHostEnvironment.WebRootPath + "\\Uploads\\"))
-                }
-            }
-        }*/
+                   if(obj.files.Length > 0)
+                    {
+                        try
+                        {
+                            if(!Directory.Exists(_webHostEnvironment.WebRootPath + "\\Uploads\\"))
+                        }
+                    }
+                }*/
 
-
+        [Authorize]
         [HttpGet("downloadfile")]
         public async Task<IActionResult> DownloadFile(string FileName)
         {

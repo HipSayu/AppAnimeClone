@@ -9,7 +9,7 @@ import React, { useState } from 'react';
 import { LOGIN_REQUEST } from '~/Services/Action/action';
 
 import GlobalStyles from '~/Styles/GlobalStyles';
-import axios from 'axios';
+
 import { LoginUser } from '~/Services/Api';
 
 const windowWidth = Dimensions.get('window').width;
@@ -44,6 +44,7 @@ export default function LoginSDTPage({ route }) {
                                     type: LOGIN_REQUEST,
                                     payload: { SDT, userName: userName, password: password },
                                 });
+
                                 Alert.alert('Thông báo', 'Đăng nhập thành công ', [
                                     {
                                         text: 'OK',

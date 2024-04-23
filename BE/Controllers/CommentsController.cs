@@ -1,6 +1,7 @@
 ﻿using ApiBasic.ApplicationServices.CommentsModule.Abstract;
 using ApiBasic.ApplicationServices.CommentsModule.Dtos;
 using ApiWebBasicPlatFrom.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiBasic.Controllers
@@ -20,7 +21,7 @@ namespace ApiBasic.Controllers
         {
             _commentServices = commentServices;
         }
-
+        [Authorize]
         [HttpPost("Create")]
         public IActionResult Create(CreateCommentDto input)
         {
@@ -34,6 +35,7 @@ namespace ApiBasic.Controllers
                 return HandleException(ex);
             }
         }
+        [Authorize]
         [HttpPost("Create-comment-child")]
         public IActionResult CreateCommentChild(CreateCommentChildDto input)
         {

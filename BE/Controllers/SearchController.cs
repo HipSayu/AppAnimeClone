@@ -9,7 +9,7 @@ namespace ApiBasic.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-   
+    [Authorize]
     public class SearchController : ApiControllerBase
     {
         private readonly ISearchServices _searchServices;
@@ -19,6 +19,7 @@ namespace ApiBasic.Controllers
         {
             _searchServices = searchServices;
         }
+
         [HttpPost("create")]
         public ActionResult Create(CreateSearchDto input)
         {

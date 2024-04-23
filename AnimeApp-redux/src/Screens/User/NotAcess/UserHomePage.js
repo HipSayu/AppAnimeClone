@@ -7,19 +7,32 @@ import ActionList from '../Action/ActionList';
 import GlobalStyles from '~/Styles/GlobalStyles';
 import { useDispatch, useSelector } from 'react-redux';
 import { LOGOUT_REQUEST } from '~/Services/Action/action';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function UserHomePage({}) {
     const [isLogin, setIsLogin] = useState(false);
-    const [userInfo, setUserInfo] = useState([]);
+    const [userInfo, setUserInfo] = useState({});
+    const [token, setToken] = useState('');
     const dispatch = useDispatch();
     const navigation = useNavigation();
 
     const login = useSelector((state) => state.loginReducer);
 
     useEffect(() => {
-        setIsLogin(login.isLogin);
         setUserInfo(login.userInfo);
+        getData();
     }, [login]);
+
+    const getData = async () => {
+        try {
+            var user = await AsyncStorage.getItem('my_login');
+            user = JSON.parse(user);
+            setUserInfo(user);
+        } catch (e) {
+            console.log('error Token', e);
+        }
+    };
+
     console.log('userInfo', userInfo);
 
     const handleLogout = () => {
@@ -72,7 +85,7 @@ export default function UserHomePage({}) {
             </View>
             {/* Account */}
             <View style={{ marginLeft: 10, marginTop: 10 }}>
-                {!isLogin ? (
+                {userInfo == null ? (
                     // Chưa login
                     <TouchableOpacity
                         onPress={() => navigation.navigate('LoginHome')}
@@ -135,9 +148,8 @@ export default function UserHomePage({}) {
                 <ActionList IconLeft={require('~/Assets/Icon/settings.png')} Name="Cài đặt" />
                 <ActionList IconLeft={require('~/Assets/Icon/help.png')} Name="Trợ giúp" />
                 <ActionList IconLeft={require('~/Assets/Icon/message.png')} Name="Phản hồi" />
-                {isLogin && (
-                    <ActionList onPress={handleLogout} IconLeft={require('~/Assets/Icon/help.png')} Name="Logout" />
-                )}
+
+                <ActionList onPress={handleLogout} IconLeft={require('~/Assets/Icon/help.png')} Name="Logout" />
             </View>
         </View>
     );

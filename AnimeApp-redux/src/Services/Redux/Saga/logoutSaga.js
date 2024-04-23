@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { put, call } from 'redux-saga/effects';
 
@@ -14,7 +15,8 @@ export default function* logoutSaga(action) {
             `http://localhost:5179/api/Login/Logout?NumberPhone=${SDT}&UserName=${userName}&Password=${password}`,
             { SDT, userName, password },
         );
-        console.log('Logout :', response.data);
+        AsyncStorage.removeItem('my_token');
+        AsyncStorage.removeItem('my_login'), console.log('Logout :', response.data);
         yield put({ type: LOGOUT_SUCCESS, payload: [] });
     } catch (error) {
         console.log('Lỗi Login');

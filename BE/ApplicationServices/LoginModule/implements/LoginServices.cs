@@ -127,12 +127,14 @@ namespace ApiBasic.ApplicationServices.LoginModule.implements
 
         public LogoutDto Logout(LogoutDto input)
         {
-            return new LogoutDto {
+            return new LogoutDto
+            {
                 NumberPhone = "",
-                Password= "",
-                UserName= "",
+                Password = "",
+                UserName = "",
             };
-            
+        }
+
         public LoginTokenDto LoginToken(LoginDto input)
         {
             var users = _dbcontext
@@ -170,16 +172,11 @@ namespace ApiBasic.ApplicationServices.LoginModule.implements
                 Follower = result.Follower,
                 Following = result.Following,
                 Videos = result.Videos,
-                TokenResponse = new ApiResponse
-                {
-                    Success = true,
-                    Message = "Authenticate success",
-                    Data = GenerationToken(result)
-                }
+                token = GenerationToken(result)
             };
         }
 
-        private async Task<AccountToken> GenerationToken(FindUserDto input)
+        private AccountToken GenerationToken(FindUserDto input)
         {
             var jwtTokenHandler = new JwtSecurityTokenHandler();
             var secretKeyBytes = Encoding.UTF8.GetBytes(_appSetting.SecretKey);
@@ -204,7 +201,7 @@ namespace ApiBasic.ApplicationServices.LoginModule.implements
                 )
             };
             var token = jwtTokenHandler.CreateToken(tokenDescription);
-            var accessToken = jwtTokenHandler.WriteToken(token); 
+            var accessToken = jwtTokenHandler.WriteToken(token);
             var refreshToken = GenerationRefreshToken();
             return new AccountToken { AccessToken = accessToken, RefreshToken = refreshToken, };
         }

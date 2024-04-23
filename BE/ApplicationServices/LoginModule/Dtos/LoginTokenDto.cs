@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
         public string UserName { get; set; } = null!;
-        public ApiResponse TokenResponse { get; set; } = null!;
+        public AccountToken token { get; set; } = null!;
 
         public string SĐT { get; set; }
 
@@ -18,6 +18,5 @@
 
         public int Following { get; set; }
         public int Videos { get; set; }
-
     }
 }

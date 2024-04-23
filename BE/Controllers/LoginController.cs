@@ -7,8 +7,8 @@ using ApiBasic.ApplicationServices.LoginModule.Dtos;
 using ApiBasic.Domain;
 using ApiBasic.Infrastructure;
 using ApiBasic.Shared.Constant;
-using ApiBasic.Shared.Utils;
 using ApiWebBasicPlatFrom.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -69,8 +69,15 @@ namespace ApiBasic.Controllers
             try
             {
                 return Ok(_loginServices.Logout(input));
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
+
         [HttpGet("Login_token")]
-        public async Task<ActionResult> LoginToken([FromQuery]LoginDto input)
+        public async Task<ActionResult> LoginToken([FromQuery] LoginDto input)
         {
             try
             {
@@ -137,7 +144,7 @@ namespace ApiBasic.Controllers
                 return Convert.ToBase64String(random);
             }
         }
-
+        [Authorize]
         [HttpPost("refresh_token")]
         public async Task<ActionResult> ReNewToken(AccountToken model)
         {

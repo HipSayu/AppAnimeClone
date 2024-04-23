@@ -1,21 +1,31 @@
 import axios from 'axios';
 
-const host = 'http://localhost:5179/api/';
-const Video = 'Video';
-const Anime = 'Anime';
-const Search = 'Search';
-const User = 'User';
-const LikeVideo = 'UserLikeVideo';
-const Comment = 'Comments';
-const UserFollow = 'UserFollow';
-const Login = 'Login';
+// const host = 'http://localhost:5179/api/';
+// const Video = 'Video';
+// const Anime = 'Anime';
+// const Search = 'Search';
+// const User = 'User';
+// const LikeVideo = 'UserLikeVideo';
+// const Comment = 'Comments';
+// const UserFollow = 'UserFollow';
+// const Login = 'Login';
 //HomePage
+
+const host = process.env.EXPO_PUBLIC_API_URL_HOST;
+const Video = process.env.EXPO_PUBLIC_API_URL_VIDEO;
+const Anime = process.env.EXPO_PUBLIC_API_URL_ANIME;
+const Search = process.env.EXPO_PUBLIC_API_URL_SEARCH;
+const User = process.env.EXPO_PUBLIC_API_URL_USER;
+const LikeVideo = process.env.EXPO_PUBLIC_API_URL_USERLIKEVIDEO;
+const Comment = process.env.EXPO_PUBLIC_API_URL_COMMENT;
+const UserFollow = process.env.EXPO_PUBLIC_API_URL_USERFOLLOW;
+const Login = process.env.EXPO_PUBLIC_API_URL_LOGIN;
+
 const getVideoHomePage = async (pageSize = 10, pageIndex = 1, keyword = 'a') => {
     try {
-        const response = await axios.get(
+        return await axios.get(
             `${host}${Video}/get-all?pageSize=${pageSize}&pageIndex=${pageIndex}&keyword=${keyword}`,
         );
-        return response;
     } catch (error) {
         throw error;
     }
@@ -23,43 +33,54 @@ const getVideoHomePage = async (pageSize = 10, pageIndex = 1, keyword = 'a') => 
 
 const getAnimeHomePage = async (pageSize = 5, pageIndex = 1, keyword = 'a') => {
     try {
-        const response = await axios.get(
-            `${host}${Anime}/get?pageSize=${pageSize}&pageIndex=${pageIndex}&keyword=${keyword}`,
-        );
-        return response;
+        return await axios.get(`${host}${Anime}/get?pageSize=${pageSize}&pageIndex=${pageIndex}&keyword=${keyword}`);
     } catch (error) {
         throw error;
     }
 };
 
 //Search
-const getHistorySearchById = async (pageSize = 20, pageIndex = 1, userId = userId) => {
+const getHistorySearchById = async (pageSize = 20, pageIndex = 1, userId = userId, token) => {
     try {
-        const response = await axios.get(
+        return await axios.get(
             `${host}${Search}/get-all-page?pageSize=${pageSize}&pageIndex=${pageIndex}&UserId=${userId}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            },
         );
-        return response;
     } catch (error) {
         throw error;
     }
 };
 
-const createSearchHistiory = async (search = search, userId = userId) => {
+const createSearchHistiory = async (search = search, userId = userId, token) => {
     try {
-        const response = await axios.post(`${host}${Search}/create`, {
-            userId: userId,
-            searchKeyWord: search,
+        return await axios.post(
+            `${host}${Search}/create`,
+            {
+                userId: userId,
+                searchKeyWord: search,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            },
+        );
+    } catch (error) {
+        throw error;
+    }
+};
+
+const deleteSearchHistiory = async (idSearch, token) => {
+    try {
+        return await axios.delete(`${host}${Search}/delete/${idSearch}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
         });
-        return response;
-    } catch (error) {
-        throw error;
-    }
-};
-
-const deleteSearchHistiory = async (idSearch) => {
-    try {
-        const response = await axios.delete(`${host}${Search}/delete/${idSearch}`);
-        return response;
     } catch (error) {
         throw error;
     }
@@ -69,10 +90,7 @@ const deleteSearchHistiory = async (idSearch) => {
 
 const getUserSearch = async (pageSize = 10, pageIndex = 1, data) => {
     try {
-        const response = await axios.get(
-            `${host}${User}/get-all?pageSize=${pageSize}&pageIndex=${pageIndex}&keyword=${data}`,
-        );
-        return response;
+        return await axios.get(`${host}${User}/get-all?pageSize=${pageSize}&pageIndex=${pageIndex}&keyword=${data}`);
     } catch (error) {
         throw error;
     }
@@ -80,8 +98,7 @@ const getUserSearch = async (pageSize = 10, pageIndex = 1, data) => {
 
 const getVideoById = async (IdVideo) => {
     try {
-        const response = await axios.get(`${host}${Video}/get-video-by-id/${IdVideo}`);
-        return response;
+        return await axios.get(`${host}${Video}/get-video-by-id/${IdVideo}`);
     } catch (error) {
         throw error;
     }
@@ -90,10 +107,9 @@ const getVideoById = async (IdVideo) => {
 //Get Video De Xuat
 const getVideoDeXuat = async (data, pageSize = 10, pageIndex = 1, keyword = 'a') => {
     try {
-        const response = await axios.get(
+        return await axios.get(
             `${host}${Video}/get-all?IdVideo=${data.id}&pageSize=${pageSize}&pageIndex=${pageIndex}&keyword=${keyword}`,
         );
-        return response;
     } catch (error) {
         throw error;
     }
@@ -101,8 +117,7 @@ const getVideoDeXuat = async (data, pageSize = 10, pageIndex = 1, keyword = 'a')
 //GetLikeinVideoByid
 const getLikeVideoById = async (data) => {
     try {
-        const response = await axios.get(`${host}${Video}/get-like-video-by-idVideo/${data.id}`);
-        return response;
+        return await axios.get(`${host}${Video}/get-like-video-by-idVideo/${data.id}`);
     } catch (error) {
         throw error;
     }
@@ -112,8 +127,7 @@ const getLikeVideoById = async (data) => {
 
 const CheckIslike = async (userId, data) => {
     try {
-        const response = await axios.get(`${host}${LikeVideo}/CheckLikes?UserId=${userId}&VideoId=${data.id}`);
-        return response;
+        return await axios.get(`${host}${LikeVideo}/CheckLikes?UserId=${userId}&VideoId=${data.id}`);
     } catch (error) {
         throw error;
     }
@@ -121,11 +135,10 @@ const CheckIslike = async (userId, data) => {
 
 const likeVideo = async (userId, idVideo) => {
     try {
-        const response = await axios.post(`${host}${LikeVideo}/Create`, {
+        return await axios.post(`${host}${LikeVideo}/Create`, {
             userId: userId,
             videoId: idVideo,
         });
-        return response;
     } catch (error) {
         throw error;
     }
@@ -133,13 +146,12 @@ const likeVideo = async (userId, idVideo) => {
 
 const disLikeVideo = async (userId, idVideo) => {
     try {
-        const response = await axios.delete(`${host}${LikeVideo}/deleteLike`, {
+        return await axios.delete(`${host}${LikeVideo}/deleteLike`, {
             data: {
                 userId: userId,
                 videoId: idVideo,
             },
         });
-        return response;
     } catch (error) {
         throw error;
     }
@@ -148,35 +160,48 @@ const disLikeVideo = async (userId, idVideo) => {
 // Get Comment
 const Getcomment = async (data) => {
     try {
-        const response = await axios.get(`${host}${Video}/get-video-with-comment/${data.id}`);
-        return response;
+        return await axios.get(`${host}${Video}/get-video-with-comment/${data.id}`);
     } catch (error) {
         throw error;
     }
 };
 
-const CreateComment = async (comment, data, userId) => {
+const CreateComment = async (comment, data, userId, token) => {
     try {
-        const response = await axios.post(`${host}${Comment}/Create`, {
-            text: comment,
-            videoId: data.id,
-            userId: userId,
-        });
-        return response;
+        return await axios.post(
+            `${host}${Comment}/Create`,
+            {
+                text: comment,
+                videoId: data.id,
+                userId: userId,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            },
+        );
     } catch (error) {
         throw error;
     }
 };
 
-const CreateCommentChild = async (comment, data, userId, idComment) => {
+const CreateCommentChild = async (comment, data, userId, idComment, token) => {
     try {
-        const response = await axios.post(`${host}${Comment}/Create-comment-child`, {
-            text: comment,
-            videoId: data.id,
-            userId: userId,
-            parentCommentId: idComment,
-        });
-        return response;
+        return await axios.post(
+            `${host}${Comment}/Create-comment-child`,
+            {
+                text: comment,
+                videoId: data.id,
+                userId: userId,
+                parentCommentId: idComment,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            },
+        );
     } catch (error) {
         throw error;
     }
@@ -184,10 +209,9 @@ const CreateCommentChild = async (comment, data, userId, idComment) => {
 
 const GetUserFollow = async (userId, pageSize, pageIndex, keyword) => {
     try {
-        const response = await axios.get(
+        return await axios.get(
             `${host}${User}/get-all-user-follow?UserId=${userId}&pageSize=${pageSize}}&pageIndex=${pageIndex}&keyword=${keyword}`,
         );
-        return response;
     } catch (error) {
         throw error;
     }
@@ -195,10 +219,9 @@ const GetUserFollow = async (userId, pageSize, pageIndex, keyword) => {
 
 const GetUserNotFollow = async (userId, pageSize, pageIndex, keyword) => {
     try {
-        const response = await axios.get(
+        return await axios.get(
             `${host}${User}/get-all-user-not-follow?UserId=${userId}&pageSize=${pageSize}}&pageIndex=${pageIndex}&keyword=${keyword}`,
         );
-        return response;
     } catch (error) {
         throw error;
     }
@@ -206,11 +229,10 @@ const GetUserNotFollow = async (userId, pageSize, pageIndex, keyword) => {
 
 const CreateFollow = async (userIdLogin, userFollow) => {
     try {
-        const response = await axios.post(`${host}${UserFollow}/Create`, {
+        return await axios.post(`${host}${UserFollow}/Create`, {
             idFollower: userIdLogin,
             idFollowing: userFollow,
         });
-        return response;
     } catch (error) {
         throw error;
     }
@@ -218,8 +240,7 @@ const CreateFollow = async (userIdLogin, userFollow) => {
 
 const GetUserVideo = async (userFollowId) => {
     try {
-        const response = await axios.get(`${host}${User}/get-user-with-Video-by-id/${userFollowId}`);
-        return response;
+        return await axios.get(`${host}${User}/get-user-with-Video-by-id/${userFollowId}`);
     } catch (error) {
         throw error;
     }
@@ -227,13 +248,12 @@ const GetUserVideo = async (userFollowId) => {
 
 const UnFollow = async (userIdLogin, userFollow) => {
     try {
-        const response = await axios.delete(`${host}${UserFollow}/Unfollow`, {
+        return await axios.delete(`${host}${UserFollow}/Unfollow`, {
             data: {
                 idFollower: userIdLogin,
                 idFollowing: userFollow,
             },
         });
-        return response;
     } catch (error) {
         throw error;
     }
@@ -241,8 +261,7 @@ const UnFollow = async (userIdLogin, userFollow) => {
 
 const CheckSdt = async (number) => {
     try {
-        const response = await axios.get(`${host}${Login}/CheckSDT/${number}`);
-        return response;
+        return await axios.get(`${host}${Login}/CheckSDT/${number}`);
     } catch (error) {
         throw error;
     }
@@ -250,7 +269,7 @@ const CheckSdt = async (number) => {
 
 const CreateUser = async (userName, password) => {
     try {
-        const response = await axios.post(`${host}${User}/create`, {
+        return await axios.post(`${host}${User}/create`, {
             userName: userName,
             password: password,
             sđt: SDT,
@@ -258,7 +277,6 @@ const CreateUser = async (userName, password) => {
             avatarUrl: '',
             backgroundUrl: '',
         });
-        return response;
     } catch (error) {
         throw error;
     }
@@ -266,10 +284,7 @@ const CreateUser = async (userName, password) => {
 
 const LoginUser = async (SDT, userName, password) => {
     try {
-        const response = await axios.get(
-            `${host}${Login}/Login?NumberPhone=${SDT}&UserName=${userName}&Password=${password}`,
-        );
-        return response;
+        return await axios.get(`${host}${Login}/Login?NumberPhone=${SDT}&UserName=${userName}&Password=${password}`);
     } catch (error) {
         throw error;
     }

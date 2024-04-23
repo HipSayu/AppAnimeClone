@@ -15,9 +15,10 @@ export default function CreateAnime() {
     const [nameVideo, setNameVideo] = useState('');
     const refVideo = useRef(null);
 
+    const apiUrl = process.env.EXPO_PUBLIC_API_URL;
+    console.log('apiUrl', apiUrl);
     const windowWidth = Dimensions.get('window').width;
     const windowHeight = Dimensions.get('window').height;
-
     const handleVideoPickerPress = async () => {
         let resultVideo = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Videos,
@@ -48,14 +49,25 @@ export default function CreateAnime() {
     const handleUpload = (uri) => {
         const formData = new FormData();
         formData.append('files', {
-            uri,
+            uri: uri.replace('file://', ''),
         });
+        formData.append('FileName', 'Hipdz');
 
         axios
             .post('http://localhost:5179/api/File/uploadfile', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
+                transformRequest: (data, headers) => {
+                    // !!! override data to return formData
+                    // since axios converts that to string
+                    return formData;
+                },
+                onUploadProgress: (progressEvent) => {
+                    // use upload data, since it's an upload progress
+                    // iOS: {"isTrusted": false, "lengthComputable": true, "loaded": 123, "total": 98902}
+                },
+                data: formData,
             })
             .then((res) => {
                 console.log('Upload success:', response);
