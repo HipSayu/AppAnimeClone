@@ -10,7 +10,7 @@ import { CheckSdt } from '~/Services/Api';
 
 const regexNumberPhone = /(84|0[3|5|7|8|9])+([0-9]{8})\b/g;
 
-export default function SDTPage() {
+export default function NumberPhonePage() {
     const windowWidth = Dimensions.get('window').width;
 
     const navigation = useNavigation();
@@ -25,10 +25,10 @@ export default function SDTPage() {
         if (!regexNumberPhone.test(number.trim())) {
             CheckSdt(number)
                 .then((response) => {
-                    navigation.navigate('LoginSDTPage', { SDT: number });
+                    navigation.navigate('LoginNumberPhonePage', { SDT: number });
                 })
                 .catch((error) => {
-                    navigation.navigate('ResgisterSDTPage', { SDT: number });
+                    navigation.navigate('ResgisterNumberPhonePage', { SDT: number });
                 });
         } else {
             setValidate('Số điện thoại không chính xác');

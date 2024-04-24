@@ -7,18 +7,18 @@ import CreateAnime from '~/Screens/AddVideo/CreateAnime';
 import HomePage from '~/Screens/Home/HomePage';
 import PlayVideoPage from '~/Screens/PlayVideo/PlayVideoPage';
 
-import SearchResultPage from '~/Screens/KhamPha/SearchResult/SearchResultPage';
-import SearchPage from '~/Screens/KhamPha/SearchPage';
-import SearchingPage from '~/Screens/KhamPha/Searching/SearchingPage';
+import SearchResultPage from '~/Screens/Search/SearchResult/SearchResultPage';
+import SearchPage from '~/Screens/Search/SearchPage';
+import SearchingPage from '~/Screens/Search/Searching/SearchingPage';
 
-import FollowPage from '~/Screens/TheoDoi/TheoDoiHome/FollowPage';
-import User from '~/Screens/TheoDoi/ChiTiet/User';
+import FollowPage from '~/Screens/Follow/FollowHome/FollowPage';
+import User from '~/Screens/Follow/UserDetail/User';
 
 import UserHomePage from '~/Screens/User/NotAcess/UserHomePage';
 import LoginHomePage from '~/Screens/User/NotAcess/LoginHome/LoginHomePage';
-import SDTPage from '~/Screens/User/NotAcess/LoginHome/XacNhanSDT/SDTPage';
-import LoginSDTPage from '~/Screens/User/NotAcess/LoginHome/Login/LoginSDT/LoginSDTPage';
-import ResgisterSDTPage from '~/Screens/User/NotAcess/LoginHome/Resgister/ResgisterSDT/ResgisterSDTPage';
+import NumberPhonePage from '~/Screens/User/NotAcess/LoginHome/NumberPhoneAcess/NumberPhonePage';
+import LoginNumberPhonePage from '~/Screens/User/NotAcess/LoginHome/Login/LoginNumberPhone/LoginNumberPhonePage';
+import ResgisterNumberPhonePage from '~/Screens/User/NotAcess/LoginHome/Resgister/ResgisterNumberPhone/ResgisterNumberPhonePage';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -61,9 +61,17 @@ function LoginHome() {
     return (
         <Stack.Navigator options={{ headerShown: false }}>
             <Stack.Screen name="LoginHomePage" options={{ headerShown: false }} component={LoginHomePage} />
-            <Stack.Screen name="SDTPage" options={{ headerShown: false }} component={SDTPage} />
-            <Stack.Screen name="LoginSDTPage" options={{ headerShown: false }} component={LoginSDTPage} />
-            <Stack.Screen name="ResgisterSDTPage" options={{ headerShown: false }} component={ResgisterSDTPage} />
+            <Stack.Screen name="NumberPhonePage" options={{ headerShown: false }} component={NumberPhonePage} />
+            <Stack.Screen
+                name="LoginNumberPhonePage"
+                options={{ headerShown: false }}
+                component={LoginNumberPhonePage}
+            />
+            <Stack.Screen
+                name="ResgisterNumberPhonePage"
+                options={{ headerShown: false }}
+                component={ResgisterNumberPhonePage}
+            />
         </Stack.Navigator>
     );
 }

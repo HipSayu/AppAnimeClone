@@ -9,7 +9,7 @@ import axios from 'axios';
 
 import GlobalStyles from '~/Styles/GlobalStyles';
 import Avatar from '~/Components/AvatarUser/Avatar';
-import AnimeMV from '~/Components/AMV/AnimeMV';
+import AnimeMV from '~/Components/AnimeVideo/AnimeMV';
 import { CreateFollow, GetUserVideo, UnFollow } from '~/Services/Api';
 
 const windowWidth = Dimensions.get('window').width;

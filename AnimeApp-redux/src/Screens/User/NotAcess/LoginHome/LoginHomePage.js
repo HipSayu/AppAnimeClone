@@ -57,7 +57,7 @@ export default function LoginHomePage() {
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => {
-                            isChecked ? navigation.navigate('SDTPage') : null;
+                            isChecked ? navigation.navigate('NumberPhonePage') : null;
                         }}
                         style={{ flexDirection: 'row', marginTop: 10, alignItems: 'center' }}
                     >

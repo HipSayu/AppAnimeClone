@@ -3,7 +3,7 @@ import { Dimensions } from 'react-native';
 
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import React from 'react';
-import DeXuatHomePage from './DeXuat/DeXuatHomePage';
+import RecommentHomePage from './Recomment/RecommentHomePage';
 import AnimeHomePage from './Anime/AnimeHomePage';
 
 import GlobalStyles from '~/Styles/GlobalStyles';
@@ -14,7 +14,7 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const renderScene = SceneMap({
-    first: DeXuatHomePage,
+    first: RecommentHomePage,
     second: AnimeHomePage,
 });
 

@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 
 import Avatar from '~/Components/AvatarUser/Avatar';
-import AnimeMV from '~/Components/AMV/AnimeMV';
+import AnimeMV from '~/Components/AnimeVideo/AnimeMV';
 import GlobalStyles from '~/Styles/GlobalStyles';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
@@ -20,12 +20,10 @@ export default function FollowPage() {
     const HOST = process.env.EXPO_PUBLIC_API_URL_HOST;
     const USER = process.env.EXPO_PUBLIC_API_URL_USER;
 
-    const login = useSelector((state) => state.loginReducer);
+    var login = useSelector((state) => state.loginReducer);
 
     if (userInfor != undefined) {
         var userId = userInfor.id;
-    } else {
-        var userId = login.userInfo.id;
     }
 
     if (userInfor != undefined) {
@@ -42,32 +40,40 @@ export default function FollowPage() {
         }
     };
 
-    console.log('userId', userId);
+    // console.log('userId', userId);
     useEffect(() => {
         getData();
-    }, []);
+    }, [login]);
 
     useEffect(() => {
         axios
-            .get(`${HOST}${USER}/get-all-user-follow?UserId=${userId}&pageSize=3&pageIndex=1&keyword=a`)
+            .get(`${HOST}${USER}/get-all-user-follow?UserId=${userId}&pageSize=3&pageIndex=1&keyword=a`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
             .then((res) => {
                 setUserFollow(res.data.items);
             })
             .catch((err) => {
                 console.log('Lỗi get User Follow', err);
             });
-    }, [token, userId]);
+    }, [login, token]);
 
     useEffect(() => {
         axios
-            .get(`${HOST}${USER}/get-all-user-not-follow?UserId=${userId}&pageSize=5&pageIndex=1&keyword=a`)
+            .get(`${HOST}${USER}/get-all-user-not-follow?UserId=${userId}&pageSize=5&pageIndex=1&keyword=a`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
             .then((res) => {
                 setUserNotFollow(res.data.items);
             })
             .catch((err) => {
                 console.log('Lỗi get User not Follow', err);
             });
-    }, [token, userId]);
+    }, [login, token]);
 
     console.log('userFollow', userFollow);
     console.log('userInfor', userInfor);

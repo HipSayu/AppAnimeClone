@@ -2,6 +2,7 @@
 using ApiBasic.ApplicationServices.UserModule.Dtos;
 using ApiBasic.Shared.Shared;
 using ApiWebBasicPlatFrom.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -87,7 +88,7 @@ namespace ApiBasic.Controllers
                 return HandleException(ex);
             }
         }
-
+        [Authorize]
         [HttpGet("get-all-user-follow")]
         public ActionResult GetAllUserFollow(FilterUserFollowDto input)
         {
@@ -113,7 +114,7 @@ namespace ApiBasic.Controllers
                 return HandleException(ex);
             }
         }
-
+        [Authorize]
         [HttpGet("get-all-user-not-follow")]
         public ActionResult GetAllUserNotFollow(FilterUserFollowDto input)
         {

@@ -2,7 +2,7 @@ import { ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-nativ
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import AnimeVideo from '~/Components/AnimeItems/AnimeVideo';
-import AnimeMV from '~/Components/AMV/AnimeMV';
+import AnimeMV from '~/Components/AnimeVideo/AnimeMV';
 import GlobalStyles from '~/Styles/GlobalStyles';
 import axios from 'axios';
 import { PacmanIndicator } from 'react-native-indicators';

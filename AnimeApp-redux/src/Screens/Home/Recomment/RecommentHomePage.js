@@ -10,10 +10,10 @@ import { PacmanIndicator } from 'react-native-indicators';
 
 import GlobalStyles from '~/Styles/GlobalStyles';
 import AnimeVideo from '~/Components/AnimeItems/AnimeVideo';
-import AnimeMV from '~/Components/AMV/AnimeMV';
+import AnimeMV from '~/Components/AnimeVideo/AnimeMV';
 import { getAnimeHomePage, getVideoHomePage } from '~/Services/Api';
 
-export default function DeXuatHomePage() {
+export default function RecommentHomePage() {
     const [amv, setAmv] = useState([]);
     const [anime, setAnime] = useState([]);
     const navigation = useNavigation();
@@ -83,10 +83,10 @@ export default function DeXuatHomePage() {
                                 key={index}
                                 sourceAvartar={{ uri: video.avatarUserUrl }}
                                 sourceAnime={{ uri: video.avatarVideoUrl }}
-                                NameVideo={video.nameVideos}
-                                Time={'01:36'}
-                                UserName={video.nameUser}
-                                Viewer={'99'}
+                                nameVideo={video.nameVideos}
+                                time={'01:36'}
+                                userName={video.nameUser}
+                                viewer={'99'}
                                 inViewer={true}
                             />
                         ))}

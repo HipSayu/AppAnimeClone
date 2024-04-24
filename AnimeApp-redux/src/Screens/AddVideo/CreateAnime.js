@@ -15,8 +15,6 @@ export default function CreateAnime() {
     const [nameVideo, setNameVideo] = useState('');
     const refVideo = useRef(null);
 
-    const apiUrl = process.env.EXPO_PUBLIC_API_URL;
-    console.log('apiUrl', apiUrl);
     const windowWidth = Dimensions.get('window').width;
     const windowHeight = Dimensions.get('window').height;
     const handleVideoPickerPress = async () => {

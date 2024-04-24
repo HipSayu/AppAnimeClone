@@ -11,7 +11,7 @@ import { CreateUser } from '~/Services/Api';
 
 const windowWidth = Dimensions.get('window').width;
 
-export default function ResgisterSDTPage({ route }) {
+export default function ResgisterNumberPhonePage({ route }) {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [rePassword, setRePassword] = useState('');
@@ -87,7 +87,7 @@ export default function ResgisterSDTPage({ route }) {
                                 Alert.alert('Thông báo', 'đăng ký thành công vui lòng đăng nhập', [
                                     {
                                         text: 'OK',
-                                        onPress: () => navigation.navigate('LoginSDTPage', { SDT: SDT }),
+                                        onPress: () => navigation.navigate('LoginNumberPhonePage', { SDT: SDT }),
                                         style: 'cancel',
                                     },
                                 ]);
@@ -114,7 +114,7 @@ export default function ResgisterSDTPage({ route }) {
             <TouchableOpacity
                 style={{ marginTop: 30 }}
                 onPress={() => {
-                    navigation.navigate('SDTPage');
+                    navigation.navigate('NumberPhonePage');
                 }}
             >
                 <ImageBackground style={{ width: 20, height: 20 }} source={require('~/Assets/Icon/IconReturn.png')} />

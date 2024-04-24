@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux';
 import { PacmanIndicator } from 'react-native-indicators';
 
 import GlobalStyles from '~/Styles/GlobalStyles';
-import AnimeMV from '~/Components/AMV/AnimeMV';
+import AnimeMV from '~/Components/AnimeVideo/AnimeMV';
 import { CheckIslike, disLikeVideo, getLikeVideoById, getVideoDeXuat, likeVideo } from '~/Services/Api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 

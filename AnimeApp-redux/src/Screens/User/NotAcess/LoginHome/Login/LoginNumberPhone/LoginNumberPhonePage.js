@@ -14,7 +14,7 @@ import { LoginUser } from '~/Services/Api';
 
 const windowWidth = Dimensions.get('window').width;
 
-export default function LoginSDTPage({ route }) {
+export default function LoginNumberPhonePage({ route }) {
     const navigation = useNavigation();
 
     const [userName, setUserName] = useState('');

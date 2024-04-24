@@ -30,23 +30,17 @@ namespace ApiBasic.Controllers
         [HttpPost("uploadfile")]
         public async Task<IActionResult> UploadFile([FromForm] UploadFileDto _IFormFile)
         {
+            try
+            {
+
             var result = await _manageImageServices.UploadFile(_IFormFile.files);
             return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
         }
-
-
-        /*
-                [HttpPost("uploadfile_Video")]
-                public async Task<IActionResult> UploadFileVideo([FromForm] UploadFileDto obj)
-                {
-                   if(obj.files.Length > 0)
-                    {
-                        try
-                        {
-                            if(!Directory.Exists(_webHostEnvironment.WebRootPath + "\\Uploads\\"))
-                        }
-                    }
-                }*/
 
         [Authorize]
         [HttpGet("downloadfile")]
