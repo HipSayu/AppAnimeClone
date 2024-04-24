@@ -87,8 +87,8 @@ export default function FollowPage() {
                                 navigation={navigation}
                                 key={index}
                                 styleCustom={{ marginHorizontal: 10 }}
-                                Avatar={{ uri: user.avatarUrl }}
-                                UserName={user.userName}
+                                avatar={{ uri: user.avatarUrl }}
+                                userName={user.userName}
                             />
                         ))}
                     </ScrollView>
@@ -101,12 +101,12 @@ export default function FollowPage() {
                                     dataVideo={video.id}
                                     sourceAvartar={{ uri: item.avatarUrl }}
                                     sourceAnime={{ uri: video.avatarVideoUrl }}
-                                    UserName={item.userName}
-                                    NameVideo={video.nameVideos}
-                                    IsHasICon={false}
+                                    userName={item.userName}
+                                    nameVideo={video.nameVideos}
+                                    isHasICon={false}
                                     flexDirection="column-reverse"
-                                    ViewAvatar={video.dayAgo + ' ngày trước'}
-                                    IsUser={true}
+                                    viewAvatar={video.dayAgo + ' ngày trước'}
+                                    isUser={true}
                                 />
                             )),
                         )}
@@ -120,11 +120,11 @@ export default function FollowPage() {
                                     userIdLogin={userId}
                                     navigation={navigation}
                                     key={index}
-                                    Avatar={{ uri: item.avatarUrl }}
-                                    UserName={item.userName}
+                                    avatar={{ uri: item.avatarUrl }}
+                                    userName={item.userName}
                                     isSearch={true}
                                     data={item.userFollowId}
-                                    Time="600 người theo dõi | 20 Videos"
+                                    time="600 người theo dõi | 20 Videos"
                                 />
                             ))}
                         </View>

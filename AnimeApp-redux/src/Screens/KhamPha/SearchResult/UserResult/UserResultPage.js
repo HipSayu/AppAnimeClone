@@ -44,10 +44,10 @@ export default function UserResultPage({ data }) {
                                     <Avatar
                                         data={item.id}
                                         navigation={navigation}
-                                        Avatar={{ uri: item.avatarUrl }}
-                                        UserName={item.userName}
+                                        avatar={{ uri: item.avatarUrl }}
+                                        userName={item.userName}
                                         isSearch={true}
-                                        Time={`${item.follower}  người theo dõi | ${item.videos} Videos`}
+                                        time={`${item.follower}  người theo dõi | ${item.videos} Videos`}
                                     />
                                 </View>
                             ))}

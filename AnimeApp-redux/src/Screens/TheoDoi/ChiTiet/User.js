@@ -135,11 +135,11 @@ export default function User({ route }) {
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={{ alignItems: 'center' }}>
                     <Avatar
-                        UserName={userData.userName}
-                        Following={userData.following}
-                        Follower={userData.follower}
-                        Likes="9M"
-                        Avatar={{ uri: userData.avatarUrl }}
+                        userName={userData.userName}
+                        following={userData.following}
+                        follower={userData.follower}
+                        likes="9M"
+                        avatar={{ uri: userData.avatarUrl }}
                     />
                 </View>
                 <Text style={[GlobalStyles.h4_Medium, { marginLeft: 10, marginTop: 10 }]}>Video</Text>
@@ -150,15 +150,15 @@ export default function User({ route }) {
                                 navigation={navigation}
                                 dataVideo={video.id}
                                 key={video.id}
-                                Width={2.1}
-                                Height={100}
-                                ViewAvatar={`1.M lượt xem    ${video.dayAgo} ngày trước`}
-                                IsSearch={true}
-                                NameVideo={video.nameVideos}
-                                UserName=""
+                                width={2.1}
+                                height={100}
+                                viewAvatar={`1.M lượt xem    ${video.dayAgo} ngày trước`}
+                                isSearch={true}
+                                nameVideo={video.nameVideos}
+                                userName=""
                                 sourceAnime={{ uri: video.avatarVideoUrl }}
                                 flexDirection="row"
-                                IsHasAvatar={false}
+                                isHasAvatar={false}
                             />
                         ))}
                 </View>

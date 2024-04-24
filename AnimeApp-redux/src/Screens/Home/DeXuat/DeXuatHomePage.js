@@ -59,9 +59,9 @@ export default function DeXuatHomePage() {
                                 navigation={navigation}
                                 key={index}
                                 marginRight={20}
-                                Quality={item.quality}
-                                Image={{ uri: item.animeUrl }}
-                                Name={item.nameAnime}
+                                quality={item.quality}
+                                image={{ uri: item.animeUrl }}
+                                name={item.nameAnime}
                                 width={windowWidth / 2.6}
                                 height={182}
                             />

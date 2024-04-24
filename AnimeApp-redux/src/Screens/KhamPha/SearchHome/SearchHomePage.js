@@ -39,9 +39,9 @@ export default function SearchHomePage() {
                     {anime.map((item, index) => (
                         <AnimeVideo
                             key={index}
-                            Quality={item.quality}
-                            Image={{ uri: item.animeUrl }}
-                            Name={item.nameAnime}
+                            quality={item.quality}
+                            image={{ uri: item.animeUrl }}
+                            name={item.nameAnime}
                             marginRight={20}
                             width={windowWidth / 2.6}
                             height={182}

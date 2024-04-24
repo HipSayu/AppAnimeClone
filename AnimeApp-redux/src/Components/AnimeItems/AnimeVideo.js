@@ -5,22 +5,22 @@ import axios from 'axios';
 
 export default function AnimeVideo({
     idAnime,
-    IsSearch = false,
-    Quality = '',
-    ContinueText = '',
+    isSearch = false,
+    quality = '',
+    continueText = '',
     width = 138,
     height = 182,
-    Textinner = '',
+    textInner = '',
     marginRight = 10,
     marginTop = 10,
-    Name = 'Noname',
-    Image = require('~/Assets/Image/Shikimori.png'),
+    name = 'Noname',
+    image = require('~/Assets/Image/Shikimori.png'),
     navigation = function () {},
 }) {
     const styleIsSearch = {
-        marginLeft: IsSearch ? 10 : 0,
+        marginLeft: isSearch ? 10 : 0,
     };
-    !IsSearch ? (Searchlayout = 'column') : (Searchlayout = 'row');
+    !isSearch ? (Searchlayout = 'column') : (Searchlayout = 'row');
 
     const handleOnpressNavigation = () => {
         axios
@@ -45,7 +45,7 @@ export default function AnimeVideo({
             style={{ marginRight: marginRight, marginTop: marginTop }}
         >
             {/* Image */}
-            {ContinueText !== '' ? (
+            {continueText !== '' ? (
                 <View style={{ flexDirection: Searchlayout }}>
                     <ImageBackground
                         borderRadius={5}
@@ -56,19 +56,19 @@ export default function AnimeVideo({
                             justifyContent: 'flex-end',
                             flexDirection: 'row',
                         }}
-                        source={Image}
+                        source={image}
                     >
-                        {Textinner != '' ? (
+                        {textInner != '' ? (
                             <Text
                                 style={[{ top: height / 1.2, right: width / 3 }, GlobalStyles.h5, GlobalStyles.white]}
                             >
-                                {Textinner}
+                                {textInner}
                             </Text>
                         ) : (
                             <></>
                         )}
                         {/* 4K */}
-                        {Quality != '' ? (
+                        {quality != '' ? (
                             <View
                                 style={[
                                     {
@@ -82,7 +82,7 @@ export default function AnimeVideo({
                                 ]}
                             >
                                 <Text style={[GlobalStyles.h5_Medium, { color: GlobalStyles.white.color }]}>
-                                    {Quality}
+                                    {quality}
                                 </Text>
                             </View>
                         ) : (
@@ -91,12 +91,12 @@ export default function AnimeVideo({
                     </ImageBackground>
                     <View style={styleIsSearch}>
                         {/* Name Anime */}
-                        <Text style={[GlobalStyles.h4_Medium, { width: width, marginTop: 5 }]}>{Name}</Text>
+                        <Text style={[GlobalStyles.h4_Medium, { width: width, marginTop: 5 }]}>{name}</Text>
                         {/* Text phụ */}
                         <Text style={[GlobalStyles.h4_Regular, GlobalStyles.gray, { width: width - width * 0.2 }]}>
-                            {ContinueText}
+                            {continueText}
                         </Text>
-                        {IsSearch ? (
+                        {isSearch ? (
                             <View
                                 style={{
                                     backgroundColor: GlobalStyles.blue.color,
@@ -130,10 +130,10 @@ export default function AnimeVideo({
                             justifyContent: 'flex-end',
                             flexDirection: 'row',
                         }}
-                        source={Image}
+                        source={image}
                     >
                         {/* 4K */}
-                        {Quality != '' ? (
+                        {quality != '' ? (
                             <View
                                 style={[
                                     {
@@ -147,7 +147,7 @@ export default function AnimeVideo({
                                 ]}
                             >
                                 <Text style={[GlobalStyles.h5_Medium, { color: GlobalStyles.white.color }]}>
-                                    {Quality}
+                                    {quality}
                                 </Text>
                             </View>
                         ) : (
@@ -156,7 +156,7 @@ export default function AnimeVideo({
                     </ImageBackground>
                     {/* Name Anime */}
                     <Text style={[GlobalStyles.h4_Medium, { width: width, marginTop: 5 }]}>
-                        <Text style={[GlobalStyles.h4_Medium, { width: width, marginTop: 5 }]}>{Name}</Text>
+                        <Text style={[GlobalStyles.h4_Medium, { width: width, marginTop: 5 }]}>{name}</Text>
                     </Text>
                 </View>
             )}

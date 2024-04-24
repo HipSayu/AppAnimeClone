@@ -55,13 +55,13 @@ export default function AllResultPage({ data }) {
                             {anime.map((item, index) => (
                                 <AnimeVideo
                                     key={index}
-                                    IsSearch={true}
-                                    ContinueText="2023 | Anime"
+                                    isSearch={true}
+                                    continueText="2023 | Anime"
                                     idAnime={item.id}
                                     navigation={navigation}
-                                    Quality={item.quality}
-                                    Image={{ uri: item.animeUrl }}
-                                    Name={item.nameAnime}
+                                    quality={item.quality}
+                                    image={{ uri: item.animeUrl }}
+                                    name={item.nameAnime}
                                 />
                             ))}
 
@@ -71,17 +71,17 @@ export default function AllResultPage({ data }) {
                                     navigation={navigation}
                                     dataAvatar={item.usderId}
                                     dataVideo={item.id}
-                                    NameVideo={item.nameVideos}
+                                    nameVideo={item.nameVideos}
                                     sourceAvartar={{ uri: item.avatarUserUrl }}
-                                    UserName={item.nameUser}
+                                    userName={item.nameUser}
                                     sourceAnime={{ uri: item.avatarVideoUrl }}
-                                    Width={2.1}
-                                    Height={100}
-                                    ViewAvatar="1.M lượt xem"
+                                    width={2.1}
+                                    height={100}
+                                    viewAvatar="1.M lượt xem"
                                     widthAvatar={20}
-                                    IsSearch={true}
+                                    isSearch={true}
                                     flexDirection="row"
-                                    IsHasICon={false}
+                                    isHasICon={false}
                                 />
                             ))}
                         </>

@@ -105,11 +105,11 @@ export default function AnimeHomePage() {
                         {anime.map((item, index) => (
                             <AnimeVideo
                                 key={index}
-                                Quality={item.quality}
+                                quality={item.quality}
                                 width={windowWidth / 2.5}
                                 height={96}
-                                Image={{ uri: item.animeUrl }}
-                                Name={item.nameAnime}
+                                image={{ uri: item.animeUrl }}
+                                name={item.nameAnime}
                             />
                         ))}
                     </ScrollView>
@@ -128,11 +128,11 @@ export default function AnimeHomePage() {
                         {animeContinuce.map((item, index) => (
                             <AnimeVideo
                                 key={index}
-                                Quality={item.quality}
+                                quality={item.quality}
                                 width={windowWidth / 2.2}
                                 height={96}
-                                Image={{ uri: item.animeUrl }}
-                                Name={item.nameAnime}
+                                image={{ uri: item.animeUrl }}
+                                name={item.nameAnime}
                             />
                         ))}
                     </View>

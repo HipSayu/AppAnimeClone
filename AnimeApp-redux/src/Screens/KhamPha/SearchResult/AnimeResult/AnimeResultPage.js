@@ -26,13 +26,13 @@ export default function AnimeResultPage({ data }) {
             {anime.map((item, index) => (
                 <AnimeVideo
                     key={index}
-                    IsSearch={true}
-                    ContinueText="2023 | Anime"
+                    isSearch={true}
+                    continueText="2023 | Anime"
                     idAnime={item.id}
                     navigation={navigation}
-                    Quality={item.quality}
-                    Image={{ uri: item.animeUrl }}
-                    Name={item.nameAnime}
+                    quality={item.quality}
+                    image={{ uri: item.animeUrl }}
+                    name={item.nameAnime}
                 />
             ))}
         </ScrollView>

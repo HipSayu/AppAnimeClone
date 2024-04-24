@@ -10,41 +10,41 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 export default function AnimeMV({
-    Width = 1.05,
-    Height = 172,
+    width = 1.05,
+    height = 172,
     widthAvatar = 44,
     sourceAnime = require('~/Assets/AmvImage/AMV1.png'),
     sourceAvartar,
-    UserName = 'Rikka',
-    Time = '01:36',
-    Viewer = '144M',
-    ViewAvatar = '',
+    userName = 'Rikka',
+    time = '01:36',
+    viewer = '144M',
+    viewAvatar = '',
     inViewer = false,
-    IsSearch = false,
+    isSearch = false,
     flexDirection = 'colum',
-    NameVideo = 'Tưởng nhớ em "anh chỉ muốn níu giữ thời gian" ',
-    IsHasICon = true,
-    IsUser = false,
-    IsHasAvatar = true,
+    nameVideo = 'Tưởng nhớ em "anh chỉ muốn níu giữ thời gian" ',
+    isHasICon = true,
+    isUser = false,
+    isHasAvatar = true,
     dataVideo,
     dataAvatar,
     navigation = function () {},
     userIsFollow = false,
 }) {
     return (
-        <View style={{ flexDirection: flexDirection, marginTop: IsUser ? 10 : 0 }}>
+        <View style={{ flexDirection: flexDirection, marginTop: isUser ? 10 : 0 }}>
             <TouchableOpacity
                 onPress={() => {
                     navigation.navigate('PlayVideoPage', { data: dataVideo });
                 }}
-                style={{ alignItems: 'center', marginTop: IsUser ? 10 : 20 }}
+                style={{ alignItems: 'center', marginTop: isUser ? 10 : 20 }}
             >
                 <ImageBackground
                     borderRadius={10}
                     resizeMode="cover"
                     style={{
-                        width: windowWidth / Width,
-                        height: Height,
+                        width: windowWidth / width,
+                        height: height,
                         justifyContent: 'flex-end',
                         flexDirection: 'column',
                     }}
@@ -65,14 +65,14 @@ export default function AnimeMV({
                                     source={require('~/Assets/Icon/View.png')}
                                 ></ImageBackground>
                                 <Text style={[GlobalStyles.h4_Regular, GlobalStyles.white, { marginLeft: 10 }]}>
-                                    {Viewer}
+                                    {viewer}
                                 </Text>
                             </View>
                         ) : (
                             <View></View>
                         )}
 
-                        <Text style={[GlobalStyles.white, GlobalStyles.h5_Regular, { marginRight: 5 }]}>{Time}</Text>
+                        <Text style={[GlobalStyles.white, GlobalStyles.h5_Regular, { marginRight: 5 }]}>{time}</Text>
                     </View>
                 </ImageBackground>
                 {/* User */}
@@ -82,16 +82,16 @@ export default function AnimeMV({
                     isFollow={userIsFollow}
                     navigation={navigation}
                     data={dataAvatar}
-                    Avatar={sourceAvartar}
-                    IsHasIcon={IsHasICon}
-                    Width={widthAvatar}
-                    Height={widthAvatar}
-                    UserName={UserName}
-                    TextHead={IsSearch}
-                    NameVideo={NameVideo}
-                    Time={ViewAvatar}
-                    isUser={IsUser}
-                    isAvatar={IsHasAvatar}
+                    avatar={sourceAvartar}
+                    isHasIcon={isHasICon}
+                    width={widthAvatar}
+                    height={widthAvatar}
+                    userName={userName}
+                    textHead={isSearch}
+                    nameVideo={nameVideo}
+                    time={viewAvatar}
+                    isUser={isUser}
+                    isAvatar={isHasAvatar}
                 />
             </View>
         </View>
