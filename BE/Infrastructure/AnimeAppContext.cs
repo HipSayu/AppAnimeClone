@@ -124,12 +124,12 @@ namespace ApiBasic.Infrastructure
 
                 entity.HasIndex(u => u.SĐT).IsUnique();
             });
-
+            //Token
             modelBuilder.Entity<UserToken>(entity =>
             {
                 entity.ToTable("UserToken");
                 entity.HasKey(u => u.Id);
-                entity.HasOne(t => t.user).WithOne(t => t.userToken).HasForeignKey<UserToken>(t => t.idUser);
+                entity.HasOne(t => t.user).WithMany(t => t.UserTokens).HasForeignKey(t => t.idUser);
             });
             //UserFollow
             modelBuilder.Entity<UserFollow>(entity =>

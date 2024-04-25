@@ -66,7 +66,7 @@ export default function CreateAnime() {
         console.log('check Image Upload', result.assets[0]);
     };
 
-    const handleUpload = async (uri) => {
+    const handleUpload = async (uriVideo, uriImage) => {
         if (nameVideo == '') {
             Alert.alert('Thông báo', 'Nhập tên video', [
                 {
@@ -79,7 +79,7 @@ export default function CreateAnime() {
             //Video
             let formDataVideo = new FormData();
             formDataVideo.append('file', {
-                uri: uri,
+                uri: uriVideo,
                 type: 'video/mp4',
                 name: `${nameVideo}.mp4`,
             });
@@ -93,9 +93,9 @@ export default function CreateAnime() {
             //Image
             let formDataImage = new FormData();
             formDataImage.append('file', {
-                uri: uri,
+                uri: uriImage,
                 type: 'image/jpeg',
-                name: `${nameVideo}.jpeg`,
+                name: `${nameVideo}.jpg`,
             });
 
             let configImage = {
@@ -118,7 +118,8 @@ export default function CreateAnime() {
 
             Promise.all([axios.request(configVideo), axios.request(configImage)])
                 .then((res) => {
-                    console.log(res);
+                    console.log('res1', res[0].data);
+                    console.log('res2', res[1].data);
                 })
                 .catch((err) => console.log(err));
         }
@@ -195,7 +196,7 @@ export default function CreateAnime() {
                                     <TouchableOpacity
                                         onPress={() => {
                                             console.log(video);
-                                            handleUpload(video);
+                                            handleUpload(video, image);
                                         }}
                                         style={{
                                             alignItems: 'center',

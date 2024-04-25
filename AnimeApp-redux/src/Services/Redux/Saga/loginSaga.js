@@ -11,11 +11,11 @@ export default function* loginSaga(action) {
 
     try {
         console.log('Video_Home Saga Action:', action);
-        const response = yield call(
-            axios.get,
-            `http://localhost:5179/api/Login/Login_token?NumberPhone=${SDT}&UserName=${userName}&Password=${password}`,
-            { SDT, userName, password },
-        );
+        const response = yield call(axios.post, `http://localhost:5179/api/Login/Login_Save_Token`, {
+            numberPhone: SDT,
+            userName: userName,
+            password: password,
+        });
 
         // console.log('token', response.token.tokenResponse.data.result);
 

@@ -330,8 +330,7 @@ namespace ApiBasic.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("idUser")
-                        .IsUnique();
+                    b.HasIndex("idUser");
 
                     b.ToTable("UserToken", (string)null);
                 });
@@ -547,8 +546,8 @@ namespace ApiBasic.Migrations
             modelBuilder.Entity("ApiBasic.Domain.UserToken", b =>
                 {
                     b.HasOne("ApiBasic.Domain.User", "user")
-                        .WithOne("userToken")
-                        .HasForeignKey("ApiBasic.Domain.UserToken", "idUser")
+                        .WithMany("UserTokens")
+                        .HasForeignKey("idUser")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -628,12 +627,11 @@ namespace ApiBasic.Migrations
 
                     b.Navigation("UserLikeVideos");
 
+                    b.Navigation("UserTokens");
+
                     b.Navigation("UserXemVideos");
 
                     b.Navigation("Videos");
-
-                    b.Navigation("userToken")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("ApiBasic.Domain.Video", b =>
