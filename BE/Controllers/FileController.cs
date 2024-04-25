@@ -26,15 +26,15 @@ namespace ApiBasic.Controllers
             _manageImageServices = manageImageServices;
             _webHostEnvironment = webHostEnvironment;
         }
+
         /*[Authorize]*/
         [HttpPost("uploadfile")]
-        public async Task<IActionResult> UploadFile([FromForm] UploadFileDto _IFormFile)
+        public async Task<IActionResult> UploadFile(IFormFile _IFormFile)
         {
             try
             {
-
-            var result = await _manageImageServices.UploadFile(_IFormFile.files);
-            return Ok(result);
+                var result = await _manageImageServices.UploadFile(_IFormFile);
+                return Ok(result);
             }
             catch (Exception ex)
             {
@@ -49,14 +49,16 @@ namespace ApiBasic.Controllers
             var result = await _manageImageServices.DownloadFile(FileName);
             return File(result.Item1, result.Item2, result.Item2);
         }
+
         [HttpGet("GetImage/{fileName}")]
-        public  IActionResult GetImage([FromRoute] string fileName)
+        public IActionResult GetImage([FromRoute] string fileName)
         {
             var _GetFilePath = Common.GetFilePath(fileName);
 
             byte[] imageBytes = System.IO.File.ReadAllBytes(_GetFilePath);
             return File(imageBytes, "image/jpeg");
         }
+
         [HttpGet("GetVideo/{fileName}")]
         public IActionResult GetVideo([FromRoute] string fileName)
         {
@@ -65,5 +67,39 @@ namespace ApiBasic.Controllers
             byte[] imageBytes = System.IO.File.ReadAllBytes(_GetFilePath);
             return File(imageBytes, "video/mp4");
         }
+
+        [HttpPost("upload_test")]
+        public async Task<IActionResult> UploadFile()
+        {
+            try
+            {
+                var file = Request.Form.Files[0]; // Assuming you're expecting only one file
+
+                if (file != null && file.Length > 0)
+                {
+                    // Lấy tên tệp và đường dẫn
+                    var fileName = Path.GetFileName(file.FileName);
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads", fileName);
+
+                    // Lưu tệp vào đường dẫn cụ thể
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+
+                    // Thông báo thành công
+                    return Ok($"http://localhost:5179/api/File/GetVideo/{fileName}");
+                }
+                else
+                {
+                    return BadRequest("No file uploaded.");
+                }
+            }
+            catch (System.Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex}");
+            }
+        }
     }
 }
+

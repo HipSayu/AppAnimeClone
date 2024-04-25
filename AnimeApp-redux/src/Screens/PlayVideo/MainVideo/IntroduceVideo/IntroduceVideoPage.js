@@ -241,17 +241,17 @@ export default function IntroduceVideoPage({ data, animeVideo, likes }) {
                                 navigation={navigation}
                                 dataAvatar={item.usderId}
                                 dataVideo={item.id}
-                                NameVideo={item.nameVideos}
+                                nameVideo={item.nameVideos}
                                 sourceAvartar={{ uri: item.avatarUserUrl }}
-                                UserName={item.nameUser}
+                                userName={item.nameUser}
                                 sourceAnime={{ uri: item.avatarVideoUrl }}
-                                Width={2.1}
-                                Height={100}
+                                width={2.1}
+                                height={100}
                                 ViewAvatar="1.M lượt xem"
                                 widthAvatar={20}
-                                IsSearch={true}
+                                isSearch={true}
                                 flexDirection="row"
-                                IsHasICon={false}
+                                isHasICon={false}
                             />
                         ))}
                     </View>
