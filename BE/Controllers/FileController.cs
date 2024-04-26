@@ -79,8 +79,14 @@ namespace ApiBasic.Controllers
                 {
                     // Lấy tên tệp và đường dẫn
                     var fileName = Path.GetFileName(file.FileName);
-                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads", fileName);
 
+                    var filePath = Path.Combine(
+                        Directory.GetCurrentDirectory(),
+                        "Uploads",
+                        fileName
+                    );
+
+                    string[] parts = fileName.Split('.');
                     // Lưu tệp vào đường dẫn cụ thể
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
@@ -88,7 +94,14 @@ namespace ApiBasic.Controllers
                     }
 
                     // Thông báo thành công
-                    return Ok($"http://localhost:5179/api/File/GetVideo/{fileName}");
+                    if (parts[1] == "mp4")
+                    {
+                        return Ok($"http://localhost:5179/api/File/GetVideo/{fileName}");
+                    }
+                    else
+                    {
+                        return Ok($"http://localhost:5179/api/File/GetImage/{fileName}");
+                    }
                 }
                 else
                 {
@@ -102,4 +115,3 @@ namespace ApiBasic.Controllers
         }
     }
 }
-

@@ -8,17 +8,20 @@ import * as ScreenOrientation from 'expo-screen-orientation';
 import GlobalStyles from '~/Styles/GlobalStyles';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useSelector } from 'react-redux';
 
 export default function CreateAnime() {
     const [image, setImage] = useState('');
     const [inFullscreen, setInFullsreen] = useState(false);
-    const [video, setVideo] = useState('');
+    const [video, setVideo] = useState({ uri: '', duration: 0 });
     const [nameVideo, setNameVideo] = useState('');
     const refVideo = useRef(null);
     const [userInfor, setUserInfor] = useState({ token: { accessToken: '' } });
 
     const windowWidth = Dimensions.get('window').width;
     const windowHeight = Dimensions.get('window').height;
+
+    var login = useSelector((state) => state.loginReducer);
 
     if (userInfor != undefined) {
         var userId = userInfor.id;
@@ -35,7 +38,7 @@ export default function CreateAnime() {
 
     useEffect(() => {
         getData();
-    }, []);
+    }, [login]);
 
     console.log('userId', userId);
 
@@ -48,7 +51,7 @@ export default function CreateAnime() {
             quality: 1,
         });
         if (!resultVideo.canceled) {
-            setVideo(resultVideo.assets[0].uri);
+            setVideo(resultVideo.assets[0]);
         }
         console.log('check Video Upload', resultVideo.assets[0]);
     };
@@ -106,20 +109,52 @@ export default function CreateAnime() {
                 data: formDataImage,
             };
 
-            // axios
-            //     .request(configVideo)
-            //     .then((res) => {
-            //         console.log('Upload success:', res.data);
-            //     })
-
-            //     .catch((error) => {
-            //         console.log('Upload error:', error);
-            //     });
-
             Promise.all([axios.request(configVideo), axios.request(configImage)])
                 .then((res) => {
+                    var urlVideo = res[0].data;
+                    var urlAvatar = res[1].data;
                     console.log('res1', res[0].data);
                     console.log('res2', res[1].data);
+
+                    let configCreateVideo = {
+                        method: 'POST',
+                        maxBodyLength: Infinity,
+                        url: 'http://localhost:5179/api/Video/create',
+                        data: {
+                            videoId: 'string',
+                            userId: userId,
+                            nameVideos: nameVideo,
+                            urlVideo: urlVideo,
+                            avatarVideoUrl: urlAvatar,
+                            time: Math.round(video.duration / 1000),
+                            animeId: 1,
+                        },
+                    };
+
+                    axios
+                        .request(configCreateVideo)
+                        .then((res) => {
+                            // console.log('Upload Succes', res);
+                            Alert.alert('Thông báo', 'Upload Video Success ', [
+                                {
+                                    text: 'Oke',
+                                    onPress: () => {
+                                        setNameVideo('');
+                                    },
+                                    style: 'cancel',
+                                },
+                            ]);
+                        })
+                        .catch((error) => {
+                            // console.log('Upload Video Lỗi', error);
+                            Alert.alert('Thông báo', 'Upload Video Error ', [
+                                {
+                                    text: 'Oke',
+                                    onPress: () => console.log('Cancel Pressed'),
+                                    style: 'cancel',
+                                },
+                            ]);
+                        });
                 })
                 .catch((err) => console.log(err));
         }
@@ -130,7 +165,7 @@ export default function CreateAnime() {
             {userId != undefined ? (
                 <View style={{ justifyContent: 'space-between', flex: 1 }}>
                     <View style={{ marginTop: 30, justifyContent: 'space-between' }}>
-                        {video && (
+                        {video.uri != '' && (
                             <VideoPlayer
                                 style={{
                                     videoBackgroundColor: 'black',
@@ -165,7 +200,7 @@ export default function CreateAnime() {
                                 }}
                             />
                         )}
-                        {video && (
+                        {video.uri != '' && (
                             <View style={{ alignItems: 'center' }}>
                                 <View
                                     style={{
@@ -195,8 +230,9 @@ export default function CreateAnime() {
                                 <View style={{ flexDirection: 'row' }}>
                                     <TouchableOpacity
                                         onPress={() => {
-                                            console.log(video);
-                                            handleUpload(video, image);
+                                            console.log('uri', video.uri);
+                                            console.log('duration', video.duration);
+                                            handleUpload(video.uri, image);
                                         }}
                                         style={{
                                             alignItems: 'center',
@@ -218,10 +254,10 @@ export default function CreateAnime() {
                         <View style={{ flexDirection: 'row' }}>
                             <TouchableOpacity
                                 onPress={() => {
-                                    if (video == '') {
+                                    if (video.uri == '') {
                                         handleVideoPickerPress();
                                     } else {
-                                        setVideo('');
+                                        setVideo({ uri: '', duration: 0 });
                                     }
                                 }}
                                 style={{
@@ -232,7 +268,7 @@ export default function CreateAnime() {
                                     marginBottom: 20,
                                 }}
                             >
-                                {video == '' ? (
+                                {video.uri == '' ? (
                                     <Text style={[GlobalStyles.h4, GlobalStyles.white]}>Load Video</Text>
                                 ) : (
                                     <Text style={[GlobalStyles.h4, GlobalStyles.white]}>Clear Video</Text>
