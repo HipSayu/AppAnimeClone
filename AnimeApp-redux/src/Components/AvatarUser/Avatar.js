@@ -1,11 +1,11 @@
 import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Dimensions } from 'react-native';
 
-import axios from 'axios';
-
 import React, { useState } from 'react';
 
 import GlobalStyles from '~/Styles/GlobalStyles';
+
+import { followUser, unFollowUser } from '~/Services/Api/instanceAxios';
 
 // Chiều rộng điện thoại
 const windowWidth = Dimensions.get('window').width;
@@ -64,11 +64,7 @@ export default function Avatar({
 
     const handleTheoDoi = (userIdLogin, userFollow) => {
         if (!isfollows) {
-            axios
-                .post(`http://localhost:5179/api/UserFollow/Create`, {
-                    idFollower: userIdLogin,
-                    idFollowing: userFollow,
-                })
+            followUser(userIdLogin, userFollow)
                 .then((res) => {
                     setIfollows(!isfollows);
                 })
@@ -76,13 +72,7 @@ export default function Avatar({
                     console.log('Lỗi Follow', err);
                 });
         } else {
-            axios
-                .delete(`http://localhost:5179/api/UserFollow/Unfollow`, {
-                    data: {
-                        idFollower: userIdLogin,
-                        idFollowing: userFollow,
-                    },
-                })
+            unFollowUser(userIdLogin, userFollow)
                 .then((res) => {
                     setIfollows(!isfollows);
                 })

@@ -5,12 +5,11 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import axios from 'axios';
-
 import GlobalStyles from '~/Styles/GlobalStyles';
 import Avatar from '~/Components/AvatarUser/Avatar';
 import AnimeMV from '~/Components/AnimeVideo/AnimeMV';
-import { CreateFollow, GetUserVideo, UnFollow } from '~/Services/Api';
+import { GetUserVideo } from '~/Services/Api';
+import { followUser, unFollowUser } from '~/Services/Api/instanceAxios';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -20,8 +19,11 @@ export default function User({ route }) {
     const login = useSelector((state) => state.loginReducer);
 
     const isFollow = route.params.isFollow;
+
     const isUser = route.params.isUser;
+
     console.log('isUser', isUser);
+
     const userId = login.userInfo.id;
 
     console.log('userId', userId);
@@ -50,7 +52,7 @@ export default function User({ route }) {
 
     const handleTheoDoi = (userIdLogin, userFollow) => {
         if (!isfollows) {
-            CreateFollow(userIdLogin, userFollow)
+            followUser(userIdLogin, userFollow)
                 .then((res) => {
                     setIfollows(!isfollows);
                 })
@@ -58,7 +60,7 @@ export default function User({ route }) {
                     console.log('Lỗi Follow Chưa đăng nhập', err);
                 });
         } else {
-            UnFollow(userIdLogin, userFollow)
+            unFollowUser(userIdLogin, userFollow)
                 .then((res) => {
                     setIfollows(!isfollows);
                 })

@@ -1,16 +1,5 @@
 import axios from 'axios';
 
-// const host = 'http://localhost:5179/api/';
-// const Video = 'Video';
-// const Anime = 'Anime';
-// const Search = 'Search';
-// const User = 'User';
-// const LikeVideo = 'UserLikeVideo';
-// const Comment = 'Comments';
-// const UserFollow = 'UserFollow';
-// const Login = 'Login';
-//HomePage
-
 const host = process.env.EXPO_PUBLIC_API_URL_HOST;
 const Video = process.env.EXPO_PUBLIC_API_URL_VIDEO;
 const Anime = process.env.EXPO_PUBLIC_API_URL_ANIME;
@@ -34,53 +23,6 @@ const getVideoHomePage = async (pageSize = 10, pageIndex = 1, keyword = 'a') => 
 const getAnimeHomePage = async (pageSize = 5, pageIndex = 1, keyword = 'a') => {
     try {
         return await axios.get(`${host}${Anime}/get?pageSize=${pageSize}&pageIndex=${pageIndex}&keyword=${keyword}`);
-    } catch (error) {
-        throw error;
-    }
-};
-
-//Search
-const getHistorySearchById = async (pageSize = 20, pageIndex = 1, userId = userId, token) => {
-    try {
-        return await axios.get(
-            `${host}${Search}/get-all-page?pageSize=${pageSize}&pageIndex=${pageIndex}&UserId=${userId}`,
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            },
-        );
-    } catch (error) {
-        throw error;
-    }
-};
-
-const createSearchHistiory = async (search = search, userId = userId, token) => {
-    try {
-        return await axios.post(
-            `${host}${Search}/create`,
-            {
-                userId: userId,
-                searchKeyWord: search,
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            },
-        );
-    } catch (error) {
-        throw error;
-    }
-};
-
-const deleteSearchHistiory = async (idSearch, token) => {
-    try {
-        return await axios.delete(`${host}${Search}/delete/${idSearch}`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
     } catch (error) {
         throw error;
     }
@@ -114,44 +56,11 @@ const getVideoDeXuat = async (data, pageSize = 10, pageIndex = 1, keyword = 'a')
         throw error;
     }
 };
+
 //GetLikeinVideoByid
 const getLikeVideoById = async (data) => {
     try {
         return await axios.get(`${host}${Video}/get-like-video-by-idVideo/${data.id}`);
-    } catch (error) {
-        throw error;
-    }
-};
-
-//CheckLike
-
-const CheckIslike = async (userId, data) => {
-    try {
-        return await axios.get(`${host}${LikeVideo}/CheckLikes?UserId=${userId}&VideoId=${data.id}`);
-    } catch (error) {
-        throw error;
-    }
-};
-
-const likeVideo = async (userId, idVideo) => {
-    try {
-        return await axios.post(`${host}${LikeVideo}/Create`, {
-            userId: userId,
-            videoId: idVideo,
-        });
-    } catch (error) {
-        throw error;
-    }
-};
-
-const disLikeVideo = async (userId, idVideo) => {
-    try {
-        return await axios.delete(`${host}${LikeVideo}/deleteLike`, {
-            data: {
-                userId: userId,
-                videoId: idVideo,
-            },
-        });
     } catch (error) {
         throw error;
     }
@@ -166,94 +75,9 @@ const Getcomment = async (data) => {
     }
 };
 
-const CreateComment = async (comment, data, userId, token) => {
-    try {
-        return await axios.post(
-            `${host}${Comment}/Create`,
-            {
-                text: comment,
-                videoId: data.id,
-                userId: userId,
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            },
-        );
-    } catch (error) {
-        throw error;
-    }
-};
-
-const CreateCommentChild = async (comment, data, userId, idComment, token) => {
-    try {
-        return await axios.post(
-            `${host}${Comment}/Create-comment-child`,
-            {
-                text: comment,
-                videoId: data.id,
-                userId: userId,
-                parentCommentId: idComment,
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            },
-        );
-    } catch (error) {
-        throw error;
-    }
-};
-
-const GetUserFollow = async (userId, pageSize, pageIndex, keyword) => {
-    try {
-        return await axios.get(
-            `${host}${User}/get-all-user-follow?UserId=${userId}&pageSize=${pageSize}}&pageIndex=${pageIndex}&keyword=${keyword}`,
-        );
-    } catch (error) {
-        throw error;
-    }
-};
-
-const GetUserNotFollow = async (userId, pageSize, pageIndex, keyword) => {
-    try {
-        return await axios.get(
-            `${host}${User}/get-all-user-not-follow?UserId=${userId}&pageSize=${pageSize}}&pageIndex=${pageIndex}&keyword=${keyword}`,
-        );
-    } catch (error) {
-        throw error;
-    }
-};
-
-const CreateFollow = async (userIdLogin, userFollow) => {
-    try {
-        return await axios.post(`${host}${UserFollow}/Create`, {
-            idFollower: userIdLogin,
-            idFollowing: userFollow,
-        });
-    } catch (error) {
-        throw error;
-    }
-};
-
 const GetUserVideo = async (userFollowId) => {
     try {
         return await axios.get(`${host}${User}/get-user-with-Video-by-id/${userFollowId}`);
-    } catch (error) {
-        throw error;
-    }
-};
-
-const UnFollow = async (userIdLogin, userFollow) => {
-    try {
-        return await axios.delete(`${host}${UserFollow}/Unfollow`, {
-            data: {
-                idFollower: userIdLogin,
-                idFollowing: userFollow,
-            },
-        });
     } catch (error) {
         throw error;
     }
@@ -281,7 +105,6 @@ const CreateUser = async (userName, password) => {
         throw error;
     }
 };
-
 const LoginUser = async (SDT, userName, password) => {
     try {
         return await axios.get(`${host}${Login}/Login?NumberPhone=${SDT}&UserName=${userName}&Password=${password}`);
@@ -289,79 +112,18 @@ const LoginUser = async (SDT, userName, password) => {
         throw error;
     }
 };
-
-// .get(
-//     `http://localhost:5179/api/Login/Login?NumberPhone=${SDT}&UserName=${userName}&Password=${password}`,
-// )
-
-// .post(`http://localhost:5179/api/User/create`, {
-//                                 userName: userName,
-//                                 password: password,
-//                                 sđt: SDT,
-//                                 tieuSu: '',
-//                                 avatarUrl: '',
-//                                 backgroundUrl: '',
-//                             })
-
-// .get(`http://localhost:5179/api/Login/CheckSDT/${number}`)
-
-// .delete(`http://localhost:5179/api/UserFollow/Unfollow`, {
-//                     data: {
-//                         idFollower: userIdLogin,
-//                         idFollowing: userFollow,
-//                     },
-//                 })
-
-// .get(`http://localhost:5179/api/User/get-user-with-Video-by-id/${userFollowId}`)
-
-// .post(`http://localhost:5179/api/UserFollow/Create`, {
-//                     idFollower: userIdLogin,
-//                     idFollowing: userFollow,
-//                 })
-
-// .get(
-//     `http://localhost:5179/api/User/get-all-user-not-follow?UserId=${userId}&pageSize=5&pageIndex=1&keyword=a`,
-// )
-
-// .get(`http://localhost:5179/api/User/get-all-user-follow?UserId=${userId}&pageSize=3&pageIndex=1&keyword=a`)
-
-// .post(`http://localhost:5179/api/Comments/Create-comment-child`, {
-//                     text: comment,
-//                     videoId: data.id,
-//                     userId: userId,
-//                     parentCommentId: idComment,
-//                 })
-
-// .post(`http://localhost:5179/api/Comments/Create`, {
-//     text: comment,
-//     videoId: data.id,
-//     userId: userId,
-// })
-// .get(`http://localhost:5179/api/Video/get-video-with-comment/${data.id}`)
-// .get(`http://localhost:5179/api/UserLikeVideo/CheckLikes?UserId=${userId}&VideoId=${data.id}`)
-// .post(`http://localhost:5179/api/UserLikeVideo/Create`, ),
-// .delete(`http://localhost:5179/api/UserLikeVideo/deleteLike`,
 export {
     getVideoHomePage,
     getAnimeHomePage,
-    getHistorySearchById,
-    createSearchHistiory,
-    deleteSearchHistiory,
     getUserSearch,
     getVideoById,
     getVideoDeXuat,
     getLikeVideoById,
-    CheckIslike,
-    likeVideo,
-    disLikeVideo,
+    // CheckIslike,
+    // likeVideo,
+    // disLikeVideo,
     Getcomment,
-    CreateComment,
-    CreateCommentChild,
-    GetUserFollow,
-    GetUserNotFollow,
-    CreateFollow,
     GetUserVideo,
-    UnFollow,
     CheckSdt,
     CreateUser,
     LoginUser,

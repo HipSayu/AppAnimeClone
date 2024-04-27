@@ -6,8 +6,9 @@ import React, { useEffect, useState } from 'react';
 import GlobalStyles from '~/Styles/GlobalStyles';
 
 import { useSelector } from 'react-redux';
-import { createSearchHistiory, deleteSearchHistiory, getHistorySearchById } from '~/Services/Api';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { createSearchHistiory, getHistorySearchByIdToken, deleteSearchHistiory } from '~/Services/Api/instanceAxios';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -53,7 +54,7 @@ export default function SearchingPage() {
     }
 
     useEffect(() => {
-        getHistorySearchById((pageSize = 20), (pageIndex = 1), (userId = userId), token)
+        getHistorySearchByIdToken(userId)
             .then((res) => {
                 setSearchHistory(res.data.items);
             })
@@ -81,7 +82,7 @@ export default function SearchingPage() {
     };
 
     const handleDeleteSearch = (idSearch) => {
-        deleteSearchHistiory(idSearch, token)
+        deleteSearchHistiory(idSearch)
             .then((res) => {
                 setIsCreate(!isCreate);
             })

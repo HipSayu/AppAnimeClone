@@ -13,8 +13,9 @@ import { useSelector } from 'react-redux';
 import GlobalStyles from '~/Styles/GlobalStyles';
 
 import { PacmanIndicator } from 'react-native-indicators';
-import { CreateComment, CreateCommentChild, Getcomment } from '~/Services/Api';
+import { Getcomment } from '~/Services/Api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { CreateComment, CreateCommentChild } from '~/Services/Api/instanceAxios';
 
 export default function CommentPage({ data }) {
     const [commentVideos, setCommentVideos] = useState([]);
@@ -75,7 +76,7 @@ export default function CommentPage({ data }) {
                 videoId: data.id,
                 userId: userId,
             });
-            CreateComment(comment, data, userId, token)
+            CreateComment(comment, data, userId)
                 .then((res) => {
                     setIsCreate(!isCreate);
                     setComment('');
@@ -95,7 +96,7 @@ export default function CommentPage({ data }) {
                 userId: userId,
                 parentCommentId: idComment,
             });
-            CreateCommentChild(comment, data, userId, idComment, token)
+            CreateCommentChild(comment, data, userId, idComment)
                 .then((res) => {
                     setIsCreate(!isCreate);
                     setComment('');

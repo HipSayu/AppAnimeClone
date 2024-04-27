@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import React, { useEffect, useState } from 'react';
@@ -9,6 +9,7 @@ import GlobalStyles from '~/Styles/GlobalStyles';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getUserFollow, getUserNotFollow } from '~/Services/Api/instanceAxios';
 
 export default function FollowPage() {
     const [userFollow, setUserFollow] = useState([]);
@@ -29,7 +30,9 @@ export default function FollowPage() {
     if (userInfor != undefined) {
         var token = userInfor.token.accessToken;
     }
+
     console.log('userId', userId);
+
     const getData = async () => {
         try {
             var jsonValue = await AsyncStorage.getItem('my_login');
@@ -46,12 +49,7 @@ export default function FollowPage() {
     }, [login]);
 
     useEffect(() => {
-        axios
-            .get(`${HOST}${USER}/get-all-user-follow?UserId=${userId}&pageSize=3&pageIndex=1&keyword=a`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            })
+        getUserFollow(userId)
             .then((res) => {
                 setUserFollow(res.data.items);
             })
@@ -61,12 +59,7 @@ export default function FollowPage() {
     }, [login, token]);
 
     useEffect(() => {
-        axios
-            .get(`${HOST}${USER}/get-all-user-not-follow?UserId=${userId}&pageSize=5&pageIndex=1&keyword=a`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            })
+        getUserNotFollow(userId)
             .then((res) => {
                 setUserNotFollow(res.data.items);
             })

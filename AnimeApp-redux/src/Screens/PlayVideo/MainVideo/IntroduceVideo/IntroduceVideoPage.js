@@ -13,8 +13,9 @@ import { PacmanIndicator } from 'react-native-indicators';
 
 import GlobalStyles from '~/Styles/GlobalStyles';
 import AnimeMV from '~/Components/AnimeVideo/AnimeMV';
-import { CheckIslike, disLikeVideo, getLikeVideoById, getVideoDeXuat, likeVideo } from '~/Services/Api';
+import { getLikeVideoById, getVideoDeXuat } from '~/Services/Api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { CheckIslike, disLikeVideo, likeVideo } from '~/Services/Api/instanceAxios';
 
 export default function IntroduceVideoPage({ data, animeVideo, likes }) {
     const [video, setVideo] = useState([]);
@@ -87,6 +88,7 @@ export default function IntroduceVideoPage({ data, animeVideo, likes }) {
         if (userId != undefined) {
             CheckIslike(userId, data)
                 .then((res) => {
+                    console.log(res.data);
                     setIsLike(res.data);
                 })
                 .catch((err) => {
@@ -95,7 +97,7 @@ export default function IntroduceVideoPage({ data, animeVideo, likes }) {
         } else {
             console.log('Chưa đăng nhập');
         }
-    }, []);
+    }, [login, userInfor]);
 
     const handleLike = (userId, idVideo) => {
         if (userId != undefined && !isLike) {

@@ -37,6 +37,21 @@ namespace ApiBasic.ApplicationServices.UserFollowModule.Implements
             }
         }
 
+        public bool CheckFollow(CreateUserFollowDto input)
+        {
+            var check = _dbContext.UserFollows.FirstOrDefault(a =>
+                a.FollowerId == input.IdFollower && a.FollowingId == input.IdFollowing
+            );
+            if (check == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         public void Delete(int Id)
         {
             var userFollow =

@@ -21,6 +21,10 @@ export default function CreateAnime() {
     const windowWidth = Dimensions.get('window').width;
     const windowHeight = Dimensions.get('window').height;
 
+    const host = process.env.EXPO_PUBLIC_API_URL_HOST;
+    const Video = process.env.EXPO_PUBLIC_API_URL_VIDEO;
+    const File = process.env.EXPO_PUBLIC_API_URL_FILE;
+
     var login = useSelector((state) => state.loginReducer);
 
     if (userInfor != undefined) {
@@ -89,7 +93,7 @@ export default function CreateAnime() {
             let configVideo = {
                 method: 'POST',
                 maxBodyLength: Infinity,
-                url: 'http://localhost:5179/api/File/upload_test',
+                url: `${host}${File}/upload_test`,
                 headers: { 'Content-Type': 'multipart/form-data' },
                 data: formDataVideo,
             };
@@ -104,7 +108,7 @@ export default function CreateAnime() {
             let configImage = {
                 method: 'POST',
                 maxBodyLength: Infinity,
-                url: 'http://localhost:5179/api/File/upload_test',
+                url: `${host}${File}/upload_test`,
                 headers: { 'Content-Type': 'multipart/form-data' },
                 data: formDataImage,
             };
@@ -119,7 +123,7 @@ export default function CreateAnime() {
                     let configCreateVideo = {
                         method: 'POST',
                         maxBodyLength: Infinity,
-                        url: 'http://localhost:5179/api/Video/create',
+                        url: `${host}${Video}/create`,
                         data: {
                             videoId: 'string',
                             userId: userId,

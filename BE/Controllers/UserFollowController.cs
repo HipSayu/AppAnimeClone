@@ -1,6 +1,7 @@
 ﻿using ApiBasic.ApplicationServices.UserFollowModule.Abstract;
 using ApiBasic.ApplicationServices.UserFollowModule.Dtos;
 using ApiWebBasicPlatFrom.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiBasic.Controllers
@@ -19,7 +20,7 @@ namespace ApiBasic.Controllers
         {
             _userFollowService = userFollowService;
         }
-
+        [Authorize]
         [HttpPost("Create")]
         public IActionResult Create(CreateUserFollowDto input)
         {
@@ -47,7 +48,7 @@ namespace ApiBasic.Controllers
                 return HandleException(ex);
             }
         }
-
+        [Authorize]
         [HttpDelete("Unfollow")]
         public ActionResult Delete(UnFollowDtto input)
         {
@@ -55,6 +56,20 @@ namespace ApiBasic.Controllers
             {
                 _userFollowService.Unfollow(input);
                 return Ok();
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
+
+        [HttpGet("CheckIsFollow")]
+        public ActionResult CheckIsFollow([FromQuery] CreateUserFollowDto input)
+        {
+            try
+            {
+                return Ok(_userFollowService.CheckFollow(input));
+               
             }
             catch (Exception ex)
             {
