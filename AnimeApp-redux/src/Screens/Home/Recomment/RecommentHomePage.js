@@ -12,23 +12,49 @@ import GlobalStyles from '~/Styles/GlobalStyles';
 import AnimeVideo from '~/Components/AnimeItems/AnimeVideo';
 import AnimeMV from '~/Components/AnimeVideo/AnimeMV';
 import { getAnimeHomePage, getVideoHomePage } from '~/Services/Api';
+import { useSelector } from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function RecommentHomePage() {
     const [amv, setAmv] = useState([]);
     const [anime, setAnime] = useState([]);
+
     const navigation = useNavigation();
 
     const windowWidth = Dimensions.get('window').width;
     const windowHeight = Dimensions.get('window').height;
 
+    var getVideo = useSelector((state) => state.GetVideoHomeReducer);
+
+    const getVideoHomeData = async () => {
+        try {
+            var videoHomes = await AsyncStorage.getItem('my_home_videos');
+            videoHomes = JSON.parse(videoHomes);
+            console.log('videoHomes', videoHomes);
+            if (videoHomes.items != undefined) {
+                setAmv(videoHomes.items);
+            }
+        } catch (e) {
+            console.log('get AsyncStogare', e);
+        }
+    };
+
+    console.log('getVideo', getVideo);
+
     useEffect(() => {
-        getVideoHomePage()
-            .then((response) => {
-                setAmv(response.data.items);
-            })
-            .catch((error) => {
-                console.log('Lỗi Video');
-            });
+        if (getVideo.Videos.length == 0) {
+            getVideoHomeData();
+        } else if (amv.length == 0) {
+            getVideoHomePage()
+                .then((response) => {
+                    setAmv(response.data.items);
+                })
+                .catch((error) => {
+                    console.log('Lỗi Video');
+                });
+        } else {
+            setAmv(getVideo.Videos.items);
+        }
     }, []);
 
     useEffect(() => {

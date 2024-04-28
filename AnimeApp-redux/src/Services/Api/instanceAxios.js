@@ -48,7 +48,7 @@ async function refreshToken() {
 
 instance.interceptors.response.use(
     (response) => {
-        console.log('test intercepter', response.data);
+        // console.log('test intercepter', response.data);
 
         return response;
     },
@@ -230,6 +230,18 @@ const disLikeVideo = async (userId, idVideo) => {
     );
 };
 
+//Action
+const Login_Save_Token = async (SDT, userName, password) => {
+    return instance.post(`/${Login}/Login_Save_Token`, {
+        numberPhone: SDT,
+        userName: userName,
+        password: password,
+    });
+};
+
+const getVideoHomePage = async () => {
+    return instance.get(`/${Video}/get-all-home?pageSize=20&pageIndex=1`);
+};
 export {
     getHistorySearchByIdToken,
     createSearchHistiory,
@@ -244,4 +256,6 @@ export {
     disLikeVideo,
     likeVideo,
     CheckIsFollow,
+    Login_Save_Token,
+    getVideoHomePage,
 };

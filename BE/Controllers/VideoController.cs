@@ -47,6 +47,19 @@ namespace ApiBasic.Controllers
             }
         }
 
+        [HttpGet("get-all-home")]
+        public ActionResult GetAllHome(FilterVideoHomeDto input)
+        {
+            try
+            {
+                return Ok(_iVideoServices.GetAllNoKeyWord(input));
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
+
         [HttpDelete("delete/{VideoId}")]
         public ActionResult Delete(int VideoId)
         {

@@ -49,7 +49,10 @@ namespace ApiBasic.ApplicationServices.VideoModule.Implements
         {
             var videos = _dbcontext
                 .Videos.Include(v => v.User)
-                .Where(v => v.NameVideos.ToLower().Contains(input.Keyword.ToLower()) && v.Id != input.IdVideo)
+                .Where(v =>
+                    v.NameVideos.ToLower().Contains(input.Keyword.ToLower())
+                    && v.Id != input.IdVideo
+                )
                 .Select(v => new FindVideoDto
                 {
                     NameVideos = v.NameVideos,
@@ -62,6 +65,31 @@ namespace ApiBasic.ApplicationServices.VideoModule.Implements
                     nameUser = v.User.UserName,
                     AvatarUserUrl = v.User.AvatarUrl,
                 });
+            videos = videos.Skip(input.PageSize * (input.PageIndex - 1)).Take(input.PageSize);
+            return new PageResultDto<List<FindVideoDto>>
+            {
+                Items = videos.ToList(),
+                TotalItem = videos.Count(),
+            };
+        }
+
+        public PageResultDto<List<FindVideoDto>> GetAllNoKeyWord(FilterVideoHomeDto input)
+        {
+            var videos = _dbcontext
+                .Videos.Include(v => v.User)
+                .Select(v => new FindVideoDto
+                {
+                    NameVideos = v.NameVideos,
+                    ThoiDiemTao = v.ThoiDiemTao,
+                    Time = v.Time,
+                    AvatarVideoUrl = v.AvatarVideoUrl,
+                    UrlVideo = v.UrlVideo,
+                    Id = v.Id,
+                    UsderId = v.User.Id,
+                    nameUser = v.User.UserName,
+                    AvatarUserUrl = v.User.AvatarUrl,
+                }).OrderBy(s => s.AvatarVideoUrl).ThenBy(s => s.NameVideos)
+                .Where(u => u.UsderId != 1);
             videos = videos.Skip(input.PageSize * (input.PageIndex - 1)).Take(input.PageSize);
             return new PageResultDto<List<FindVideoDto>>
             {

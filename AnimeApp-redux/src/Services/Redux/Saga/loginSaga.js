@@ -17,8 +17,6 @@ export default function* loginSaga(action) {
             password: password,
         });
 
-        // console.log('token', response.token.tokenResponse.data.result);
-
         var token = response.data.token.accessToken;
         AsyncStorage.setItem('my_token', token);
 

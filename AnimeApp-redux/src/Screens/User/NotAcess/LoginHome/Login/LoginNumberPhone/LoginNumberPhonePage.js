@@ -44,6 +44,9 @@ export default function LoginNumberPhonePage({ route }) {
                                     type: LOGIN_REQUEST,
                                     payload: { SDT, userName: userName, password: password },
                                 });
+                                dispatch({
+                                    type: 'GET_VIDEO_RESQUEST',
+                                });
 
                                 Alert.alert('Thông báo', 'Đăng nhập thành công ', [
                                     {
