@@ -157,7 +157,7 @@ const getUserNotFollow = async (userId) => {
 
 const followUser = async (userIdLogin, userFollow) => {
     return instance.post(
-        `http://localhost:5179/api/UserFollow/Create`,
+        `/${UserFollow}/Create`,
         {
             idFollower: userIdLogin,
             idFollowing: userFollow,
@@ -170,12 +170,16 @@ const followUser = async (userIdLogin, userFollow) => {
     );
 };
 const unFollowUser = async (userIdLogin, userFollow) => {
-    return instance.delete(
-        `http://localhost:5179/api/UserFollow/Unfollow`,
-        {
-            idFollower: userIdLogin,
-            idFollowing: userFollow,
+    return instance.delete(`/${UserFollow}/Unfollow?IdFollower=${userIdLogin}&IdFollowing=${userFollow}`, {
+        headers: {
+            Authorization: `Bearer ${await getLocalToken()}`,
         },
+    });
+};
+
+const CheckIsFollow = async (userId, userFollowId) => {
+    return instance.get(
+        `http://localhost:5179/api/UserFollow/CheckIsFollow?IdFollower=${userId}&IdFollowing=${userFollowId}`,
         {
             headers: {
                 Authorization: `Bearer ${await getLocalToken()}`,
@@ -239,4 +243,5 @@ export {
     CheckIslike,
     disLikeVideo,
     likeVideo,
+    CheckIsFollow,
 };

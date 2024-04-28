@@ -66,7 +66,7 @@ namespace ApiBasic.ApplicationServices.UserFollowModule.Implements
                 _dbContext.UserFollows.FirstOrDefault(u =>
                     u.FollowerId == input.IdFollower && u.FollowingId == input.IdFollowing
                 ) ?? throw new UserFriendlyExceptions("UserFollow not Found");
-            _dbContext.Remove(userFollows);
+            _dbContext.UserFollows.Remove(userFollows);
             _dbContext.SaveChanges();
         }
     }

@@ -7,7 +7,7 @@ import Avatar from '~/Components/AvatarUser/Avatar';
 import AnimeMV from '~/Components/AnimeVideo/AnimeMV';
 import GlobalStyles from '~/Styles/GlobalStyles';
 import { useSelector } from 'react-redux';
-import axios from 'axios';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getUserFollow, getUserNotFollow } from '~/Services/Api/instanceAxios';
 
@@ -17,9 +17,6 @@ export default function FollowPage() {
     const [userInfor, setUserInfor] = useState({ token: { accessToken: '' } });
 
     const navigation = useNavigation();
-
-    const HOST = process.env.EXPO_PUBLIC_API_URL_HOST;
-    const USER = process.env.EXPO_PUBLIC_API_URL_USER;
 
     var login = useSelector((state) => state.loginReducer);
 
@@ -43,7 +40,6 @@ export default function FollowPage() {
         }
     };
 
-    // console.log('userId', userId);
     useEffect(() => {
         getData();
     }, [login]);

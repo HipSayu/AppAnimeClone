@@ -50,7 +50,7 @@ namespace ApiBasic.Controllers
         }
         [Authorize]
         [HttpDelete("Unfollow")]
-        public ActionResult Delete(UnFollowDtto input)
+        public ActionResult Delete([FromQuery] UnFollowDtto input)
         {
             try
             {
