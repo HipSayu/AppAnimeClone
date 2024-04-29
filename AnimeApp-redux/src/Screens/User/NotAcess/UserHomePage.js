@@ -44,6 +44,12 @@ export default function UserHomePage({}) {
                         type: LOGOUT_REQUEST,
                         payload: { SDT: 'Logout', userName: 'Logout', password: 'Logout' },
                     });
+                    dispatch({
+                        type: 'DELETE_VIDEO_HOME_RESQUEST',
+                    });
+                    dispatch({
+                        type: 'DELETE_ANIME_HOME_RESQUEST',
+                    });
                     navigation.navigate('HomeScreenPage');
                 },
                 style: 'cancel',

@@ -12,7 +12,7 @@ export default function SearchHomePage() {
     const [anime, setAnime] = useState([]);
 
     useEffect(() => {
-        getAnimeHomePage((pageSize = 4), (pageIndex = 1), (keyword = 'a'))
+        getAnimeHomePage((pageSize = 5), (pageIndex = 1), (keyword = 'c'))
             .then((response) => {
                 setAnime(response.data.items);
             })

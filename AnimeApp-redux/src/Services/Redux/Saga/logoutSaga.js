@@ -16,7 +16,9 @@ export default function* logoutSaga(action) {
             { SDT, userName, password },
         );
         AsyncStorage.removeItem('my_token');
-        AsyncStorage.removeItem('my_login'), console.log('Logout :', response.data);
+        AsyncStorage.removeItem('my_login');
+        console.log('Logout :', response.data);
+
         yield put({ type: LOGOUT_SUCCESS, payload: [] });
     } catch (error) {
         console.log('Lỗi Login');

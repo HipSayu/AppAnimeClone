@@ -10,6 +10,9 @@ namespace ApiBasic.ApplicationServices.AnimeModule.Abstract
         void Update(UpdateAnimeDto input);
         void Delete(int AnimeId);
         PageResultDto<List<AnimeViewDto>> Get(FilterDto input);
+
+        PageResultDto<List<AnimeViewDto>> GetAnimeHome(FilterAnimeDto input);
         AnimeWithVideoDto GetVideoAnime (int AnimeId);
+
     }
 }

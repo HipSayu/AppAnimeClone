@@ -1,22 +1,13 @@
 import { ImageBackground, ScrollView, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Dimensions } from 'react-native';
-import { UseSelector, useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 
-import axios from 'axios';
-
 import GlobalStyles from '~/Styles/GlobalStyles';
-
+import { useNavigation } from '@react-navigation/native';
 import AnimeVideo from '~/Components/AnimeItems/AnimeVideo';
 import { getAnimeHomePage } from '~/Services/Api';
-
-//Anime
-const Anime = [
-    { Name: 'Shikimori không chỉ dễ thương thôi đâu', Image: require('~/Assets/Image/Shikimori.png'), Quality: '4K' },
-    { Name: 'Rồng hầu gái nhà kobayashi', Image: require('~/Assets/Image/Torhu.jpg'), Quality: '4K' },
-    { Name: 'Lycoris Recoil', Image: require('~/Assets/Image/LycorisRecoil.png'), Quality: '2K' },
-    { Name: 'Nhà có 5 tô bún', Image: require('~/Assets/Image/NhaCoNamNangDau.jpg'), Quality: '2K' },
-];
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const DataNav = [
     { Image: require('~/Assets/Icon/IconNav/List.png'), Name: 'Mục lục' },
@@ -24,22 +15,19 @@ const DataNav = [
     { Image: require('~/Assets/Icon/IconNav/RetroTV.png'), Name: 'Xếp hạng' },
     { Image: require('~/Assets/Icon/IconNav/MembershipCard.png'), Name: 'Premium' },
 ];
-const Continue = [
-    { Image: require('~/Assets/Image/DateAlive.png'), Name: 'Cuộc hẹn sống còn' },
-    { Image: require('~/Assets/Image/ChainsawMan.jpg'), Name: 'Chainsaw Man' },
-    { Image: require('~/Assets/Image/Spy.jpg'), Name: 'Spy x Family' },
-];
-
-const windowWidth = Dimensions.get('window').width;
-
-const windowHeight = Dimensions.get('window').height;
 
 export default function AnimeHomePage() {
     const [animeContinuce, SetAnimeContinuce] = useState([]);
     const [anime, setAnime] = useState([]);
+    const [isHasAnime, setIsHasAnime] = useState(true);
+    const navigation = useNavigation();
+
+    const windowWidth = Dimensions.get('window').width;
+
+    const windowHeight = Dimensions.get('window').height;
 
     useEffect(() => {
-        getAnimeHomePage((pageSize = 4), (pageIndex = 1), (keyword = 'a'))
+        getAnimeHomePage((pageSize = 5), (pageIndex = 1), (keyword = 'c'))
             .then((response) => {
                 setAnime(response.data.items);
             })
@@ -48,15 +36,33 @@ export default function AnimeHomePage() {
             });
     }, []);
 
+    var getAnime = useSelector((state) => state.GetAnimeHomeReducer);
+
+    const getAnimeHomeData = async () => {
+        try {
+            var animeHomes = await AsyncStorage.getItem('my_home_animes');
+            animeHomes = JSON.parse(animeHomes);
+            console.log('animeHome', animeHomes);
+            if (animeHomes != null) {
+                SetAnimeContinuce(animeHomes.items);
+            } else {
+                setIsHasAnime(!isHasAnime);
+            }
+        } catch (e) {
+            console.log('get AsyncStogare', e);
+        }
+    };
+    console.log('getAnime', getAnime);
+
     useEffect(() => {
-        getAnimeHomePage((pageSize = 3), (pageIndex = 2), (keyword = 'c'))
-            .then((response) => {
-                SetAnimeContinuce(response.data.items);
-            })
-            .catch((error) => {
-                console.log('Lỗi Anime');
-            });
-    }, []);
+        if (getAnime.Animes.length != 0) {
+            SetAnimeContinuce(getAnime.Animes);
+        } else if (getAnime.Animes.length == 0 && isHasAnime) {
+            getAnimeHomeData();
+        } else {
+            SetAnimeContinuce([]);
+        }
+    }, [isHasAnime, getAnime]);
 
     return (
         <View style={[styles.Page, { backgroundColor: 'white' }]}>
@@ -102,9 +108,11 @@ export default function AnimeHomePage() {
                         showsHorizontalScrollIndicator={false}
                         style={{ flexDirection: 'row', marginLeft: 10 }}
                     >
-                        {anime.map((item, index) => (
+                        {animeContinuce.map((item, index) => (
                             <AnimeVideo
                                 key={index}
+                                idAnime={item.id}
+                                navigation={navigation}
                                 quality={item.quality}
                                 width={windowWidth / 2.5}
                                 height={96}
@@ -125,8 +133,10 @@ export default function AnimeHomePage() {
                             marginLeft: 10,
                         }}
                     >
-                        {animeContinuce.map((item, index) => (
+                        {anime.map((item, index) => (
                             <AnimeVideo
+                                idAnime={item.id}
+                                navigation={navigation}
                                 key={index}
                                 quality={item.quality}
                                 width={windowWidth / 2.2}

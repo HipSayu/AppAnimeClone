@@ -65,6 +65,29 @@ namespace ApiBasic.ApplicationServices.AnimeModule.Implements
             };
         }
 
+        public PageResultDto<List<AnimeViewDto>> GetAnimeHome(FilterAnimeDto input)
+        {
+            var animes = _dbcontext
+                .Animes.Include(a => a.videos)
+                .OrderBy(a => a.videos.Count())
+                .ThenBy(a => a.AnimeUrl)
+                .Where(a => a.Id > 1)
+                .Select(s => new AnimeViewDto
+                {
+                    Id = s.Id,
+                    NameAnime = s.NameAnime,
+                    Quality = s.Quality,
+                    AnimeUrl = s.AnimeUrl
+                });
+
+            animes = animes.Skip(input.PageSize * (input.PageIndex - 1)).Take(input.PageSize);
+            return new PageResultDto<List<AnimeViewDto>>
+            {
+                Items = animes.ToList(),
+                TotalItem = animes.Count(),
+            };
+        }
+
         public AnimeWithVideoDto GetVideoAnime(int AnimeId)
         {
             var animes =

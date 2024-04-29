@@ -10,9 +10,9 @@ export default function* GetVideoHomeSaga(action) {
 
         AsyncStorage.setItem('my_home_videos', JSON.stringify(response.data));
 
-        yield put({ type: 'GET_VIDEO_SUCCESS', payload: response.data });
+        yield put({ type: 'GET_VIDEO_HOME_SUCCESS', payload: response.data.items });
     } catch (error) {
         console.log('Lỗi Video Saga');
-        yield put({ type: 'GET_VIDEO_FAILURE', payload: error.message });
+        yield put({ type: 'GET_VIDEO_HOME_FAILURE', payload: error.message });
     }
 }

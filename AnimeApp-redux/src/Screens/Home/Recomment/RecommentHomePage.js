@@ -3,8 +3,6 @@ import { ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-nativ
 import { Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import axios from 'axios';
-
 import React, { useEffect, useState } from 'react';
 import { PacmanIndicator } from 'react-native-indicators';
 
@@ -12,12 +10,14 @@ import GlobalStyles from '~/Styles/GlobalStyles';
 import AnimeVideo from '~/Components/AnimeItems/AnimeVideo';
 import AnimeMV from '~/Components/AnimeVideo/AnimeMV';
 import { getAnimeHomePage, getVideoHomePage } from '~/Services/Api';
+
 import { useSelector } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function RecommentHomePage() {
     const [amv, setAmv] = useState([]);
     const [anime, setAnime] = useState([]);
+    const [isHasVideo, setIsHasVideo] = useState(true);
 
     const navigation = useNavigation();
 
@@ -31,20 +31,24 @@ export default function RecommentHomePage() {
             var videoHomes = await AsyncStorage.getItem('my_home_videos');
             videoHomes = JSON.parse(videoHomes);
             console.log('videoHomes', videoHomes);
-            if (videoHomes.items != undefined) {
+            if (videoHomes != null) {
                 setAmv(videoHomes.items);
+            } else {
+                setIsHasVideo(!isHasVideo);
             }
         } catch (e) {
             console.log('get AsyncStogare', e);
         }
     };
 
-    console.log('getVideo', getVideo);
+    // console.log('getVideo', getVideo);
 
     useEffect(() => {
-        if (getVideo.Videos.length == 0) {
+        if (getVideo.Videos.length != 0) {
+            setAmv(getVideo.Videos);
+        } else if (getVideo.Videos.length == 0 && isHasVideo) {
             getVideoHomeData();
-        } else if (amv.length == 0) {
+        } else {
             getVideoHomePage()
                 .then((response) => {
                     setAmv(response.data.items);
@@ -52,10 +56,8 @@ export default function RecommentHomePage() {
                 .catch((error) => {
                     console.log('Lỗi Video');
                 });
-        } else {
-            setAmv(getVideo.Videos.items);
         }
-    }, []);
+    }, [isHasVideo, getVideo]);
 
     useEffect(() => {
         getAnimeHomePage()

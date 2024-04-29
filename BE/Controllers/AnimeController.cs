@@ -75,6 +75,19 @@ namespace ApiBasic.Controllers
             }
         }
 
+        [HttpGet("get-Home-Page")]
+        public ActionResult GetAnimeHome(FilterAnimeDto input)
+        {
+            try
+            {
+                return Ok(_animeServices.GetAnimeHome(input));
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
+
         [HttpGet("get-anime-video")]
         public ActionResult GetAnimeVideo(int AnimeId)
         {

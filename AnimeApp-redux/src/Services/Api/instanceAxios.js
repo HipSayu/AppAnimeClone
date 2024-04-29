@@ -242,6 +242,11 @@ const Login_Save_Token = async (SDT, userName, password) => {
 const getVideoHomePage = async () => {
     return instance.get(`/${Video}/get-all-home?pageSize=20&pageIndex=1`);
 };
+// Anime Dang Do
+const getAnimeHomePage = async () => {
+    return instance.get(`/${Anime}/get-Home-Page?pageSize=5&pageIndex=1`);
+};
+
 export {
     getHistorySearchByIdToken,
     createSearchHistiory,
@@ -258,4 +263,5 @@ export {
     CheckIsFollow,
     Login_Save_Token,
     getVideoHomePage,
+    getAnimeHomePage,
 };

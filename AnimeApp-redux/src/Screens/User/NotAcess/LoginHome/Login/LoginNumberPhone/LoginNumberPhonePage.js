@@ -45,9 +45,11 @@ export default function LoginNumberPhonePage({ route }) {
                                     payload: { SDT, userName: userName, password: password },
                                 });
                                 dispatch({
-                                    type: 'GET_VIDEO_RESQUEST',
+                                    type: 'GET_VIDEO_HOME_RESQUEST',
                                 });
-
+                                dispatch({
+                                    type: 'GET_ANIME_HOME_RESQUEST',
+                                });
                                 Alert.alert('Thông báo', 'Đăng nhập thành công ', [
                                     {
                                         text: 'OK',

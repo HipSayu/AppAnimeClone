@@ -10,7 +10,7 @@ export default function* loginSaga(action) {
     const SDT = action.payload.SDT;
 
     try {
-        console.log('Video_Home Saga Action:', action);
+        console.log('Login Saga Action:', action);
         const response = yield call(axios.post, `http://localhost:5179/api/Login/Login_Save_Token`, {
             numberPhone: SDT,
             userName: userName,
