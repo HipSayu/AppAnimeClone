@@ -16,5 +16,7 @@ namespace ApiBasic.ApplicationServices.UserModule.Abstract
         UserWithVideoDto GetUserWithVideoById(int UserId);
 
         PageResultDto<List<UserNotFollowDto>> GetAllUserNotFollow(FilterUserFollowDto input);
+
+        PageResultDto<List<UserFollowDto>> GetAllUserFollowHomePage(FilterUserFollowHomeDto input);
     }
 }

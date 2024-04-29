@@ -154,6 +154,59 @@ namespace ApiBasic.ApplicationServices.UserModule.Implements
             };
         }
 
+        public PageResultDto<List<UserFollowDto>> GetAllUserFollowHomePage(FilterUserFollowHomeDto input)
+        {
+            var usersFollowingIdS =
+                from u in _dbcontext.Users
+                join userFollowing in _dbcontext.UserFollows on u.Id equals userFollowing.FollowerId
+                where u.SĐT == input.NumberPhone && userFollowing.FollowingId != 1
+                select new { usersFollowingId = userFollowing.FollowingId };
+           
+
+            var users =
+                from user in _dbcontext.Users
+                join usersFollowingId in usersFollowingIdS
+                    on user.Id equals usersFollowingId.usersFollowingId
+                select user;
+
+            var result = new List<UserFollowDto>();
+
+            foreach (var user in users)
+            {
+                var videos = _dbcontext
+                    .Videos.Where(v => v.UserId == user.Id)
+                    .Select(v => new GetVideoByUserId
+                    {
+                        AvatarVideoUrl = v.AvatarVideoUrl,
+                        Id = v.Id,
+                        IdUserCreateVideo = v.UserId,
+                        NameVideos = v.NameVideos,
+                        Time = v.Time,
+                        UrlVideo = v.UrlVideo,
+                        dayAgo = (DateTime.Now - v.ThoiDiemTao).Days,
+                    })
+                    .Skip(input.PageSize * (input.PageIndex - 1))
+                    .Take(input.PageSize);
+                if (videos != null)
+                {
+                    result.Add(
+                        new UserFollowDto
+                        {
+                            AvatarUrl = user.AvatarUrl,
+                            UserFollowId = user.Id,
+                            UserName = user.UserName,
+                            VideoUserFollow = videos.ToList(),
+                        }
+                    );
+                }
+            }
+            return new PageResultDto<List<UserFollowDto>>
+            {
+                Items = result.ToList(),
+                TotalItem = result.Count(),
+            };
+        }
+
         public PageResultDto<List<UserNotFollowDto>> GetAllUserNotFollow(FilterUserFollowDto input)
         {
             var userfollow = _dbcontext.UserFollows;
@@ -175,6 +228,8 @@ namespace ApiBasic.ApplicationServices.UserModule.Implements
                 TotalItem = user.Count(),
             };
         }
+
+
 
         public UserWithVideoDto GetUserWithVideoById(int UserId)
         {

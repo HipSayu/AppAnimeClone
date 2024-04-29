@@ -102,6 +102,21 @@ namespace ApiBasic.Controllers
             }
         }
 
+
+       
+        [HttpGet("get-all-user-follow-home-page")]
+        public ActionResult GetAllUserFollowHomePage(FilterUserFollowHomeDto input)
+        {
+            try
+            {
+                return Ok(_iUserServices.GetAllUserFollowHomePage(input));
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
+
         [HttpGet("get-user-with-Video-by-id/{UserId}")]
         public ActionResult GetUserWithVideoById(int UserId)
         {
