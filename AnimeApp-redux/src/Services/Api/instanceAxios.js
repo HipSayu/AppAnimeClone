@@ -247,6 +247,10 @@ const getAnimeHomePage = async () => {
     return instance.get(`/${Anime}/get-Home-Page?pageSize=5&pageIndex=1`);
 };
 
+const getUserFollowHomePage = async (numberPhone) => {
+    return instance.get(`/${User}/get-all-user-follow-home-page?NumberPhone=${numberPhone}&pageSize=10&pageIndex=1`);
+};
+
 export {
     getHistorySearchByIdToken,
     createSearchHistiory,
@@ -264,4 +268,5 @@ export {
     Login_Save_Token,
     getVideoHomePage,
     getAnimeHomePage,
+    getUserFollowHomePage,
 };

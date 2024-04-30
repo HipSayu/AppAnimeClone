@@ -50,6 +50,10 @@ export default function LoginNumberPhonePage({ route }) {
                                 dispatch({
                                     type: 'GET_ANIME_HOME_RESQUEST',
                                 });
+                                dispatch({
+                                    type: 'GET_USERFOLLOW_HOME_RESQUEST',
+                                    payload: { SDT: SDT },
+                                });
                                 Alert.alert('Thông báo', 'Đăng nhập thành công ', [
                                     {
                                         text: 'OK',

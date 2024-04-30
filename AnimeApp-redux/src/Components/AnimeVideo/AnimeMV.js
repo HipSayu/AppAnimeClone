@@ -10,6 +10,7 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 export default function AnimeMV({
+    numberphoneUserLogin,
     width = 1.05,
     height = 172,
     widthAvatar = 44,
@@ -79,6 +80,7 @@ export default function AnimeMV({
             </TouchableOpacity>
             <View style={{ alignItems: 'flex-start' }}>
                 <Avatar
+                    numberphoneUserLogin={numberphoneUserLogin}
                     isFollow={userIsFollow}
                     navigation={navigation}
                     data={dataAvatar}

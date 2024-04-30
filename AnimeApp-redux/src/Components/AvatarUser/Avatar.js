@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import GlobalStyles from '~/Styles/GlobalStyles';
 
 import { followUser, unFollowUser } from '~/Services/Api/instanceAxios';
+import { useDispatch } from 'react-redux';
 
 // Chiều rộng điện thoại
 const windowWidth = Dimensions.get('window').width;
@@ -13,6 +14,7 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 export default function Avatar({
+    numberphoneUserLogin,
     userIdLogin,
     data,
     isFollow = false,
@@ -34,6 +36,7 @@ export default function Avatar({
     isUser = false,
     isAvatar = true,
 }) {
+    const dispatch = useDispatch();
     let avatarName;
     let alignItemsAvatar = 'center';
     let marginName;
@@ -66,6 +69,10 @@ export default function Avatar({
         if (!isfollows) {
             followUser(userIdLogin, userFollow)
                 .then((res) => {
+                    dispatch({
+                        type: 'GET_USERFOLLOW_HOME_RESQUEST',
+                        payload: { SDT: numberphoneUserLogin },
+                    });
                     setIfollows(!isfollows);
                 })
                 .catch((err) => {
@@ -74,6 +81,10 @@ export default function Avatar({
         } else {
             unFollowUser(userIdLogin, userFollow)
                 .then((res) => {
+                    dispatch({
+                        type: 'GET_USERFOLLOW_HOME_RESQUEST',
+                        payload: { SDT: numberphoneUserLogin },
+                    });
                     setIfollows(!isfollows);
                 })
                 .catch((err) => {
@@ -87,7 +98,11 @@ export default function Avatar({
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                     <TouchableOpacity
                         onPress={() => {
-                            navigation.navigate('User', { data: data, isFollow: isfollows });
+                            navigation.navigate('User', {
+                                data: data,
+                                isFollow: isfollows,
+                                numberphoneUser: numberphoneUserLogin,
+                            });
                         }}
                         style={[
                             { flexDirection: nameVideoUser == '' ? 'column' : 'row', alignItems: 'center' },

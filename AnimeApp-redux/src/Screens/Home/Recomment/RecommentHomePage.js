@@ -17,6 +17,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function RecommentHomePage() {
     const [amv, setAmv] = useState([]);
     const [anime, setAnime] = useState([]);
+    const [userInfor, setUserInfor] = useState({ token: { accessToken: '' } });
     const [isHasVideo, setIsHasVideo] = useState(true);
 
     const navigation = useNavigation();
@@ -25,6 +26,7 @@ export default function RecommentHomePage() {
     const windowHeight = Dimensions.get('window').height;
 
     var getVideo = useSelector((state) => state.GetVideoHomeReducer);
+    var login = useSelector((state) => state.loginReducer);
 
     const getVideoHomeData = async () => {
         try {
@@ -41,7 +43,19 @@ export default function RecommentHomePage() {
         }
     };
 
-    // console.log('getVideo', getVideo);
+    const getData = async () => {
+        try {
+            var jsonValue = await AsyncStorage.getItem('my_login');
+            jsonValue = JSON.parse(jsonValue);
+            setUserInfor(jsonValue);
+        } catch (e) {
+            console.log('get AsyncStogare', e);
+        }
+    };
+
+    useEffect(() => {
+        getData();
+    }, [login]);
 
     useEffect(() => {
         if (getVideo.Videos.length != 0) {
@@ -105,6 +119,7 @@ export default function RecommentHomePage() {
                         {/* ImageVideo */}
                         {amv.map((video, index) => (
                             <AnimeMV
+                                numberphoneUserLogin={userInfor.sđt}
                                 dataAvatar={video.usderId}
                                 navigation={navigation}
                                 dataVideo={video.id}

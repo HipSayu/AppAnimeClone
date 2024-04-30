@@ -19,7 +19,9 @@ export default function FollowPage() {
     const navigation = useNavigation();
 
     var login = useSelector((state) => state.loginReducer);
+    var userFollowHomePage = useSelector((state) => state.GetUserfollowHomeReducer);
 
+    console.log('userFollowHomePage', userFollowHomePage);
     if (userInfor != undefined) {
         var userId = userInfor.id;
     }
@@ -40,19 +42,34 @@ export default function FollowPage() {
         }
     };
 
+    const getDataUserFollow = async () => {
+        try {
+            var userFollowPage = await AsyncStorage.getItem('my_home_userfollows');
+            userFollowPage = JSON.parse(userFollowPage);
+            setUserFollow(userFollowPage.items);
+        } catch (e) {
+            console.log('get AsyncStogare', e);
+        }
+    };
+
     useEffect(() => {
         getData();
     }, [login]);
 
     useEffect(() => {
-        getUserFollow(userId)
-            .then((res) => {
-                setUserFollow(res.data.items);
-            })
-            .catch((err) => {
-                console.log('Lỗi get User Follow', err);
-            });
-    }, [login, token]);
+        if (userFollowHomePage.Userfollows.length != 0) {
+            setUserFollow(userFollowHomePage.Userfollows);
+        } else {
+            getDataUserFollow();
+        }
+        // getUserFollow(userId)
+        //     .then((res) => {
+        //         setUserFollow(res.data.items);
+        //     })
+        //     .catch((err) => {
+        //         console.log('Lỗi get User Follow', err);
+        //     });
+    }, [login, userFollowHomePage]);
 
     useEffect(() => {
         getUserNotFollow(userId)
@@ -62,7 +79,7 @@ export default function FollowPage() {
             .catch((err) => {
                 console.log('Lỗi get User not Follow', err);
             });
-    }, [login, token]);
+    }, [login, token, userFollowHomePage]);
 
     console.log('userFollow', userFollow);
     console.log('userInfor', userInfor);
@@ -77,6 +94,7 @@ export default function FollowPage() {
                     >
                         {userFollow.map((user, index) => (
                             <Avatar
+                                numberphoneUserLogin={userInfor.sđt}
                                 isFollow={true}
                                 data={user.userFollowId}
                                 navigation={navigation}
@@ -112,6 +130,7 @@ export default function FollowPage() {
                         <View style={{ paddingHorizontal: 10 }}>
                             {userNotFollow.map((item, index) => (
                                 <Avatar
+                                    numberphoneUserLogin={userInfor.sđt}
                                     userIdLogin={userId}
                                     navigation={navigation}
                                     key={index}

@@ -20,7 +20,7 @@ const getVideoHomePage = async (pageSize = 10, pageIndex = 1, keyword = 'a') => 
     }
 };
 
-const getAnimeHomePage = async (pageSize = 10, pageIndex = 1, keyword = 'c') => {
+const getAnimeHomePage = async (pageSize = 5, pageIndex = 1, keyword = 'a') => {
     try {
         return await axios.get(`${host}${Anime}/get?pageSize=${pageSize}&pageIndex=${pageIndex}&keyword=${keyword}`);
     } catch (error) {

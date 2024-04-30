@@ -102,7 +102,10 @@ export default function AnimeHomePage() {
                 </View>
                 {/* Tiếp tục */}
                 <View style={{ marginTop: 20 }}>
-                    <Text style={[GlobalStyles.h4_Medium, { marginLeft: 10 }]}>Tiếp tục xem</Text>
+                    {animeContinuce.length > 0 && (
+                        <Text style={[GlobalStyles.h4_Medium, { marginLeft: 10 }]}>Tiếp tục xem</Text>
+                    )}
+
                     <ScrollView
                         horizontal
                         showsHorizontalScrollIndicator={false}

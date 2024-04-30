@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import React, { useEffect, useState } from 'react';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import GlobalStyles from '~/Styles/GlobalStyles';
 import Avatar from '~/Components/AvatarUser/Avatar';
@@ -21,6 +21,8 @@ export default function User({ route }) {
     const login = useSelector((state) => state.loginReducer);
 
     const isFollow = route.params.isFollow;
+
+    const dispatch = useDispatch();
 
     var isUser = route.params.isUser;
 
@@ -76,6 +78,7 @@ export default function User({ route }) {
             CheckIsFollow(userId, userFollowId)
                 .then((res) => {
                     console.log('isfollow axios', res.data);
+
                     setIfollows(res.data);
                 })
                 .catch((err) => {
@@ -88,6 +91,10 @@ export default function User({ route }) {
         if (!isfollows) {
             followUser(userIdLogin, userFollow)
                 .then((res) => {
+                    dispatch({
+                        type: 'GET_USERFOLLOW_HOME_RESQUEST',
+                        payload: { SDT: userInfor.sđt },
+                    });
                     setIfollows(!isfollows);
                 })
                 .catch((err) => {
@@ -96,6 +103,10 @@ export default function User({ route }) {
         } else {
             unFollowUser(userIdLogin, userFollow)
                 .then((res) => {
+                    dispatch({
+                        type: 'GET_USERFOLLOW_HOME_RESQUEST',
+                        payload: { SDT: userInfor.sđt },
+                    });
                     console.log('check unfollow', res);
                     setIfollows(!isfollows);
                 })

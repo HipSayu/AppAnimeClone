@@ -18,5 +18,7 @@ namespace ApiBasic.ApplicationServices.UserModule.Abstract
         PageResultDto<List<UserNotFollowDto>> GetAllUserNotFollow(FilterUserFollowDto input);
 
         PageResultDto<List<UserFollowDto>> GetAllUserFollowHomePage(FilterUserFollowHomeDto input);
+
+        PageResultDto<List<UserNotFollowDto>> GetAllUserNotFollowHomePage(FilterUserFollowHomeDto input);
     }
 }

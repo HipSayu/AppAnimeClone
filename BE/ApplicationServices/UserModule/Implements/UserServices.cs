@@ -229,7 +229,28 @@ namespace ApiBasic.ApplicationServices.UserModule.Implements
             };
         }
 
+        public PageResultDto<List<UserNotFollowDto>> GetAllUserNotFollowHomePage(FilterUserFollowHomeDto input)
+        {
+            int userId = _dbcontext.Users.FirstOrDefault(s => s.SĐT == input.NumberPhone).Id;
+            var userfollow = _dbcontext.UserFollows;
+            var user = _dbcontext
+                .Users.Where(u =>
+                    !userfollow.Any(uf => uf.FollowingId == u.Id && uf.FollowerId == userId) && u.Id != userId
+                )
+                .Select(u => new UserNotFollowDto
+                {
+                    AvatarUrl = u.AvatarUrl,
+                    UserFollowId = u.Id,
+                    UserName = u.UserName
+                }).Skip(input.PageSize * (input.PageIndex - 1))
+                    .Take(input.PageSize);
 
+            return new PageResultDto<List<UserNotFollowDto>>
+            {
+                Items = user.ToList(),
+                TotalItem = user.Count(),
+            };
+        }
 
         public UserWithVideoDto GetUserWithVideoById(int UserId)
         {
