@@ -119,7 +119,7 @@ export default function RecommentHomePage() {
                         {/* ImageVideo */}
                         {amv.map((video, index) => (
                             <AnimeMV
-                                numberphoneUserLogin={userInfor.sđt}
+                                // numberphoneUserLogin={userInfor.sđt}
                                 dataAvatar={video.usderId}
                                 navigation={navigation}
                                 dataVideo={video.id}

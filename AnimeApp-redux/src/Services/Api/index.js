@@ -91,7 +91,7 @@ const CheckSdt = async (number) => {
     }
 };
 
-const CreateUser = async (userName, password) => {
+const CreateUser = async (userName, password, SDT) => {
     try {
         return await axios.post(`${host}${User}/create`, {
             userName: userName,

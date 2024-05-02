@@ -210,6 +210,7 @@ export default function User({ route }) {
                                 sourceAnime={{ uri: video.avatarVideoUrl }}
                                 flexDirection="row"
                                 isHasAvatar={false}
+                                time={`00:${video.time}`}
                             />
                         ))}
                 </View>

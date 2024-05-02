@@ -6,7 +6,7 @@ import { Dimensions } from 'react-native';
 import React, { useState } from 'react';
 
 import GlobalStyles from '~/Styles/GlobalStyles';
-import axios from 'axios';
+
 import { CreateUser } from '~/Services/Api';
 
 const windowWidth = Dimensions.get('window').width;
@@ -81,7 +81,7 @@ export default function ResgisterNumberPhonePage({ route }) {
                     text: 'OK',
                     onPress: () => {
                         //API
-                        CreateUser(userName, password)
+                        CreateUser(userName, password, SDT)
                             .then((res) => {
                                 console.log('>>Check Response', res);
                                 Alert.alert('Thông báo', 'đăng ký thành công vui lòng đăng nhập', [

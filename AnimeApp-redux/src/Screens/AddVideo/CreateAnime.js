@@ -180,7 +180,7 @@ export default function CreateAnime() {
                                     shouldPlay: true,
                                     resizeMode: ResizeMode.CONTAIN,
                                     source: {
-                                        uri: video,
+                                        uri: video.uri,
                                     },
                                     ref: refVideo,
                                 }}

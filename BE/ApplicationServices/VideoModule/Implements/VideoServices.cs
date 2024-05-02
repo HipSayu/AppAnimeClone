@@ -25,7 +25,7 @@ namespace ApiBasic.ApplicationServices.VideoModule.Implements
                 {
                     UserId = input.UserId,
                     NameVideos = input.NameVideos,
-                    ThoiDiemTao = input.ThoiDiemTao,
+                    ThoiDiemTao = DateTime.Now,
                     Time = input.Time,
                     AvatarVideoUrl = input.AvatarVideoUrl,
                     UrlVideo = input.UrlVideo,

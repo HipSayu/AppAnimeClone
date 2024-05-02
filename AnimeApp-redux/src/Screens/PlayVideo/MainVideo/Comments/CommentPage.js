@@ -170,7 +170,7 @@ export default function CommentPage({ data }) {
                                                 source={require('~/Assets/Icon/IconVideo/Like.png')}
                                             />
                                             <Text style={[GlobalStyles.h5a, { marginLeft: 5, marginTop: 5 }]}>
-                                                1036
+                                                {/* 1036 */}
                                             </Text>
                                         </View>
                                         <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 5 }}>
@@ -179,7 +179,7 @@ export default function CommentPage({ data }) {
                                                 source={require('~/Assets/Icon/IconVideo/Dislike.png')}
                                             />
                                             <Text style={[GlobalStyles.h5a, { marginLeft: 5, marginTop: 5 }]}>
-                                                1036
+                                                {/* 1036 */}
                                             </Text>
                                         </View>
                                         <TouchableOpacity
