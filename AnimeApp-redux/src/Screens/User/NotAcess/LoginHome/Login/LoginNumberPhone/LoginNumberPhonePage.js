@@ -48,7 +48,7 @@ export default function LoginNumberPhonePage({ route }) {
                                     type: 'GET_VIDEO_HOME_RESQUEST',
                                 });
                                 dispatch({
-                                    type: 'GET_ANIME_HOME_RESQUEST',
+                                    type: 'GET_ANIME_CONTINUCE_RESQUEST',
                                 });
                                 dispatch({
                                     type: 'GET_USERFOLLOW_HOME_RESQUEST',

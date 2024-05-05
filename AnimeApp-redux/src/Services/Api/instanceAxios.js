@@ -247,8 +247,24 @@ const getAnimeHomePage = async () => {
     return instance.get(`/${Anime}/get-Home-Page?pageSize=5&pageIndex=1`);
 };
 
+const getAnimeContinucePage = async () => {
+    return instance.get(`/${Anime}/get?pageSize=10&pageIndex=1&keyword=c`);
+};
+
 const getUserFollowHomePage = async (numberPhone) => {
     return instance.get(`/${User}/get-all-user-follow-home-page?NumberPhone=${numberPhone}&pageSize=10&pageIndex=1`);
+};
+
+const getVideoSearch = async (pageSize, pageIndex, keyword) => {
+    return instance.get(`/${Video}/get-all?pageSize=${pageSize}&pageIndex=${pageIndex}&keyword=${keyword}`);
+};
+
+const getAnimeSearch = async (pageSize, pageIndex, keyword) => {
+    return instance.get(`/${Anime}/get?pageSize=${pageSize}&pageIndex=${pageIndex}&keyword=${keyword}`);
+};
+
+const getUserSearch = async (pageSize, pageIndex, data) => {
+    return instance.get(`/${User}/get-all?pageSize=${pageSize}&pageIndex=${pageIndex}&keyword=${data}`);
 };
 
 export {
@@ -269,4 +285,8 @@ export {
     getVideoHomePage,
     getAnimeHomePage,
     getUserFollowHomePage,
+    getAnimeContinucePage,
+    getAnimeSearch,
+    getVideoSearch,
+    getUserSearch,
 };

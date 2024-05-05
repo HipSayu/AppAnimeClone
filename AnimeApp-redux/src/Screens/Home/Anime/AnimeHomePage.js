@@ -1,13 +1,16 @@
-import { ImageBackground, ScrollView, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Dimensions } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 
 import GlobalStyles from '~/Styles/GlobalStyles';
 import { useNavigation } from '@react-navigation/native';
 import AnimeVideo from '~/Components/AnimeItems/AnimeVideo';
 import { getAnimeHomePage } from '~/Services/Api';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import { getDataStorage } from '~/Common/getDataStorage';
+import Popup from '~/Common/Constanst';
+import Loading from '~/Components/Adicator/Loading';
 
 const DataNav = [
     { Image: require('~/Assets/Icon/IconNav/List.png'), Name: 'Mục lục' },
@@ -18,52 +21,59 @@ const DataNav = [
 
 export default function AnimeHomePage() {
     const [animeContinuce, SetAnimeContinuce] = useState([]);
-    const [anime, setAnime] = useState([]);
     const [isHasAnime, setIsHasAnime] = useState(true);
+
     const navigation = useNavigation();
+    const dispatch = useDispatch();
 
     const windowWidth = Dimensions.get('window').width;
-
     const windowHeight = Dimensions.get('window').height;
 
-    useEffect(() => {
-        getAnimeHomePage((pageSize = 5), (pageIndex = 1), (keyword = 'c'))
-            .then((response) => {
-                setAnime(response.data.items);
-            })
-            .catch((error) => {
-                console.log('Lỗi Anime');
-            });
-    }, []);
+    const getAnime = useSelector((state) => state.GetAnimeHomeReducer);
+    let anime = getAnime.Animes;
+    let isloadingAnime = getAnime.isLoading;
+    let error = getAnime.error;
 
-    var getAnime = useSelector((state) => state.GetAnimeHomeReducer);
+    var getAnimeContinuce = useSelector((state) => state.getAnimeContinuceReducer);
 
-    const getAnimeHomeData = async () => {
-        try {
-            var animeHomes = await AsyncStorage.getItem('my_home_animes');
-            animeHomes = JSON.parse(animeHomes);
-            console.log('animeHome', animeHomes);
-            if (animeHomes != null) {
-                SetAnimeContinuce(animeHomes.items);
-            } else {
-                setIsHasAnime(!isHasAnime);
-            }
-        } catch (e) {
-            console.log('get AsyncStogare', e);
-        }
-    };
-    console.log('getAnime', getAnime);
+    const login = useSelector((state) => state.loginReducer);
+
+    console.log('getAnime', getAnimeContinuce);
 
     useEffect(() => {
-        if (getAnime.Animes.length != 0) {
-            SetAnimeContinuce(getAnime.Animes);
-        } else if (getAnime.Animes.length == 0 && isHasAnime) {
-            getAnimeHomeData();
+        if (getAnimeContinuce.animes.length != 0) {
+            SetAnimeContinuce(getAnimeContinuce.animes);
+        } else if (getAnimeContinuce.animes.length == 0 && isHasAnime) {
+            getDataStorage('MY_CONTINUCE_ANIME')
+                .then((data) => {
+                    if (data == null) {
+                        setIsHasAnime(!isHasAnime);
+                    } else {
+                        SetAnimeContinuce(data.items);
+                    }
+                })
+                .catch((error) => {
+                    Popup('Error', error);
+                    // console.log('Error', error);
+                });
         } else {
             SetAnimeContinuce([]);
         }
-    }, [isHasAnime, getAnime]);
+    }, [isHasAnime, getAnimeContinuce]);
 
+    useEffect(() => {
+        dispatch({
+            type: 'GET_ANIME_HOME_RESQUEST',
+        });
+    }, [login]);
+
+    if (error) {
+        return (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <Text>Error: Error Network</Text>
+            </View>
+        );
+    }
     return (
         <View style={[styles.Page, { backgroundColor: 'white' }]}>
             {/* Header Title */}
@@ -128,27 +138,31 @@ export default function AnimeHomePage() {
                 {/* Đang thịnh hành */}
                 <View style={{ marginTop: 20 }}>
                     <Text style={[GlobalStyles.h4_Medium, { marginLeft: 10 }]}>Đang thịnh hành</Text>
-                    <View
-                        style={{
-                            flexWrap: 'wrap',
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            marginLeft: 10,
-                        }}
-                    >
-                        {anime.map((item, index) => (
-                            <AnimeVideo
-                                idAnime={item.id}
-                                navigation={navigation}
-                                key={index}
-                                quality={item.quality}
-                                width={windowWidth / 2.2}
-                                height={96}
-                                image={{ uri: item.animeUrl }}
-                                name={item.nameAnime}
-                            />
-                        ))}
-                    </View>
+                    {isloadingAnime ? (
+                        <Loading />
+                    ) : (
+                        <View
+                            style={{
+                                flexWrap: 'wrap',
+                                flexDirection: 'row',
+                                justifyContent: 'space-between',
+                                marginLeft: 10,
+                            }}
+                        >
+                            {anime.map((item, index) => (
+                                <AnimeVideo
+                                    idAnime={item.id}
+                                    navigation={navigation}
+                                    key={index}
+                                    quality={item.quality}
+                                    width={windowWidth / 2.2}
+                                    height={96}
+                                    image={{ uri: item.animeUrl }}
+                                    name={item.nameAnime}
+                                />
+                            ))}
+                        </View>
+                    )}
                 </View>
             </ScrollView>
             {/* Anime List */}

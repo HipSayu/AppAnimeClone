@@ -8,8 +8,9 @@ import AnimeMV from '~/Components/AnimeVideo/AnimeMV';
 import GlobalStyles from '~/Styles/GlobalStyles';
 import { useSelector } from 'react-redux';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getUserFollow, getUserNotFollow } from '~/Services/Api/instanceAxios';
+import { getUserNotFollow } from '~/Services/Api/instanceAxios';
+import { getDataStorage } from '~/Common/getDataStorage';
+import Popup from '~/Common/Constanst';
 
 export default function FollowPage() {
     const [userFollow, setUserFollow] = useState([]);
@@ -18,57 +19,37 @@ export default function FollowPage() {
 
     const navigation = useNavigation();
 
-    var login = useSelector((state) => state.loginReducer);
-    var userFollowHomePage = useSelector((state) => state.GetUserfollowHomeReducer);
+    const login = useSelector((state) => state.loginReducer);
 
-    console.log('userFollowHomePage', userFollowHomePage);
+    const userFollowHomePage = useSelector((state) => state.GetUserfollowHomeReducer);
+
     if (userInfor != undefined) {
         var userId = userInfor.id;
-    }
-
-    if (userInfor != undefined) {
         var token = userInfor.token.accessToken;
     }
 
-    console.log('userId', userId);
-
-    const getData = async () => {
-        try {
-            var jsonValue = await AsyncStorage.getItem('my_login');
-            jsonValue = JSON.parse(jsonValue);
-            setUserInfor(jsonValue);
-        } catch (e) {
-            console.log('get AsyncStogare', e);
-        }
-    };
-
-    const getDataUserFollow = async () => {
-        try {
-            var userFollowPage = await AsyncStorage.getItem('my_home_userfollows');
-            userFollowPage = JSON.parse(userFollowPage);
-            setUserFollow(userFollowPage.items);
-        } catch (e) {
-            console.log('get AsyncStogare', e);
-        }
-    };
-
     useEffect(() => {
-        getData();
+        getDataStorage('my_login')
+            .then((data) => {
+                setUserInfor(data);
+            })
+            .catch((error) => {
+                Popup('Error Read Login', error.message);
+            });
     }, [login]);
 
     useEffect(() => {
         if (userFollowHomePage.Userfollows.length != 0) {
             setUserFollow(userFollowHomePage.Userfollows);
         } else {
-            getDataUserFollow();
+            getDataStorage('my_home_userfollows')
+                .then((data) => {
+                    setUserFollow(data.items);
+                })
+                .catch((error) => {
+                    Popup('Error Read Login');
+                });
         }
-        // getUserFollow(userId)
-        //     .then((res) => {
-        //         setUserFollow(res.data.items);
-        //     })
-        //     .catch((err) => {
-        //         console.log('Lỗi get User Follow', err);
-        //     });
     }, [login, userFollowHomePage]);
 
     useEffect(() => {
@@ -81,8 +62,6 @@ export default function FollowPage() {
             });
     }, [login, token, userFollowHomePage]);
 
-    console.log('userFollow', userFollow);
-    console.log('userInfor', userInfor);
     return (
         <View style={{ backgroundColor: GlobalStyles.white.color, flex: 1 }}>
             {userId != undefined ? (

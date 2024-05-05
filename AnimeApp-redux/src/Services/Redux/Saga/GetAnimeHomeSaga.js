@@ -12,6 +12,6 @@ export default function* GetAnimeHomeSaga(action) {
         yield put({ type: 'GET_ANIME_HOME_SUCCESS', payload: response.data.items });
     } catch (error) {
         console.log('Lỗi ANIME Saga', error);
-        yield put({ type: 'GET_ANIME_FAILURE', payload: error.message });
+        yield put({ type: 'GET_ANIME_HOME_FAILURE', payload: error.message });
     }
 }

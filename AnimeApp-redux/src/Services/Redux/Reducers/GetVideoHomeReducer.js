@@ -9,6 +9,9 @@ function GetVideoHomeReducer(state = initialState, { type, payload }) {
         case 'GET_VIDEO_HOME_RESQUEST': {
             return { ...state, isLoading: true, error: null };
         }
+        case 'GET_VIDEO_HOME_RESQUEST_NOT_LOGIN': {
+            return { ...state, isLoading: true, error: null };
+        }
         case 'GET_VIDEO_HOME_SUCCESS': {
             return { ...state, isLoading: false, Videos: payload };
         }

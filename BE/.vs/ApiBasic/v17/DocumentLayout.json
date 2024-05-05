@@ -72,7 +72,7 @@
               "RelativeDocumentMoniker": "ApplicationServices\\VideoModule\\Implements\\VideoServices.cs",
               "ToolTip": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\VideoModule\\Implements\\VideoServices.cs",
               "RelativeToolTip": "ApplicationServices\\VideoModule\\Implements\\VideoServices.cs",
-              "ViewState": "AQIAAA4AAAAAAAAAAAAAwBQAAAAwAAAA",
+              "ViewState": "AQIAAA4AAAAAAAAAAAAAwBMAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-01T08:56:00.318Z",
               "EditorCaption": ""
@@ -87,8 +87,7 @@
               "RelativeToolTip": "Domain\\Video.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-01T08:45:50.935Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-01T08:45:50.935Z"
             },
             {
               "$type": "Document",
@@ -100,8 +99,7 @@
               "RelativeToolTip": "ApplicationServices\\UserModule\\Abstract\\IUserServices.cs",
               "ViewState": "AQIAAAcAAAAAAAAAAAAzwBIAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-29T08:21:05.22Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-29T08:21:05.22Z"
             },
             {
               "$type": "Document",
@@ -113,8 +111,7 @@
               "RelativeToolTip": "ApplicationServices\\UserModule\\Implements\\UserServices.cs",
               "ViewState": "AQIAAPEAAAAAAAAAAAAAAPMAAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-29T08:15:33.826Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-29T08:15:33.826Z"
             },
             {
               "$type": "Document",
@@ -126,8 +123,7 @@
               "RelativeToolTip": "Controllers\\UserController.cs",
               "ViewState": "AQIAAIUAAAAAAAAAAAAuwIwAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-29T08:21:19.404Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-29T08:21:19.404Z"
             }
           ]
         },

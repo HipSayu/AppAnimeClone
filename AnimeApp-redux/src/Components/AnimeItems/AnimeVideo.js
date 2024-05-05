@@ -26,7 +26,6 @@ export default function AnimeVideo({
         axios
             .get(`http://localhost:5179/api/Anime/get-anime-video?AnimeId=${idAnime}`)
             .then((res) => {
-                // console.log(res.data);
                 navigation.navigate('PlayVideoPage', {
                     data: res.data.animeVideos[0].idVideo,
                     AnimeVideos: res.data.animeVideos,
@@ -60,6 +59,8 @@ export default function AnimeVideo({
                     >
                         {textInner != '' ? (
                             <Text
+                                ellipsizeMode="head"
+                                numberOfLines={2}
                                 style={[{ top: height / 1.2, right: width / 3 }, GlobalStyles.h5, GlobalStyles.white]}
                             >
                                 {textInner}
@@ -81,7 +82,11 @@ export default function AnimeVideo({
                                     },
                                 ]}
                             >
-                                <Text style={[GlobalStyles.h5_Medium, { color: GlobalStyles.white.color }]}>
+                                <Text
+                                    ellipsizeMode="head"
+                                    numberOfLines={2}
+                                    style={[GlobalStyles.h5_Medium, { color: GlobalStyles.white.color }]}
+                                >
                                     {quality}
                                 </Text>
                             </View>
@@ -91,9 +96,19 @@ export default function AnimeVideo({
                     </ImageBackground>
                     <View style={styleIsSearch}>
                         {/* Name Anime */}
-                        <Text style={[GlobalStyles.h4_Medium, { width: width, marginTop: 5 }]}>{name}</Text>
+                        <Text
+                            ellipsizeMode="head"
+                            numberOfLines={2}
+                            style={[GlobalStyles.h4_Medium, { width: width, marginTop: 5 }]}
+                        >
+                            {name}
+                        </Text>
                         {/* Text phụ */}
-                        <Text style={[GlobalStyles.h4_Regular, GlobalStyles.gray, { width: width - width * 0.2 }]}>
+                        <Text
+                            ellipsizeMode="head"
+                            numberOfLines={2}
+                            style={[GlobalStyles.h4_Regular, GlobalStyles.gray, { width: width - width * 0.2 }]}
+                        >
                             {continueText}
                         </Text>
                         {isSearch ? (

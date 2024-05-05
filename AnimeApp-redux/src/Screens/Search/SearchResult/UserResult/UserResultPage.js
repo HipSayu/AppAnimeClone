@@ -3,58 +3,55 @@ import React, { useEffect, useState } from 'react';
 import Avatar from '~/Components/AvatarUser/Avatar';
 import { useNavigation } from '@react-navigation/native';
 import GlobalStyles from '~/Styles/GlobalStyles';
-import axios from 'axios';
-import { PacmanIndicator } from 'react-native-indicators';
-import { getUserSearch } from '~/Services/Api';
+
+import { useDispatch, useSelector } from 'react-redux';
+import Loading from '~/Components/Adicator/Loading';
 
 export default function UserResultPage({ data }) {
-    const [result, setResult] = useState();
     const navigation = useNavigation();
 
+    const dispatch = useDispatch();
+    const dataSearchUser = useSelector((state) => state.getUserSearchReducer);
+    let user = dataSearchUser.users;
+    let isLoadingUser = dataSearchUser.isLoading;
+
     useEffect(() => {
-        getUserSearch(10, 1, data)
-            .then((res) => {
-                setResult(res.data.items);
-            })
-            .catch((err) => {
-                console.log('Lỗi Seacrh User', err);
-            });
+        dispatch({
+            type: 'GET_USER_SEARCH_RESQUEST',
+            payload: { pageSize: 20, pageIndex: 1, keyword: data },
+        });
     }, [data]);
 
     return (
         <ScrollView style={{ flex: 1, paddingLeft: 10, backgroundColor: GlobalStyles.white.color }}>
-            {!Array.isArray(result) ? (
-                <View style={{ alignItems: 'center', flex: 1, justifyContent: 'center' }}>
-                    <PacmanIndicator size={100} />
-                </View>
-            ) : (
-                <View>
-                    {result.length == 0 ? (
-                        <View style={{ alignItems: 'center', flex: 1, justifyContent: 'center' }}>
-                            <ImageBackground
-                                style={{ width: 150, height: 150 }}
-                                source={require('~/Assets/NoSearch.png')}
-                            ></ImageBackground>
-                            <Text>Xin lỗi kết quả tìm kiếm không phù hợp</Text>
-                        </View>
-                    ) : (
-                        <>
-                            {result.map((item, index) => (
-                                <View key={index} style={{ paddingHorizontal: 10 }}>
-                                    <Avatar
-                                        data={item.id}
-                                        navigation={navigation}
-                                        avatar={{ uri: item.avatarUrl }}
-                                        userName={item.userName}
-                                        isSearch={true}
-                                        time={`${item.follower}  người theo dõi | ${item.videos} Videos`}
-                                    />
-                                </View>
-                            ))}
-                        </>
-                    )}
-                </View>
-            )}
+            <View>
+                {user.length == 0 ? (
+                    <View style={{ alignItems: 'center', flex: 1, justifyContent: 'center' }}>
+                        <ImageBackground
+                            style={{ width: 150, height: 150 }}
+                            source={require('~/Assets/NoSearch.png')}
+                        ></ImageBackground>
+                        <Text>Xin lỗi kết quả tìm kiếm không phù hợp</Text>
+                    </View>
+                ) : isLoadingUser ? (
+                    <Loading />
+                ) : (
+                    <>
+                        {user.map((item, index) => (
+                            <View key={index} style={{ paddingHorizontal: 10 }}>
+                                <Avatar
+                                    data={item.id}
+                                    navigation={navigation}
+                                    avatar={{ uri: item.avatarUrl }}
+                                    userName={item.userName}
+                                    isSearch={true}
+                                    time={`${item.follower}  người theo dõi | ${item.videos} Videos`}
+                                />
+                            </View>
+                        ))}
+                    </>
+                )}
+            </View>
         </ScrollView>
     );
 }

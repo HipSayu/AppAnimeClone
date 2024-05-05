@@ -12,7 +12,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import GlobalStyles from '~/Styles/GlobalStyles';
 
-import { PacmanIndicator } from 'react-native-indicators';
 import { Getcomment } from '~/Services/Api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { CreateComment, CreateCommentChild } from '~/Services/Api/instanceAxios';
@@ -32,8 +31,6 @@ export default function CommentPage({ data }) {
     const windowHeight = Dimensions.get('window').height;
 
     const login = useSelector((state) => state.loginReducer);
-
-    // let userId = login.userInfo.id;
 
     const getData = async () => {
         try {

@@ -5,10 +5,14 @@ import React, { useEffect, useState } from 'react';
 
 import GlobalStyles from '~/Styles/GlobalStyles';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import { createSearchHistiory, getHistorySearchByIdToken, deleteSearchHistiory } from '~/Services/Api/instanceAxios';
+import { getDataStorage } from '~/Common/getDataStorage';
+import Popup from '~/Common/Constanst';
+import Loading from '~/Components/Adicator/Loading';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -17,51 +21,42 @@ const windowHeight = Dimensions.get('window').height;
 export default function SearchingPage() {
     const [search, setSearch] = useState('');
     const [isCreate, setIsCreate] = useState(false);
-    const [searchHistory, setSearchHistory] = useState([]);
+    // const [searchHistory, setSearchHistory] = useState([]);
     const [userInfor, setUserInfor] = useState({ token: { accessToken: '' } });
+
+    const dispatch = useDispatch();
 
     const navigation = useNavigation();
 
     const login = useSelector((state) => state.loginReducer);
 
-    // let userId = login.userInfo.id;
-
-    // let token = login.userInfo.tokenResponse.data.result.accessToken;
+    const dataSearchHistory = useSelector((state) => state.getHistorySearchReducer);
+    let searchHistory = dataSearchHistory.historySearch;
+    let isLoading = dataSearchHistory.isLoading;
 
     let widthSearch = 1.4;
 
-    if (userInfor != undefined) {
-        var userId = userInfor.id;
-    }
-
-    const getData = async () => {
-        try {
-            var jsonValue = await AsyncStorage.getItem('my_login');
-            jsonValue = JSON.parse(jsonValue);
-            setUserInfor(jsonValue);
-        } catch (e) {
-            console.log('get AsyncStogare', e);
-        }
-    };
     useEffect(() => {
-        getData();
+        getDataStorage('my_login')
+            .then((data) => {
+                setUserInfor(data);
+            })
+            .catch((error) => {
+                Popup('Error');
+            });
     }, []);
-
-    console.log('userInfor Search', userInfor);
 
     if (userInfor != undefined) {
         var token = userInfor.token.accessToken;
+        var userId = userInfor.id;
     }
 
     useEffect(() => {
-        getHistorySearchByIdToken(userId)
-            .then((res) => {
-                setSearchHistory(res.data.items);
-            })
-            .catch((err) => {
-                console.log('Lỗi Get Search', err);
-            });
-    }, [isCreate, token]);
+        dispatch({
+            type: 'GET_SEARCH_HISTORY_RESQUEST',
+            payload: { userId: userId },
+        });
+    }, [isCreate, userInfor]);
 
     const HandleDeleteSearch = () => {
         setSearch('');
@@ -149,45 +144,51 @@ export default function SearchingPage() {
                 </View>
                 {/* List */}
                 {userId != undefined ? (
-                    <ScrollView showsVerticalScrollIndicator={false}>
-                        {searchHistory.map((item, index) => (
-                            <View
-                                key={index}
-                                style={{
-                                    flexDirection: 'row',
-                                    justifyContent: 'space-between',
-                                    marginTop: 20,
-                                    paddingLeft: 10,
-                                }}
-                            >
-                                <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                                    <ImageBackground
-                                        style={{ width: 20, height: 20, marginRight: 10, marginTop: 5 }}
-                                        source={require('~/Assets/Icon/Clock.png')}
-                                    />
+                    isLoading ? (
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                            <Loading />
+                        </View>
+                    ) : (
+                        <ScrollView showsVerticalScrollIndicator={false}>
+                            {searchHistory.map((item, index) => (
+                                <View
+                                    key={index}
+                                    style={{
+                                        flexDirection: 'row',
+                                        justifyContent: 'space-between',
+                                        marginTop: 20,
+                                        paddingLeft: 10,
+                                    }}
+                                >
+                                    <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                                        <ImageBackground
+                                            style={{ width: 20, height: 20, marginRight: 10, marginTop: 5 }}
+                                            source={require('~/Assets/Icon/Clock.png')}
+                                        />
+                                        <TouchableOpacity
+                                            onPress={() => {
+                                                handleOnpress(item.searchKeyWord);
+                                            }}
+                                            style={{ padding: 5 }}
+                                        >
+                                            <Text>{item.searchKeyWord}</Text>
+                                        </TouchableOpacity>
+                                    </View>
                                     <TouchableOpacity
                                         onPress={() => {
-                                            handleOnpress(item.searchKeyWord);
+                                            handleDeleteSearch(item.id);
                                         }}
                                         style={{ padding: 5 }}
                                     >
-                                        <Text>{item.searchKeyWord}</Text>
+                                        <ImageBackground
+                                            style={{ width: 20, height: 20 }}
+                                            source={require('~/Assets/Icon/Close.png')}
+                                        />
                                     </TouchableOpacity>
                                 </View>
-                                <TouchableOpacity
-                                    onPress={() => {
-                                        handleDeleteSearch(item.id);
-                                    }}
-                                    style={{ padding: 5 }}
-                                >
-                                    <ImageBackground
-                                        style={{ width: 20, height: 20 }}
-                                        source={require('~/Assets/Icon/Close.png')}
-                                    />
-                                </TouchableOpacity>
-                            </View>
-                        ))}
-                    </ScrollView>
+                            ))}
+                        </ScrollView>
+                    )
                 ) : (
                     <ScrollView showsVerticalScrollIndicator={false}></ScrollView>
                 )}
