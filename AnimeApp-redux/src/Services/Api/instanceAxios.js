@@ -267,6 +267,18 @@ const getUserSearch = async (pageSize, pageIndex, data) => {
     return instance.get(`/${User}/get-all?pageSize=${pageSize}&pageIndex=${pageIndex}&keyword=${data}`);
 };
 
+const getUserFollowWithVideo = async (pageSize, pageIndex, userId) => {
+    return instance.get(`/${User}/get-all-user-follow?pageSize=${pageSize}&pageIndex=${pageIndex}&UserId=${userId}`, {
+        headers: {
+            Authorization: `Bearer ${await getLocalToken()}`,
+        },
+    });
+};
+
+const GetUserVideo = async (userFollowId) => {
+    return instance.get(`/${User}/get-user-with-Video-by-id/${userFollowId}`);
+};
+
 export {
     getHistorySearchByIdToken,
     createSearchHistiory,
@@ -289,4 +301,6 @@ export {
     getAnimeSearch,
     getVideoSearch,
     getUserSearch,
+    getUserFollowWithVideo,
+    GetUserVideo,
 };

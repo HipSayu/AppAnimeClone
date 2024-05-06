@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\da nen tang\\appanime\\be\\applicationservices\\usermodule\\implements\\userservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:applicationservices\\usermodule\\implements\\userservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\da nen tang\\appanime\\be\\applicationservices\\videomodule\\implements\\videoservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:applicationservices\\videomodule\\implements\\videoservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -13,10 +17,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\da nen tang\\appanime\\be\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\da nen tang\\appanime\\be\\applicationservices\\usermodule\\implements\\userservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|solutionrelative:applicationservices\\usermodule\\implements\\userservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{646728AE-FB5F-4D20-818B-A6BC70AEBE5E}|ApiBasic.csproj|d:\\workspace\\da nen tang\\appanime\\be\\applicationservices\\usermodule\\abstract\\iuserservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -67,19 +67,31 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "VideoServices.cs",
-              "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\VideoModule\\Implements\\VideoServices.cs",
-              "RelativeDocumentMoniker": "ApplicationServices\\VideoModule\\Implements\\VideoServices.cs",
-              "ToolTip": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\VideoModule\\Implements\\VideoServices.cs",
-              "RelativeToolTip": "ApplicationServices\\VideoModule\\Implements\\VideoServices.cs",
-              "ViewState": "AQIAAA4AAAAAAAAAAAAAwBMAAAAAAAAA",
+              "Title": "UserServices.cs",
+              "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\UserModule\\Implements\\UserServices.cs",
+              "RelativeDocumentMoniker": "ApplicationServices\\UserModule\\Implements\\UserServices.cs",
+              "ToolTip": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\UserModule\\Implements\\UserServices.cs",
+              "RelativeToolTip": "ApplicationServices\\UserModule\\Implements\\UserServices.cs",
+              "ViewState": "AQIAALMAAAAAAAAAAAAswL0AAAAjAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-01T08:56:00.318Z",
+              "WhenOpened": "2024-04-29T08:15:33.826Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "VideoServices.cs",
+              "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\VideoModule\\Implements\\VideoServices.cs",
+              "RelativeDocumentMoniker": "ApplicationServices\\VideoModule\\Implements\\VideoServices.cs",
+              "ToolTip": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\VideoModule\\Implements\\VideoServices.cs",
+              "RelativeToolTip": "ApplicationServices\\VideoModule\\Implements\\VideoServices.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-01T08:56:00.318Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "Video.cs",
               "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\Domain\\Video.cs",
               "RelativeDocumentMoniker": "Domain\\Video.cs",
@@ -104,18 +116,6 @@
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "UserServices.cs",
-              "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\UserModule\\Implements\\UserServices.cs",
-              "RelativeDocumentMoniker": "ApplicationServices\\UserModule\\Implements\\UserServices.cs",
-              "ToolTip": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\UserModule\\Implements\\UserServices.cs",
-              "RelativeToolTip": "ApplicationServices\\UserModule\\Implements\\UserServices.cs",
-              "ViewState": "AQIAAPEAAAAAAAAAAAAAAPMAAAApAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-29T08:15:33.826Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "UserController.cs",
               "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "Controllers\\UserController.cs",

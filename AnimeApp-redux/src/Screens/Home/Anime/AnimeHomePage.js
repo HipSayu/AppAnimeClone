@@ -20,8 +20,7 @@ const DataNav = [
 ];
 
 export default function AnimeHomePage() {
-    const [animeContinuce, SetAnimeContinuce] = useState([]);
-    const [isHasAnime, setIsHasAnime] = useState(true);
+    const [userInfor, setUserInfor] = useState(null);
 
     const navigation = useNavigation();
     const dispatch = useDispatch();
@@ -34,32 +33,29 @@ export default function AnimeHomePage() {
     let isloadingAnime = getAnime.isLoading;
     let error = getAnime.error;
 
-    var getAnimeContinuce = useSelector((state) => state.getAnimeContinuceReducer);
+    const getAnimeContinuce = useSelector((state) => state.getAnimeContinuceReducer);
+    let animeContinuce = getAnimeContinuce.animes;
 
     const login = useSelector((state) => state.loginReducer);
-
-    console.log('getAnime', getAnimeContinuce);
+    let isLogin = login.isLogin;
 
     useEffect(() => {
-        if (getAnimeContinuce.animes.length != 0) {
-            SetAnimeContinuce(getAnimeContinuce.animes);
-        } else if (getAnimeContinuce.animes.length == 0 && isHasAnime) {
-            getDataStorage('MY_CONTINUCE_ANIME')
-                .then((data) => {
-                    if (data == null) {
-                        setIsHasAnime(!isHasAnime);
-                    } else {
-                        SetAnimeContinuce(data.items);
-                    }
-                })
-                .catch((error) => {
-                    Popup('Error', error);
-                    // console.log('Error', error);
-                });
-        } else {
-            SetAnimeContinuce([]);
+        getDataStorage('my_login')
+            .then((data) => {
+                setUserInfor(data);
+            })
+            .catch((error) => {
+                Popup('Error Read Login', error.message);
+            });
+    }, []);
+    console.log('userInfor', userInfor);
+    useEffect(() => {
+        if (isLogin || userInfor != null) {
+            dispatch({
+                type: 'GET_ANIME_CONTINUCE_RESQUEST',
+            });
         }
-    }, [isHasAnime, getAnimeContinuce]);
+    }, [isLogin, userInfor]);
 
     useEffect(() => {
         dispatch({

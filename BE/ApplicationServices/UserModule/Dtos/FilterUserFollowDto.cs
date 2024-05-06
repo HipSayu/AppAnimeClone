@@ -1,9 +1,10 @@
-﻿using ApiBasic.Shared.Shared;
+﻿using ApiBasic.Shared.Filter;
+using ApiBasic.Shared.Shared;
 
 namespace ApiBasic.ApplicationServices.UserModule.Dtos
 {
-    public class FilterUserFollowDto:FilterDto
+    public class FilterUserFollowDto:FilterPageDto
     {
-        public int UserId { get; set; }
+       
     }
 }

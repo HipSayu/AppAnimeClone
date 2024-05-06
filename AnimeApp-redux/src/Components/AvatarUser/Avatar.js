@@ -71,27 +71,36 @@ export default function Avatar({
                 .then((res) => {
                     dispatch({
                         type: 'GET_USERFOLLOW_HOME_RESQUEST',
-                        payload: { SDT: numberphoneUserLogin },
+                        payload: { pageSize: 10, pageIndex: 1, userId: userIdLogin },
+                    });
+                    dispatch({
+                        type: 'GET_USER_NOT_FOLLOW_RESQUEST',
+                        payload: { userId: userIdLogin },
                     });
                     setIfollows(!isfollows);
                 })
                 .catch((err) => {
-                    console.log('Lỗi Follow', err);
+                    Popup(`Chưa đăng nhập`);
                 });
         } else {
             unFollowUser(userIdLogin, userFollow)
                 .then((res) => {
                     dispatch({
                         type: 'GET_USERFOLLOW_HOME_RESQUEST',
-                        payload: { SDT: numberphoneUserLogin },
+                        payload: { pageSize: 10, pageIndex: 1, userId: userIdLogin },
+                    });
+                    dispatch({
+                        type: 'GET_USER_NOT_FOLLOW_RESQUEST',
+                        payload: { userId: userIdLogin },
                     });
                     setIfollows(!isfollows);
                 })
                 .catch((err) => {
-                    console.log('Lỗi UnFollow', err);
+                    Popup(`Chưa đăng nhập `);
                 });
         }
     };
+
     return (
         <>
             {!isUser ? (

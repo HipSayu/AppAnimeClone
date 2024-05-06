@@ -6,7 +6,6 @@ export default function* GetVideoHomeSaga(action) {
     try {
         console.log('Video_hOME_Saga Action:', action);
         const response = yield call(getVideoHomePage);
-        console.log('Video_hOME_Saga :', response.data);
 
         AsyncStorage.setItem('my_home_videos', JSON.stringify(response.data));
 

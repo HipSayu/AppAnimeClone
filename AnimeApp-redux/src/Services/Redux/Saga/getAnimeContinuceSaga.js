@@ -7,7 +7,7 @@ export default function* getAnimeContinuceSaga(action) {
         console.log('Anime_Continuce_Saga Action:', action);
         const response = yield call(getAnimeContinucePage);
         AsyncStorage.setItem('MY_CONTINUCE_ANIME', JSON.stringify(response.data));
-        console.log('anime continuce  :', response.data);
+
         yield put({ type: 'GET_ANIME_CONTINUCE_SUCCESS', payload: response.data.items });
     } catch (error) {
         console.log('Lỗi ANIME Saga', error);

@@ -5,7 +5,7 @@ export default function* deleteAnimeContinuceSaga(action) {
     try {
         console.log('Delete_Anime_hOME_Saga Action:', action);
 
-        AsyncStorage.removeItem('my_continuce_anime');
+        AsyncStorage.removeItem('MY_CONTINUCE_ANIME');
 
         yield put({ type: 'DELETE_ANIME_CONTINUCE_SUCCESS', payload: [] });
     } catch (error) {

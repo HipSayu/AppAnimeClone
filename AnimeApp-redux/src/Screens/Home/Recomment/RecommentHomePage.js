@@ -15,9 +15,7 @@ import { getDataStorage } from '~/Common/getDataStorage';
 import Loading from '~/Components/Adicator/Loading';
 
 export default function RecommentHomePage() {
-    const [amv, setAmv] = useState([]);
-
-    const [isHasVideo, setIsHasVideo] = useState(true);
+    const [userInfor, setUserInfor] = useState(null);
 
     const navigation = useNavigation();
     const dispatch = useDispatch();
@@ -26,8 +24,10 @@ export default function RecommentHomePage() {
     const windowHeight = Dimensions.get('window').height;
 
     const login = useSelector((state) => state.loginReducer);
+    let isLogin = login.isLogin;
 
     const getVideo = useSelector((state) => state.GetVideoHomeReducer);
+    let amv = getVideo.Videos;
     let videoiSLoading = getVideo.isLoading;
 
     const getAnime = useSelector((state) => state.GetAnimeHomeReducer);
@@ -35,24 +35,28 @@ export default function RecommentHomePage() {
     let isloadingAnime = getAnime.isLoading;
 
     useEffect(() => {
-        if (getVideo.Videos.length != 0) {
-            setAmv(getVideo.Videos);
-        } else if (getVideo.Videos.length == 0 && isHasVideo) {
-            getDataStorage('my_home_videos').then((data) => {
-                if (data == null) {
-                    setIsHasVideo(!isHasVideo);
-                } else {
-                    setAmv(data.items);
-                }
+        getDataStorage('my_login')
+            .then((data) => {
+                setUserInfor(data);
+            })
+            .catch((error) => {
+                Popup('Error Read Login', error.message);
+            });
+    }, []);
+
+    useEffect(() => {
+        if (isLogin || userInfor != null) {
+            console.log('dispatch Login');
+            dispatch({
+                type: 'GET_VIDEO_HOME_RESQUEST',
             });
         } else {
             console.log('disptach');
             dispatch({
                 type: 'GET_VIDEO_HOME_RESQUEST_NOT_LOGIN',
             });
-            setIsHasVideo(!isHasVideo);
         }
-    }, [isHasVideo, getVideo]);
+    }, [isLogin, userInfor]);
 
     useEffect(() => {
         dispatch({

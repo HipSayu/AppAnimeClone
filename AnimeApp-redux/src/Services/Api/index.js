@@ -7,7 +7,6 @@ const Search = process.env.EXPO_PUBLIC_API_URL_SEARCH;
 const User = process.env.EXPO_PUBLIC_API_URL_USER;
 const LikeVideo = process.env.EXPO_PUBLIC_API_URL_USERLIKEVIDEO;
 const Comment = process.env.EXPO_PUBLIC_API_URL_COMMENT;
-const UserFollow = process.env.EXPO_PUBLIC_API_URL_USERFOLLOW;
 const Login = process.env.EXPO_PUBLIC_API_URL_LOGIN;
 
 const getVideoHomePage = async (pageSize = 10, pageIndex = 1, keyword = 'a') => {
