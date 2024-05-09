@@ -60,6 +60,19 @@ namespace ApiBasic.Controllers
             }
         }
 
+        [HttpGet("get-Video-play-video")]
+        public ActionResult GetVideoPlayVideo(FilterVideoPlayDto input)
+        {
+            try
+            {
+                return Ok(_iVideoServices.GetVideoPlayVideo(input));
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
+
         [HttpDelete("delete/{VideoId}")]
         public ActionResult Delete(int VideoId)
         {

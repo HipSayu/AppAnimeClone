@@ -7,11 +7,13 @@ import { setStatusBarHidden } from 'expo-status-bar';
 import * as ScreenOrientation from 'expo-screen-orientation';
 
 import MainVideoHomePage from './MainVideo/MainVideoHomePage';
-import { getVideoById } from '~/Services/Api';
+
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function PlayVideoPage({ route }) {
     const [inFullscreen, setInFullsreen] = useState(false);
-    const [video, setVideo] = useState({});
+
+    const dispatch = useDispatch();
 
     const refVideo = useRef(null);
 
@@ -21,22 +23,18 @@ export default function PlayVideoPage({ route }) {
 
     let animevideo = route.params.AnimeVideos;
 
+    const getVideoData = useSelector((state) => state.getVideoPlayReducer);
+    let video = getVideoData.videoinformation;
+
     useEffect(() => {
-        getVideoById(IdVideo)
-            .then((res) => {
-                setVideo(res.data);
-            })
-            .catch((err) => {
-                console.log('Lỗi GetVideoById', err);
-            });
+        dispatch({
+            type: 'GET_VIDEO_PLAY_RESQUEST',
+            payload: { IdVideo: IdVideo },
+        });
     }, [IdVideo]);
 
-    console.log('video', video);
     const windowWidth = Dimensions.get('window').width;
     const windowHeight = Dimensions.get('window').height;
-
-    console.log('IdVideo', IdVideo);
-
     return (
         <>
             <View style={{ backgroundColor: '#fff', zIndex: 2 }}>

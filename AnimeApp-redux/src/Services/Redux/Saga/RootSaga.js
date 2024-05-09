@@ -18,6 +18,11 @@ import getUserSearchSaga from './SearchSaga/getUserSearchSaga';
 import getUserNotFollowSaga from './userSaga/getUserNotFollowSaga';
 import getUserVideoSaga from './userSaga/getUserVideoSaga';
 import checktUserFollowSaga from './userFollowSaga/checktUserFollowSaga';
+import getVideoPlaySaga from './videoSaga/getVideoPlaySaga';
+import getVideoPlayVideoPageSaga from './videoSaga/getVideoPlayVideoPageSaga';
+import getLikeVideoSaga from './videoSaga/getLikeVideoSaga';
+import checkLikeVideoSaga from './videoSaga/checkLikeVideoSaga';
+import getCommentSaga from './commentSaga/getCommentSaga';
 
 export default RootSaga = function* () {
     yield all([
@@ -43,5 +48,12 @@ export default RootSaga = function* () {
         takeEvery('GET_USER_SEARCH_RESQUEST', getUserSearchSaga),
 
         takeEvery('CHECK_USER_FOLLOW_RESQUEST', checktUserFollowSaga),
+
+        takeEvery('GET_VIDEO_PLAY_RESQUEST', getVideoPlaySaga),
+        takeEvery('GET_VIDEO_PLAY_PLAY_VIDEO_PAGE_RESQUEST', getVideoPlayVideoPageSaga),
+        takeEvery('GET_LIKE_VIDEO_RESQUEST', getLikeVideoSaga),
+        takeEvery('GET_CHECK_IS_LIKE_VIDEO_RESQUEST', checkLikeVideoSaga),
+
+        takeEvery('GET_COMMENT_RESQUEST', getCommentSaga),
     ]);
 };

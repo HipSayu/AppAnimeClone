@@ -14,8 +14,8 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const renderScene = SceneMap({
-    first: () => <RecommentHomePage />,
-    second: () => <AnimeHomePage />,
+    first: RecommentHomePage,
+    second: AnimeHomePage,
 });
 
 const renderTabBar = (props) => (

@@ -28,7 +28,7 @@ export default function FollowPage() {
     const userNotFollowData = useSelector((state) => state.getUserNotFollowReducer);
     let userNotFollow = userNotFollowData.userNotFollow;
     let isLoadingNotFollow = userNotFollowData.isLoading;
-    console.log('userFollow', userFollow);
+    console.log('userFollow', login);
 
     useEffect(() => {
         getDataStorage('my_login')
@@ -38,7 +38,7 @@ export default function FollowPage() {
             .catch((error) => {
                 Popup('Error Read Login', error.message);
             });
-    }, []);
+    }, [login]);
 
     console.log('userInfor Follow', userInfor);
 
@@ -52,11 +52,6 @@ export default function FollowPage() {
                 type: 'GET_USERFOLLOW_HOME_RESQUEST',
                 payload: { pageSize: 10, pageIndex: 1, userId: userId },
             });
-        }
-    }, [userInfor]);
-
-    useEffect(() => {
-        if (userInfor != null) {
             dispatch({
                 type: 'GET_USER_NOT_FOLLOW_RESQUEST',
                 payload: { userId: userId },

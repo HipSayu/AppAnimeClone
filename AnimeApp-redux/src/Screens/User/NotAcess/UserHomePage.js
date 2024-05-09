@@ -44,12 +44,7 @@ export default function UserHomePage({}) {
                         type: LOGOUT_REQUEST,
                         payload: { SDT: 'Logout', userName: 'Logout', password: 'Logout' },
                     });
-                    dispatch({
-                        type: 'DELETE_ANIME_CONTINUCE_RESQUEST',
-                    });
-                    dispatch({
-                        type: 'DELETE_VIDEO_HOME_RESQUEST',
-                    });
+
                     navigation.navigate('HomeScreenPage');
                 },
                 style: 'cancel',
@@ -65,7 +60,7 @@ export default function UserHomePage({}) {
     // console.log('CheckUserInfor login', login);
 
     return (
-        <View style={{ paddingTop: 10 }}>
+        <View style={{ paddingTop: 10, backgroundColor: GlobalStyles.white.color, flex: 1 }}>
             {/* Header */}
             <View style={{ flexDirection: 'row-reverse', justifyContent: 'space-between', marginTop: 10 }}>
                 <View style={{ flexDirection: 'row' }}>

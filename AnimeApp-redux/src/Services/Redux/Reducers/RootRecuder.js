@@ -15,6 +15,12 @@ import getUserNotFollowReducer from './UserReducer/getUserNotFollowReducer';
 import getUserVideoReducer from './UserReducer/getUserVideoReducer';
 import checkUserFollowReducer from './userFollowReducer/checkUserFollowReducer';
 
+import getVideoPlayReducer from './videoReducer/getVideoPlayReducer';
+import getVideoPlayVideoPageReducer from './videoReducer/getVideoPlayVideoPageReducer';
+import getLikeVideoReducer from './videoReducer/getLikeVideoReducer';
+import checkLikeVideoReducer from './videoReducer/checkLikeVideoReducer';
+import getCommentReducder from './commentReducer/getCommentReducder';
+
 export default RootReducer = combineReducers({
     loginReducer,
 
@@ -32,4 +38,11 @@ export default RootReducer = combineReducers({
     getUserSearchReducer,
 
     checkUserFollowReducer,
+
+    getVideoPlayReducer,
+    getVideoPlayVideoPageReducer,
+    getLikeVideoReducer,
+    checkLikeVideoReducer,
+
+    getCommentReducder,
 });

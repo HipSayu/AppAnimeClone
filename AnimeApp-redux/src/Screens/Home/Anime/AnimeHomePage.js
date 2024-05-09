@@ -6,7 +6,6 @@ import React, { useEffect, useState } from 'react';
 import GlobalStyles from '~/Styles/GlobalStyles';
 import { useNavigation } from '@react-navigation/native';
 import AnimeVideo from '~/Components/AnimeItems/AnimeVideo';
-import { getAnimeHomePage } from '~/Services/Api';
 
 import { getDataStorage } from '~/Common/getDataStorage';
 import Popup from '~/Common/Constanst';
@@ -47,21 +46,21 @@ export default function AnimeHomePage() {
             .catch((error) => {
                 Popup('Error Read Login', error.message);
             });
-    }, []);
+    }, [login]);
+
     console.log('userInfor', userInfor);
+
     useEffect(() => {
         if (isLogin || userInfor != null) {
             dispatch({
                 type: 'GET_ANIME_CONTINUCE_RESQUEST',
             });
         }
-    }, [isLogin, userInfor]);
 
-    useEffect(() => {
         dispatch({
             type: 'GET_ANIME_HOME_RESQUEST',
         });
-    }, [login]);
+    }, [isLogin, userInfor]);
 
     if (error) {
         return (

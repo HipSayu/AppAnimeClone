@@ -98,6 +98,33 @@ namespace ApiBasic.ApplicationServices.VideoModule.Implements
             };
         }
 
+        public PageResultDto<List<FindVideoDto>> GetVideoPlayVideo(FilterVideoPlayDto input)
+        {
+            var videos = _dbcontext
+                .Videos.Include(v => v.User)
+                .Where(v => v.Id != input.VideoId)
+                .Select(v => new FindVideoDto
+                {
+                    NameVideos = v.NameVideos,
+                    ThoiDiemTao = v.ThoiDiemTao,
+                    Time = v.Time,
+                    AvatarVideoUrl = v.AvatarVideoUrl,
+                    UrlVideo = v.UrlVideo,
+                    Id = v.Id,
+                    UsderId = v.User.Id,
+                    nameUser = v.User.UserName,
+                    AvatarUserUrl = v.User.AvatarUrl,
+                }).OrderBy(s => s.NameVideos)
+                .Where(u => u.UsderId != 1);
+            videos = videos.Skip(input.PageSize * (input.PageIndex - 1)).Take(input.PageSize);
+            return new PageResultDto<List<FindVideoDto>>
+            {
+                Items = videos.ToList(),
+                TotalItem = videos.Count(),
+            };
+        }
+
+
         public VideoDto GetById(int IdVideo)
         {
             var video =

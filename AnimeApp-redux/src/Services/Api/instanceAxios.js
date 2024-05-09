@@ -190,8 +190,8 @@ const CheckIsFollow = async (userId, userFollowId) => {
 
 // LikeVideo
 
-const CheckIslike = async (userId, data) => {
-    return instance.get(`/${LikeVideo}/CheckLikes?UserId=${userId}&VideoId=${data.id}`, {
+const CheckIslike = async (userId, idVideo) => {
+    return instance.get(`/${LikeVideo}/CheckLikes?UserId=${userId}&VideoId=${idVideo}`, {
         headers: {
             Authorization: `Bearer ${await getLocalToken()}`,
         },
@@ -279,6 +279,24 @@ const GetUserVideo = async (userFollowId) => {
     return instance.get(`/${User}/get-user-with-Video-by-id/${userFollowId}`);
 };
 
+const getVideoById = async (IdVideo) => {
+    return instance.get(`/${Video}/get-video-by-id/${IdVideo}`);
+};
+
+const getVideoPlayVideoPage = async (idVideo, pageSize = 10, pageIndex = 1) => {
+    return instance.get(
+        `/${Video}/get-Video-play-video?IdVideo=${idVideo}&pageSize=${pageSize}&pageIndex=${pageIndex}`,
+    );
+};
+
+const getLikeVideoById = async (idVideo) => {
+    return instance.get(`/${Video}/get-like-video-by-idVideo/${idVideo}`);
+};
+
+const GetcommentVideoPage = async (idVideo) => {
+    return instance.get(`/${Video}/get-video-with-comment/${idVideo}`);
+};
+
 export {
     getHistorySearchByIdToken,
     createSearchHistiory,
@@ -303,4 +321,8 @@ export {
     getUserSearch,
     getUserFollowWithVideo,
     GetUserVideo,
+    getVideoById,
+    getVideoPlayVideoPage,
+    getLikeVideoById,
+    GetcommentVideoPage,
 };

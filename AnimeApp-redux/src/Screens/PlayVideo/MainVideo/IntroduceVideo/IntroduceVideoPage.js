@@ -1,131 +1,108 @@
-import { Dimensions, ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, ImageBackground, ScrollView, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import React, { useEffect, useState } from 'react';
-
-import axios from 'axios';
-
-import { TouchableOpacity } from 'react-native';
-
 import { useNavigation } from '@react-navigation/native';
 
-import { useSelector } from 'react-redux';
-
-import { PacmanIndicator } from 'react-native-indicators';
+import { useDispatch, useSelector } from 'react-redux';
 
 import GlobalStyles from '~/Styles/GlobalStyles';
+
 import AnimeMV from '~/Components/AnimeVideo/AnimeMV';
-import { getLikeVideoById, getVideoDeXuat } from '~/Services/Api';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { CheckIslike, disLikeVideo, likeVideo } from '~/Services/Api/instanceAxios';
+import { disLikeVideo, likeVideo } from '~/Services/Api/instanceAxios';
+import { getDataStorage } from '~/Common/getDataStorage';
+import Loading from '~/Components/Adicator/Loading';
+import Popup from '~/Common/Constanst';
 
 export default function IntroduceVideoPage({ data, animeVideo, likes }) {
-    const [video, setVideo] = useState([]);
-    const [isLike, setIsLike] = useState(false);
-    const [like, setLike] = useState(likes);
     const [userInfor, setUserInfor] = useState({ token: { accessToken: '' } });
 
     const navigation = useNavigation();
+    const dispatch = useDispatch();
+
+    const likeVideoData = useSelector((state) => state.checkLikeVideoReducer);
+
+    let isLike = likeVideoData.isLike;
+
+    const videoData = useSelector((state) => state.getVideoPlayVideoPageReducer);
+    let video = videoData.videos;
+    let isLoadingVideo = videoData.isLoading;
+
+    const numberLike = useSelector((state) => state.getLikeVideoReducer);
+    let like = numberLike.likes;
+
+    const idVideo = data.id;
 
     const windowWidth = Dimensions.get('window').width;
-
     const windowHeight = Dimensions.get('window').height;
 
     const login = useSelector((state) => state.loginReducer);
 
-    // let userId = login.userInfo.id;
-
-    // console.log('animeVideo Introduce', animeVideo);
-
-    // console.log('Data Introduce', data);
-
-    //GetVideo DeXuat
     if (userInfor != undefined) {
         var userId = userInfor.id;
-        console.log('userId', userId);
     }
 
-    if (userInfor != undefined) {
-        var token = userInfor.token.accessToken;
-    }
-
-    const getData = async () => {
-        try {
-            var jsonValue = await AsyncStorage.getItem('my_login');
-            jsonValue = JSON.parse(jsonValue);
-            setUserInfor(jsonValue);
-        } catch (e) {
-            console.log('get AsyncStogare', e);
-        }
-    };
     useEffect(() => {
-        getData();
-    }, []);
-
-    useEffect(() => {
-        getVideoDeXuat(data)
-            .then((res) => {
-                console.log('Get Video De Xuat succsses');
-                setVideo(res.data.items);
+        dispatch({
+            type: 'GET_VIDEO_PLAY_PLAY_VIDEO_PAGE_RESQUEST',
+            payload: { idVideo: idVideo, pageSize: 10, pageIndex: 1 },
+        });
+        getDataStorage('my_login')
+            .then((data) => {
+                setUserInfor(data);
             })
-            .catch((err) => {
-                console.log('Lỗi Get Video De Xuat Introduce', err);
+            .catch((error) => {
+                Popup('Error Read Login', error.message);
             });
-    }, [data]);
-
-    //GetLike
-    useEffect(() => {
-        getLikeVideoById(data)
-            .then((res) => {
-                setLike(res.data.likes);
-            })
-            .catch((err) => {
-                console.log('Lỗi Axios', err);
-            });
-    }, [like]);
-
-    //Check isLike
+    }, [login]);
 
     useEffect(() => {
+        dispatch({
+            type: 'GET_LIKE_VIDEO_RESQUEST',
+            payload: { IdVideo: data.id },
+        });
         if (userId != undefined) {
-            CheckIslike(userId, data)
-                .then((res) => {
-                    console.log(res.data);
-                    setIsLike(res.data);
-                })
-                .catch((err) => {
-                    console.log('Lỗi CheckIsLike ', err);
-                });
+            dispatch({
+                type: 'GET_CHECK_IS_LIKE_VIDEO_RESQUEST',
+                payload: { userId: userId, idVideo: idVideo },
+            });
         } else {
             console.log('Chưa đăng nhập');
         }
-    }, [login, userInfor]);
+    }, [login, idVideo, userInfor]);
 
     const handleLike = (userId, idVideo) => {
         if (userId != undefined && !isLike) {
             likeVideo(userId, idVideo)
                 .then((res) => {
-                    setLike((prev) => prev + 1);
-                    setIsLike(!isLike);
+                    dispatch({
+                        type: 'GET_CHECK_IS_LIKE_VIDEO_RESQUEST',
+                        payload: { userId: userId, idVideo: idVideo },
+                    });
+                    dispatch({
+                        type: 'GET_LIKE_VIDEO_RESQUEST',
+                        payload: { IdVideo: data.id },
+                    });
                 })
                 .catch((err) => {
-                    console.log('Lỗi Like', err);
+                    Popup('Chưa đăng nhập');
                 });
         } else {
             disLikeVideo(userId, idVideo)
                 .then((res) => {
-                    setLike((prev) => prev - 1);
-                    setIsLike(!isLike);
+                    dispatch({
+                        type: 'GET_CHECK_IS_LIKE_VIDEO_RESQUEST',
+                        payload: { userId: userId, idVideo: idVideo },
+                    });
+                    dispatch({
+                        type: 'GET_LIKE_VIDEO_RESQUEST',
+                        payload: { IdVideo: data.id },
+                    });
                 })
                 .catch((err) => {
-                    console.log('Lỗi unLike', err);
+                    Popup('Chưa đăng nhập');
                 });
         }
     };
 
-    // console.log('video Introduce', video);
-
-    if (likes > 1000) {
-        setLike(likes / 1000 + 'K');
-    }
     return (
         <ScrollView
             showsVerticalScrollIndicator={false}
@@ -233,8 +210,8 @@ export default function IntroduceVideoPage({ data, animeVideo, likes }) {
                 <View>
                     <Text style={[GlobalStyles.h3_Medium, { marginTop: 10 }]}>Đề xuất cho bạn</Text>
                 </View>
-                {video.lenght == 0 ? (
-                    <PacmanIndicator size={100} color="black" />
+                {isLoadingVideo ? (
+                    <Loading />
                 ) : (
                     <View>
                         {video.map((item, index) => (

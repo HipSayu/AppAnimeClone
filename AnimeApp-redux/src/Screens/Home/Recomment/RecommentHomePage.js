@@ -42,7 +42,7 @@ export default function RecommentHomePage() {
             .catch((error) => {
                 Popup('Error Read Login', error.message);
             });
-    }, []);
+    }, [login]);
 
     useEffect(() => {
         if (isLogin || userInfor != null) {
