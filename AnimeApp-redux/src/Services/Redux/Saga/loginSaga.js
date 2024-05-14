@@ -8,18 +8,14 @@ export default function* loginSaga(action) {
     const userName = action.payload.userName;
     const password = action.payload.password;
     const SDT = action.payload.SDT;
-
     try {
         console.log('Login Saga Action:', action);
+
         const response = yield call(axios.post, `http://localhost:5179/api/Login/Login_Save_Token`, {
             numberPhone: SDT,
             userName: userName,
             password: password,
         });
-
-        var token = response.data.token.accessToken;
-        AsyncStorage.setItem('my_token', token);
-
         AsyncStorage.setItem('my_login', JSON.stringify(response.data));
         console.log('user :', response.data);
 

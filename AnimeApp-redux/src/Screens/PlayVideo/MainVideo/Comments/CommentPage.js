@@ -54,6 +54,7 @@ export default function CommentPage({ data }) {
                 Popup('Error Read Login', error.message);
             });
     }, [login]);
+
     const handleComment = () => {
         if (userId > 0) {
             console.log('check data', {
@@ -247,32 +248,34 @@ export default function CommentPage({ data }) {
 
             {/* CommentsAdd */}
             <View style={{ alignItems: 'center', backgroundColor: '#00000000' }}>
-                <View
-                    style={{
-                        width: windowWidth / 1.1,
-                        backgroundColor: '#8181813d',
-                        padding: 10,
-                        borderRadius: 10,
-                        justifyContent: 'center',
-                    }}
-                >
-                    <TextInput
-                        ref={inputRef}
-                        onBlur={() => {
-                            setidComment(0);
+                {userId > 0 && (
+                    <View
+                        style={{
+                            width: windowWidth / 1.1,
+                            backgroundColor: '#8181813d',
+                            padding: 10,
+                            borderRadius: 10,
+                            justifyContent: 'center',
                         }}
-                        placeholder="Để lại bình luận thân thiện"
-                        value={comment}
-                        onChangeText={setComment}
-                        onSubmitEditing={() => {
-                            if (idComment == 0) {
-                                handleComment();
-                            } else {
-                                handleCommentChild();
-                            }
-                        }}
-                    />
-                </View>
+                    >
+                        <TextInput
+                            ref={inputRef}
+                            onBlur={() => {
+                                setidComment(0);
+                            }}
+                            placeholder="Để lại bình luận thân thiện"
+                            value={comment}
+                            onChangeText={setComment}
+                            onSubmitEditing={() => {
+                                if (idComment == 0) {
+                                    handleComment();
+                                } else {
+                                    handleCommentChild();
+                                }
+                            }}
+                        />
+                    </View>
+                )}
             </View>
         </View>
     );

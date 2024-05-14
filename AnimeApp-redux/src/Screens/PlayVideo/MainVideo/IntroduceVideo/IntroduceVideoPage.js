@@ -221,8 +221,8 @@ export default function IntroduceVideoPage({ data, animeVideo, likes }) {
                                 sourceAvartar={{ uri: item.avatarUserUrl }}
                                 userName={item.nameUser}
                                 sourceAnime={{ uri: item.avatarVideoUrl }}
-                                width={2.1}
-                                height={100}
+                                width={2.3}
+                                height={90}
                                 ViewAvatar="1.M lượt xem"
                                 widthAvatar={20}
                                 isSearch={true}

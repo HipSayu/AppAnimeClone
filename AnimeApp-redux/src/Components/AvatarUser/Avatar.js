@@ -305,7 +305,9 @@ export default function Avatar({
                             <Text style={[GlobalStyles.h5_Regular, GlobalStyles.gray]}>{time}</Text>
                         </View>
                     </View>
-                    <Text style={[{ marginLeft: 25 }, GlobalStyles.h4_Medium]}>{nameVideo}</Text>
+                    <Text ellipsizeMode="head" style={[{ marginLeft: 20 }, GlobalStyles.h4_Medium]}>
+                        {nameVideo}
+                    </Text>
                 </TouchableOpacity>
             )}
         </>

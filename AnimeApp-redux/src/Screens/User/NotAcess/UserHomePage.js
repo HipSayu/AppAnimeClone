@@ -7,31 +7,33 @@ import ActionList from '../Action/ActionList';
 import GlobalStyles from '~/Styles/GlobalStyles';
 import { useDispatch, useSelector } from 'react-redux';
 import { LOGOUT_REQUEST } from '~/Services/Action/action';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getDataStorage } from '~/Common/getDataStorage';
+import Loading from '~/Components/Adicator/Loading';
 
 export default function UserHomePage({}) {
-    const [isLogin, setIsLogin] = useState(false);
     const [userInfo, setUserInfo] = useState({});
-    const [token, setToken] = useState('');
+
     const dispatch = useDispatch();
     const navigation = useNavigation();
 
     const login = useSelector((state) => state.loginReducer);
+    var isLoading = login.isLoading;
+
+    console.log('isLoading', isLoading);
 
     useEffect(() => {
-        setUserInfo(login.userInfo);
-        getData();
-    }, [login]);
-
-    const getData = async () => {
-        try {
-            var user = await AsyncStorage.getItem('my_login');
-            user = JSON.parse(user);
-            setUserInfo(user);
-        } catch (e) {
-            console.log('error Token', e);
+        if (login.userInfo.length > 0) {
+            setUserInfo(login.userInfo);
+        } else {
+            getDataStorage('my_login')
+                .then((data) => {
+                    setUserInfo(data);
+                })
+                .catch((error) => {
+                    Popup('Error Read Login', error.message);
+                });
         }
-    };
+    }, [login]);
 
     console.log('userInfo', userInfo);
 
@@ -45,7 +47,7 @@ export default function UserHomePage({}) {
                         payload: { SDT: 'Logout', userName: 'Logout', password: 'Logout' },
                     });
 
-                    navigation.navigate('HomeScreenPage');
+                    // navigation.navigate('HomeScreenPage');
                 },
                 style: 'cancel',
             },
@@ -57,102 +59,116 @@ export default function UserHomePage({}) {
         ]);
     };
 
-    // console.log('CheckUserInfor login', login);
-
     return (
-        <View style={{ paddingTop: 10, backgroundColor: GlobalStyles.white.color, flex: 1 }}>
-            {/* Header */}
-            <View style={{ flexDirection: 'row-reverse', justifyContent: 'space-between', marginTop: 10 }}>
-                <View style={{ flexDirection: 'row' }}>
-                    <TouchableOpacity onPress={() => navigation.goBack()}>
-                        <ImageBackground
-                            style={{ width: 20, height: 20, marginRight: 20, marginTop: 10 }}
-                            source={require('~/Assets/Icon/Camera.png')}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.goBack()}>
-                        <ImageBackground
-                            style={{ width: 20, height: 20, marginRight: 20, marginTop: 10 }}
-                            source={require('~/Assets/Icon/QR.png')}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.goBack()}>
-                        <ImageBackground
-                            style={{ width: 20, height: 20, marginRight: 20, marginTop: 10 }}
-                            source={require('~/Assets/Icon/Email.png')}
-                        />
-                    </TouchableOpacity>
-                </View>
-            </View>
-            {/* Account */}
-            <View style={{ marginLeft: 10, marginTop: 10 }}>
-                {userInfo == null ? (
-                    // Chưa login
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('LoginHome')}
-                        style={{ flexDirection: 'row', alignItems: 'center' }}
-                    >
-                        <ImageBackground
-                            borderRadius={25}
-                            style={{ width: 50, height: 50 }}
-                            source={require('~/Assets/Avatar/Avatar.png')}
-                        />
-                        <Text style={[{ marginLeft: 20 }, GlobalStyles.h4]}>Đăng nhập</Text>
-                    </TouchableOpacity>
-                ) : (
-                    // Login
-                    <TouchableOpacity
-                        onPress={() => {
-                            navigation.navigate('User', { data: userInfo.id, isFollow: false, isUser: true });
-                        }}
-                        style={{ flexDirection: 'row', alignItems: 'center' }}
-                    >
-                        <ImageBackground
-                            borderRadius={30}
-                            style={{ width: 60, height: 60 }}
-                            source={{ uri: userInfo.avatarUrl }}
-                        />
-                        <View style={{ marginLeft: 15 }}>
-                            <Text style={[GlobalStyles.h3, {}]}>{userInfo.userName}</Text>
-                            <View style={{ flexDirection: 'row' }}>
-                                <View style={{ marginRight: 15, justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text style={[GlobalStyles.h4, { color: GlobalStyles.gray.color }]}>
-                                        {userInfo.videos}
-                                    </Text>
-                                    <Text style={[GlobalStyles.h4, { color: GlobalStyles.gray.color }]}>Video</Text>
-                                </View>
-                                <View style={{ marginRight: 15, justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text style={[GlobalStyles.h4, { color: GlobalStyles.gray.color }]}>
-                                        {userInfo.following}
-                                    </Text>
-                                    <Text style={[GlobalStyles.h4, { color: GlobalStyles.gray.color }]}>
-                                        Người theo dõi
-                                    </Text>
-                                </View>
-                                <View style={{ marginRight: 15, justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text style={[GlobalStyles.h4, { color: GlobalStyles.gray.color }]}>
-                                        {userInfo.follower}
-                                    </Text>
-                                    <Text style={[GlobalStyles.h4, { color: GlobalStyles.gray.color }]}>
-                                        Đang theo dõi
-                                    </Text>
-                                </View>
-                            </View>
+        <>
+            {isLoading ? (
+                <Loading />
+            ) : (
+                <View style={{ paddingTop: 10, backgroundColor: GlobalStyles.white.color, flex: 1 }}>
+                    {/* Header */}
+
+                    <View style={{ flexDirection: 'row-reverse', justifyContent: 'space-between', marginTop: 10 }}>
+                        <View style={{ flexDirection: 'row' }}>
+                            <TouchableOpacity onPress={() => navigation.goBack()}>
+                                <ImageBackground
+                                    style={{ width: 20, height: 20, marginRight: 20, marginTop: 10 }}
+                                    source={require('~/Assets/Icon/Camera.png')}
+                                />
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => navigation.goBack()}>
+                                <ImageBackground
+                                    style={{ width: 20, height: 20, marginRight: 20, marginTop: 10 }}
+                                    source={require('~/Assets/Icon/QR.png')}
+                                />
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => navigation.goBack()}>
+                                <ImageBackground
+                                    style={{ width: 20, height: 20, marginRight: 20, marginTop: 10 }}
+                                    source={require('~/Assets/Icon/Email.png')}
+                                />
+                            </TouchableOpacity>
                         </View>
-                    </TouchableOpacity>
-                )}
+                    </View>
+                    {/* Account */}
+                    <View style={{ marginLeft: 10, marginTop: 10 }}>
+                        {userInfo == null ? (
+                            // Chưa login
+                            <TouchableOpacity
+                                onPress={() => navigation.navigate('LoginHome')}
+                                style={{ flexDirection: 'row', alignItems: 'center' }}
+                            >
+                                <ImageBackground
+                                    borderRadius={25}
+                                    style={{ width: 50, height: 50 }}
+                                    source={require('~/Assets/Avatar/Avatar.png')}
+                                />
+                                <Text style={[{ marginLeft: 20 }, GlobalStyles.h4]}>Đăng nhập</Text>
+                            </TouchableOpacity>
+                        ) : (
+                            // Login
 
-                <ActionList Name="Lịch sử" />
-                <ActionList IconLeft={require('~/Assets/Icon/Download.png')} Name="Đã tải xuống" />
-                <ActionList IconLeft={require('~/Assets/Icon/Muc.png')} Name="Mục ưa thích" />
-                <ActionList IconLeft={require('~/Assets/Icon/store.png')} Name="Cửa hàng" />
-                <ActionList IconLeft={require('~/Assets/Icon/settings.png')} Name="Cài đặt" />
-                <ActionList IconLeft={require('~/Assets/Icon/help.png')} Name="Trợ giúp" />
-                <ActionList IconLeft={require('~/Assets/Icon/message.png')} Name="Phản hồi" />
+                            <TouchableOpacity
+                                onPress={() => {
+                                    navigation.navigate('User', { data: userInfo.id, isFollow: false, isUser: true });
+                                }}
+                                style={{ flexDirection: 'row', alignItems: 'center' }}
+                            >
+                                <ImageBackground
+                                    borderRadius={30}
+                                    style={{ width: 60, height: 60 }}
+                                    source={{ uri: userInfo.avatarUrl }}
+                                />
+                                <View style={{ marginLeft: 15 }}>
+                                    <Text style={[GlobalStyles.h3, {}]}>{userInfo.userName}</Text>
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <View
+                                            style={{ marginRight: 15, justifyContent: 'center', alignItems: 'center' }}
+                                        >
+                                            <Text style={[GlobalStyles.h4, { color: GlobalStyles.gray.color }]}>
+                                                {userInfo.videos}
+                                            </Text>
+                                            <Text style={[GlobalStyles.h4, { color: GlobalStyles.gray.color }]}>
+                                                Video
+                                            </Text>
+                                        </View>
+                                        <View
+                                            style={{ marginRight: 15, justifyContent: 'center', alignItems: 'center' }}
+                                        >
+                                            <Text style={[GlobalStyles.h4, { color: GlobalStyles.gray.color }]}>
+                                                {userInfo.following}
+                                            </Text>
+                                            <Text style={[GlobalStyles.h4, { color: GlobalStyles.gray.color }]}>
+                                                Người theo dõi
+                                            </Text>
+                                        </View>
+                                        <View
+                                            style={{ marginRight: 15, justifyContent: 'center', alignItems: 'center' }}
+                                        >
+                                            <Text style={[GlobalStyles.h4, { color: GlobalStyles.gray.color }]}>
+                                                {userInfo.follower}
+                                            </Text>
+                                            <Text style={[GlobalStyles.h4, { color: GlobalStyles.gray.color }]}>
+                                                Đang theo dõi
+                                            </Text>
+                                        </View>
+                                    </View>
+                                </View>
+                            </TouchableOpacity>
+                        )}
 
-                <ActionList onPress={handleLogout} IconLeft={require('~/Assets/Icon/help.png')} Name="Logout" />
-            </View>
-        </View>
+                        <ActionList Name="Lịch sử" />
+                        <ActionList IconLeft={require('~/Assets/Icon/Download.png')} Name="Đã tải xuống" />
+                        <ActionList IconLeft={require('~/Assets/Icon/Muc.png')} Name="Mục ưa thích" />
+                        <ActionList IconLeft={require('~/Assets/Icon/store.png')} Name="Cửa hàng" />
+                        <ActionList IconLeft={require('~/Assets/Icon/settings.png')} Name="Cài đặt" />
+                        <ActionList IconLeft={require('~/Assets/Icon/help.png')} Name="Trợ giúp" />
+                        <ActionList IconLeft={require('~/Assets/Icon/message.png')} Name="Phản hồi" />
+
+                        <ActionList onPress={handleLogout} IconLeft={require('~/Assets/Icon/help.png')} Name="Logout" />
+                    </View>
+                </View>
+            )}
+        </>
     );
 }
 

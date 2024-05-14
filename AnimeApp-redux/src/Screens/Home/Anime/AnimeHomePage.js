@@ -56,7 +56,6 @@ export default function AnimeHomePage() {
                 type: 'GET_ANIME_CONTINUCE_RESQUEST',
             });
         }
-
         dispatch({
             type: 'GET_ANIME_HOME_RESQUEST',
         });
