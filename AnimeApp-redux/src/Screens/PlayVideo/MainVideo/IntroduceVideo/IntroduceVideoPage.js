@@ -59,15 +59,12 @@ export default function IntroduceVideoPage({ data, animeVideo, likes }) {
             type: 'GET_LIKE_VIDEO_RESQUEST',
             payload: { IdVideo: data.id },
         });
-        if (userId != undefined) {
-            dispatch({
-                type: 'GET_CHECK_IS_LIKE_VIDEO_RESQUEST',
-                payload: { userId: userId, idVideo: idVideo },
-            });
-        } else {
-            console.log('Chưa đăng nhập');
-        }
-    }, [login, idVideo, userInfor]);
+        console.log('userId PlayVideo', userId);
+        dispatch({
+            type: 'GET_CHECK_IS_LIKE_VIDEO_RESQUEST',
+            payload: { userId: userId, idVideo: idVideo },
+        });
+    }, [login, userInfor]);
 
     const handleLike = (userId, idVideo) => {
         if (userId != undefined && !isLike) {

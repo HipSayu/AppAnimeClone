@@ -26,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 10,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
@@ -62,6 +62,19 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "VideoController.cs",
+              "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\Controllers\\VideoController.cs",
+              "RelativeDocumentMoniker": "Controllers\\VideoController.cs",
+              "ToolTip": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\Controllers\\VideoController.cs",
+              "RelativeToolTip": "Controllers\\VideoController.cs",
+              "ViewState": "AQIAADQAAAAAAAAAAAAAAEQAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-07T07:04:20.294Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
               "Title": "IVideoServices.cs",
               "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\ApplicationServices\\VideoModule\\Abstract\\IVideoServices.cs",
@@ -83,19 +96,6 @@
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-07T07:07:12.51Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "VideoController.cs",
-              "DocumentMoniker": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\Controllers\\VideoController.cs",
-              "RelativeDocumentMoniker": "Controllers\\VideoController.cs",
-              "ToolTip": "D:\\workspace\\Da nen Tang\\AppAnime\\BE\\Controllers\\VideoController.cs",
-              "RelativeToolTip": "Controllers\\VideoController.cs",
-              "ViewState": "AQIAADIAAAAAAAAAAAAuwEQAAAANAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-07T07:04:20.294Z",
-              "EditorCaption": ""
             },
             {
               "$type": "Document",

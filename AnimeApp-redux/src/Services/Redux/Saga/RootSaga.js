@@ -23,6 +23,7 @@ import getVideoPlayVideoPageSaga from './videoSaga/getVideoPlayVideoPageSaga';
 import getLikeVideoSaga from './videoSaga/getLikeVideoSaga';
 import checkLikeVideoSaga from './videoSaga/checkLikeVideoSaga';
 import getCommentSaga from './commentSaga/getCommentSaga';
+import checkLikeNotLoginVideoSaga from './videoSaga/checkLikeNotLoginVideoSaga';
 
 export default RootSaga = function* () {
     yield all([
@@ -52,6 +53,7 @@ export default RootSaga = function* () {
         takeEvery('GET_VIDEO_PLAY_RESQUEST', getVideoPlaySaga),
         takeEvery('GET_VIDEO_PLAY_PLAY_VIDEO_PAGE_RESQUEST', getVideoPlayVideoPageSaga),
         takeEvery('GET_LIKE_VIDEO_RESQUEST', getLikeVideoSaga),
+        takeEvery('GET_CHECK_IS_LIKE_NOT_LOGIN_VIDEO_RESQUEST', checkLikeNotLoginVideoSaga),
         takeEvery('GET_CHECK_IS_LIKE_VIDEO_RESQUEST', checkLikeVideoSaga),
 
         takeEvery('GET_COMMENT_RESQUEST', getCommentSaga),

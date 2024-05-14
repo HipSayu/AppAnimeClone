@@ -11,6 +11,6 @@ export default function* checkLikeVideoSaga(action) {
         yield put({ type: 'GET_CHECK_IS_LIKE_VIDEO_SUCCESS', payload: response.data });
     } catch (error) {
         console.log('Lỗi Get_Check_Like_Video_Play Saga', error);
-        yield put({ type: 'GET_CHECK_IS_LIKE_VIDEO_FAILURE', payload: error.message });
+        yield put({ type: 'GET_CHECK_IS_LIKE_VIDEO_SUCCESS', payload: false });
     }
 }
