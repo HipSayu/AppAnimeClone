@@ -1,5 +1,5 @@
 import { put, call } from 'redux-saga/effects';
-import { CheckIslike } from '~/Services/Api/instanceAxios';
+import { CheckIslike } from '~/Services/Action/PlayVideoPage';
 
 export default function* checkLikeVideoSaga(action) {
     const userId = action.payload.userId;

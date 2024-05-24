@@ -2,7 +2,7 @@ import { ActivityIndicator, ImageBackground, ScrollView, StyleSheet, Text, View 
 import { Dimensions } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import AnimeVideo from '~/Components/AnimeItems/AnimeVideo';
-import { getAnimeHomePage } from '~/Services/Api';
+
 import { useDispatch, useSelector } from 'react-redux';
 import Loading from '~/Components/Adicator/Loading';
 

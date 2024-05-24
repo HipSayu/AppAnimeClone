@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux';
 
-import loginReducer from './loginReducer';
-import GetVideoHomeReducer from './GetVideoHomeReducer';
-import GetAnimeHomeReducer from './GetAnimeHomeReducer';
-import getAnimeContinuceReducer from './getAnimeContinuceReducer';
+import loginReducer from './LoginReducer/loginReducer';
+
+import GetVideoHomeReducer from './HomePageReducer/GetVideoHomeReducer';
+import GetAnimeHomeReducer from './HomePageReducer/GetAnimeHomeReducer';
+import getAnimeContinuceReducer from './HomePageReducer/getAnimeContinuceReducer';
 
 import getHistorySearchReducer from './SearchReducer/getHistorySearchReducer';
 import getAnimeSearchReducer from './SearchReducer/getAnimeSearchReducer';

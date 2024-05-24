@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 
 import GlobalStyles from '~/Styles/GlobalStyles';
 
-import { CreateUser } from '~/Services/Api';
+import { CreateUser } from '~/Services/Action/Login';
 
 const windowWidth = Dimensions.get('window').width;
 

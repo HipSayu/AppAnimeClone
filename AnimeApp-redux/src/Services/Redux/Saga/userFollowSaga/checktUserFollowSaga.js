@@ -1,6 +1,5 @@
-import { useDispatch } from 'react-redux';
 import { put, call } from 'redux-saga/effects';
-import { CheckIsFollow } from '~/Services/Api/instanceAxios';
+import { CheckIsFollow } from '~/Services/Action/UserPage';
 
 export default function* checktUserFollowSaga(action) {
     const userId = action.payload.userId;

@@ -7,9 +7,7 @@ import GlobalStyles from '~/Styles/GlobalStyles';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-import { createSearchHistiory, getHistorySearchByIdToken, deleteSearchHistiory } from '~/Services/Api/instanceAxios';
+import { createSearchHistiory, deleteSearchHistiory } from '~/Services/Action/SearchPage';
 import { getDataStorage } from '~/Common/getDataStorage';
 import Popup from '~/Common/Constanst';
 import Loading from '~/Components/Adicator/Loading';
@@ -61,6 +59,7 @@ export default function SearchingPage() {
     const HandleDeleteSearch = () => {
         setSearch('');
     };
+
     const handleOnpress = (searchKey) => {
         navigation.navigate('SearchResultPage', { data: searchKey });
     };

@@ -1,5 +1,5 @@
 import { put, call } from 'redux-saga/effects';
-import { getVideoSearch } from '~/Services/Api/instanceAxios';
+import { getVideoSearch } from '~/Services/Action/SearchPage';
 
 export default function* getVideoSearchSaga(action) {
     const pageSize = action.payload.pageSize;

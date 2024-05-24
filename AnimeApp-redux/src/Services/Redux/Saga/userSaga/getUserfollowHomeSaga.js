@@ -1,7 +1,5 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import { put, call } from 'redux-saga/effects';
-import { getUserFollowWithVideo } from '~/Services/Api/instanceAxios';
+import { getUserFollowWithVideo } from '~/Services/Action/UserPage';
 
 export default function* getUserfollowHomeSaga(action) {
     const pageSize = action.payload.pageSize;

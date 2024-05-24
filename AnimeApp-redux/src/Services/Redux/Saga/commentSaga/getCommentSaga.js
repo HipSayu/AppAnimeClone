@@ -1,5 +1,5 @@
 import { put, call } from 'redux-saga/effects';
-import { GetcommentVideoPage } from '~/Services/Api/instanceAxios';
+import { GetcommentVideoPage } from '~/Services/Action/PlayVideoPage';
 
 export default function* getCommentSaga(action) {
     const idVideo = action.payload.idVideo;

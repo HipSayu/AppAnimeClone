@@ -1,5 +1,5 @@
 import { put, call } from 'redux-saga/effects';
-import { getUserSearch } from '~/Services/Api/instanceAxios';
+import { getUserSearch } from '~/Services/Action/SearchPage';
 
 export default function* getUserSearchSaga(action) {
     const pageSize = action.payload.pageSize;

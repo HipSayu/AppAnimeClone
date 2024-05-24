@@ -1,5 +1,5 @@
 import { put, call } from 'redux-saga/effects';
-import { GetUserVideo } from '~/Services/Api/instanceAxios';
+import { GetUserVideo } from '~/Services/Action/UserPage';
 
 export default function* getUserVideoSaga(action) {
     const userFollowId = action.payload.userFollowId;

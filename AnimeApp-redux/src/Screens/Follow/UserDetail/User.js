@@ -10,7 +10,7 @@ import GlobalStyles from '~/Styles/GlobalStyles';
 import Avatar from '~/Components/AvatarUser/Avatar';
 import AnimeMV from '~/Components/AnimeVideo/AnimeMV';
 
-import { followUser, unFollowUser } from '~/Services/Api/instanceAxios';
+import { followUser, unFollowUser } from '~/Services/Action/UserPage';
 import { getDataStorage } from '~/Common/getDataStorage';
 import Popup from '~/Common/Constanst';
 import Loading from '~/Components/Adicator/Loading';

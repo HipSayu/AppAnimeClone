@@ -7,8 +7,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import GlobalStyles from '~/Styles/GlobalStyles';
 
 import AnimeMV from '~/Components/AnimeVideo/AnimeMV';
-import { disLikeVideo, likeVideo } from '~/Services/Api/instanceAxios';
+
+import { disLikeVideo, likeVideo } from '~/Services/Action/PlayVideoPage';
+
 import { getDataStorage } from '~/Common/getDataStorage';
+
 import Loading from '~/Components/Adicator/Loading';
 import Popup from '~/Common/Constanst';
 
@@ -66,6 +69,7 @@ export default function IntroduceVideoPage({ data, animeVideo, likes }) {
         });
     }, [login, userInfor]);
 
+    //Error o day
     const handleLike = (userId, idVideo) => {
         if (userId != undefined && !isLike) {
             likeVideo(userId, idVideo)

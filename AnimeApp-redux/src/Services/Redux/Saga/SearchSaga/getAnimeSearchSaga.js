@@ -1,5 +1,5 @@
 import { put, call } from 'redux-saga/effects';
-import { getAnimeSearch } from '~/Services/Api/instanceAxios';
+import { getAnimeSearch } from '~/Services/Action/SearchPage';
 
 export default function* getAnimeSearchSaga(action) {
     const pageSize = action.payload.pageSize;

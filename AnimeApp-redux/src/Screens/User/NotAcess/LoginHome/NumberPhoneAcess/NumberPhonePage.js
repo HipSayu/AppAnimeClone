@@ -5,35 +5,43 @@ import { Dimensions } from 'react-native';
 import React, { useState } from 'react';
 import GlobalStyles from '~/Styles/GlobalStyles';
 
-import axios from 'axios';
-import { CheckSdt } from '~/Services/Api';
+import { CheckNumberPhone } from '~/Services/Action/Login';
 
-const regexNumberPhone = /(84|0[3|5|7|8|9])+([0-9]{8})\b/g;
+import Popup from '~/Common/Constanst';
 
+const regexNumberPhone = /^[0-9\-\+]{9,15}$/;
+
+const windowWidth = Dimensions.get('window').width;
 export default function NumberPhonePage() {
-    const windowWidth = Dimensions.get('window').width;
-
     const navigation = useNavigation();
 
-    const [number, setNumber] = useState();
+    const [number, setNumber] = useState('');
 
-    const [validate, setValidate] = useState('');
+    const [isNumberPhone, setIsNumberPhone] = useState(true);
 
-    const [isSDT, setIsSDT] = useState(false);
+    const handleNumberPhoneChange = (text) => {
+        if (!text.startsWith(' ')) {
+            setNumber(text);
+        }
+        if (!regexNumberPhone.test(number.trim())) {
+            setIsNumberPhone(true);
+        } else {
+            setIsNumberPhone(false);
+        }
+    };
 
     const HandleValidation = (number) => {
-        if (!regexNumberPhone.test(number.trim())) {
-            CheckSdt(number)
+        if (regexNumberPhone.test(number.trim())) {
+            CheckNumberPhone(number)
                 .then((response) => {
+                    console.log('response', response.data);
                     navigation.navigate('LoginNumberPhonePage', { SDT: number });
                 })
                 .catch((error) => {
                     navigation.navigate('ResgisterNumberPhonePage', { SDT: number });
                 });
         } else {
-            setValidate('Số điện thoại không chính xác');
-            setIsSDT(false);
-            return false;
+            Popup('Số điện thoại không chính xác');
         }
     };
 
@@ -54,16 +62,18 @@ export default function NumberPhonePage() {
                     <View>
                         <TextInput
                             value={number}
-                            onChangeText={setNumber}
+                            onChangeText={handleNumberPhoneChange}
                             keyboardType={'numeric'}
                             autoFocus={true}
                             numeric
                             placeholder="Nhập số điện thoại"
                             style={{ borderBottomWidth: 1, width: windowWidth / 1.5, marginLeft: 10, paddingLeft: 10 }}
                         ></TextInput>
-                        <Text style={[{ marginLeft: 15, color: GlobalStyles.red.color }, GlobalStyles.h5]}>
-                            {validate}
-                        </Text>
+                        {isNumberPhone && (
+                            <Text style={[{ marginLeft: 15, color: GlobalStyles.red.color }, GlobalStyles.h5]}>
+                                Số điện thoại không chính xác
+                            </Text>
+                        )}
                     </View>
                 </View>
             </View>

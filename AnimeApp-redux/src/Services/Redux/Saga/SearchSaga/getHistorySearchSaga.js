@@ -1,5 +1,5 @@
 import { put, call } from 'redux-saga/effects';
-import { getHistorySearchByIdToken } from '~/Services/Api/instanceAxios';
+import { getHistorySearchByIdToken } from '~/Services/Action/SearchPage';
 
 export default function* getHistorySearchSaga(action) {
     const userId = action.payload.userId;

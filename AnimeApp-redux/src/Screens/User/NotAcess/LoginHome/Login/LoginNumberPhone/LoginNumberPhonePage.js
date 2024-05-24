@@ -10,7 +10,7 @@ import { LOGIN_REQUEST } from '~/Services/Action/action';
 
 import GlobalStyles from '~/Styles/GlobalStyles';
 
-import { LoginUser } from '~/Services/Api';
+import { LoginUser } from '~/Services/Action/Login';
 
 const windowWidth = Dimensions.get('window').width;
 

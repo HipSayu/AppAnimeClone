@@ -1,23 +1,28 @@
 import { all, takeEvery, takeLatest } from 'redux-saga/effects';
-import loginSaga from './loginSaga';
 import { LOGIN_REQUEST, LOGOUT_REQUEST } from '~/Services/Action/action';
 
-import logoutSaga from './logoutSaga';
-import GetVideoHomeSaga from './GetVideoHomeSaga';
-import DeleteVideoHomeSaga from './DeleteVideoHomeSaga';
-import GetAnimeHomeSaga from './GetAnimeHomeSaga';
-import DeleteAnimeHomeSaga from './DeleteAnimeHomeSaga';
+import loginSaga from './loginSaga/loginSaga';
+import logoutSaga from './loginSaga/logoutSaga';
+
+import getVideoHomeSaga from './homePageSaga/getVideoHomeSaga';
+import deleteVideoHomeSaga from './homePageSaga/deleteVideoHomeSaga';
+import getAnimeHomeSaga from './homePageSaga/getAnimeHomeSaga';
+import deleteAnimeHomeSaga from './homePageSaga/deleteAnimeHomeSaga';
 import getUserfollowHomeSaga from './userSaga/getUserfollowHomeSaga';
-import getVideoHomePageNotLoginSaga from './getVideoHomePageNotLoginSaga';
-import GetAnimeContinuceSaga from './getAnimeContinuceSaga';
-import deleteAnimeContinuceSaga from './deleteAnimeContinuceSaga';
+import getVideoHomePageNotLoginSaga from './homePageSaga/getVideoHomePageNotLoginSaga';
+import GetAnimeContinuceSaga from './homePageSaga/getAnimeContinuceSaga';
+import deleteAnimeContinuceSaga from './homePageSaga/deleteAnimeContinuceSaga';
+
 import getHistorySearchSaga from './SearchSaga/getHistorySearchSaga';
+
 import getAnimeSearchSaga from './SearchSaga/getAnimeSearchSaga';
 import getVideoSearchSaga from './SearchSaga/getVideoSearchSaga';
 import getUserSearchSaga from './SearchSaga/getUserSearchSaga';
+
 import getUserNotFollowSaga from './userSaga/getUserNotFollowSaga';
 import getUserVideoSaga from './userSaga/getUserVideoSaga';
 import checktUserFollowSaga from './userFollowSaga/checktUserFollowSaga';
+
 import getVideoPlaySaga from './videoSaga/getVideoPlaySaga';
 import getVideoPlayVideoPageSaga from './videoSaga/getVideoPlayVideoPageSaga';
 import getLikeVideoSaga from './videoSaga/getLikeVideoSaga';
@@ -30,12 +35,12 @@ export default RootSaga = function* () {
         takeLatest(LOGIN_REQUEST, loginSaga),
         takeLatest(LOGOUT_REQUEST, logoutSaga),
 
-        takeEvery('GET_VIDEO_HOME_RESQUEST', GetVideoHomeSaga),
-        takeEvery('DELETE_VIDEO_HOME_RESQUEST', DeleteVideoHomeSaga),
+        takeEvery('GET_VIDEO_HOME_RESQUEST', getVideoHomeSaga),
+        takeEvery('DELETE_VIDEO_HOME_RESQUEST', deleteVideoHomeSaga),
         takeEvery('GET_VIDEO_HOME_RESQUEST_NOT_LOGIN', getVideoHomePageNotLoginSaga),
 
-        takeEvery('GET_ANIME_HOME_RESQUEST', GetAnimeHomeSaga),
-        takeEvery('DELETE_ANIME_HOME_RESQUEST', DeleteAnimeHomeSaga),
+        takeEvery('GET_ANIME_HOME_RESQUEST', getAnimeHomeSaga),
+        takeEvery('DELETE_ANIME_HOME_RESQUEST', deleteAnimeHomeSaga),
         takeEvery('GET_ANIME_CONTINUCE_RESQUEST', GetAnimeContinuceSaga),
         takeEvery('DELETE_ANIME_CONTINUCE_RESQUEST', deleteAnimeContinuceSaga),
 

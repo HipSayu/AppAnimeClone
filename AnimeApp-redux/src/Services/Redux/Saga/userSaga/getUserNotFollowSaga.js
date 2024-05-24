@@ -1,5 +1,5 @@
 import { put, call } from 'redux-saga/effects';
-import { getUserNotFollow } from '~/Services/Api/instanceAxios';
+import { getUserNotFollow } from '~/Services/Action/UserPage';
 
 export default function* getUserNotFollowSaga(action) {
     const userId = action.payload.userId;

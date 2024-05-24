@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 
 import GlobalStyles from '~/Styles/GlobalStyles';
 
-import { followUser, unFollowUser } from '~/Services/Api/instanceAxios';
+import { followUser, unFollowUser } from '~/Services/Action/UserPage';
 import { useDispatch } from 'react-redux';
 
 // Chiều rộng điện thoại

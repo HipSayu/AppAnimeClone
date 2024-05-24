@@ -1,5 +1,5 @@
 import { put, call } from 'redux-saga/effects';
-import { getVideoById } from '~/Services/Api/instanceAxios';
+import { getVideoById } from '~/Services/Action/PlayVideoPage';
 
 export default function* getVideoPlaySaga(action) {
     const IdVideo = action.payload.IdVideo;

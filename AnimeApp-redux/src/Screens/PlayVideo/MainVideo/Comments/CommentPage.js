@@ -12,7 +12,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import GlobalStyles from '~/Styles/GlobalStyles';
 
-import { CreateComment, CreateCommentChild } from '~/Services/Api/instanceAxios';
+import { CreateComment, CreateCommentChild } from '~/Services/Action/PlayVideoPage';
 import { getDataStorage } from '~/Common/getDataStorage';
 import Popup from '~/Common/Constanst';
 import Loading from '~/Components/Adicator/Loading';
@@ -25,8 +25,6 @@ export default function CommentPage({ data }) {
     const inputRef = useRef(null);
 
     const windowWidth = Dimensions.get('window').width;
-
-    const windowHeight = Dimensions.get('window').height;
 
     const dispatch = useDispatch();
     const idVideo = data.id;
