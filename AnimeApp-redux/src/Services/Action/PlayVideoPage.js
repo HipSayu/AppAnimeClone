@@ -5,7 +5,7 @@ const LIKEVIDEO = process.env.EXPO_PUBLIC_API_URL_USERLIKEVIDEO;
 const COMMENT = process.env.EXPO_PUBLIC_API_URL_COMMENT;
 const VIDEO = process.env.EXPO_PUBLIC_API_URL_VIDEO;
 
-const CheckIslike = async (userId, idVideo) => {
+const checkIslike = async (userId, idVideo) => {
     return instance.get(`/${LIKEVIDEO}/CheckLikes?UserId=${userId}&VideoId=${idVideo}`, {
         headers: {
             Authorization: `Bearer ${await getLocalToken()}`,
@@ -45,7 +45,7 @@ const disLikeVideo = async (userId, idVideo) => {
     );
 };
 
-const CreateComment = async (comment, data, userId) => {
+const createComment = async (comment, data, userId) => {
     return instance.post(
         `/${COMMENT}/Create`,
         {
@@ -61,7 +61,7 @@ const CreateComment = async (comment, data, userId) => {
     );
 };
 
-const CreateCommentChild = async (comment, data, userId, idComment) => {
+const createCommentChild = async (comment, data, userId, idComment) => {
     return instance.post(
         `/${COMMENT}/Create-comment-child`,
         {
@@ -92,18 +92,18 @@ const getLikeVideoById = async (idVideo) => {
     return instance.get(`/${VIDEO}/get-like-video-by-idVideo/${idVideo}`);
 };
 
-const GetcommentVideoPage = async (idVideo) => {
+const getcommentVideoPage = async (idVideo) => {
     return instance.get(`/${VIDEO}/get-video-with-comment/${idVideo}`);
 };
 
 export {
-    CheckIslike,
+    checkIslike,
     likeVideo,
     disLikeVideo,
-    CreateComment,
-    CreateCommentChild,
+    createComment,
+    createCommentChild,
     getVideoById,
     getVideoPlayVideoPage,
     getLikeVideoById,
-    GetcommentVideoPage,
+    getcommentVideoPage,
 };

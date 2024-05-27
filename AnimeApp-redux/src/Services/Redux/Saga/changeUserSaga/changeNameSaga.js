@@ -1,5 +1,4 @@
 import { put, call } from 'redux-saga/effects';
-import { ChangeNameUser } from '~/Services/Action/UserPage';
 
 export default function* changeNameSaga(action) {
     // const userName = action.payload.userName;

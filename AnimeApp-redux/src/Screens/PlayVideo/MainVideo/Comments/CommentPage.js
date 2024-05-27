@@ -12,7 +12,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import GlobalStyles from '~/Styles/GlobalStyles';
 
-import { CreateComment, CreateCommentChild } from '~/Services/Action/PlayVideoPage';
+import { createComment, createCommentChild } from '~/Services/Action/PlayVideoPage';
 import { getDataStorage } from '~/Common/getDataStorage';
 import Popup from '~/Common/Constanst';
 import Loading from '~/Components/Adicator/Loading';
@@ -60,7 +60,7 @@ export default function CommentPage({ data }) {
                 videoId: data.id,
                 userId: userId,
             });
-            CreateComment(comment, data, userId)
+            createComment(comment, data, userId)
                 .then((res) => {
                     dispatch({
                         type: 'GET_COMMENT_RESQUEST',
@@ -83,7 +83,7 @@ export default function CommentPage({ data }) {
                 userId: userId,
                 parentCommentId: idComment,
             });
-            CreateCommentChild(comment, data, userId, idComment)
+            createCommentChild(comment, data, userId, idComment)
                 .then((res) => {
                     dispatch({
                         type: 'GET_COMMENT_RESQUEST',

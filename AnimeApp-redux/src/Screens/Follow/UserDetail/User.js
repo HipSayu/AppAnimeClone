@@ -10,7 +10,7 @@ import GlobalStyles from '~/Styles/GlobalStyles';
 import Avatar from '~/Components/AvatarUser/Avatar';
 import AnimeMV from '~/Components/AnimeVideo/AnimeMV';
 
-import { GetUserById, followUser, unFollowUser } from '~/Services/Action/UserPage';
+import { getUserById, followUser, unFollowUser } from '~/Services/Action/UserPage';
 import { getDataStorage } from '~/Common/getDataStorage';
 import Popup from '~/Common/Constanst';
 import Loading from '~/Components/Adicator/Loading';
@@ -59,7 +59,7 @@ export default function User({ route }) {
     useEffect(() => {
         getDataStorage('my_login')
             .then((data) => {
-                GetUserById(data.id)
+                getUserById(data.id)
                     .then((res) => {
                         setUserInfor(res.data);
                     })
@@ -238,7 +238,7 @@ export default function User({ route }) {
                                     navigation={navigation}
                                     dataVideo={video.id}
                                     key={video.id}
-                                    width={2.1}
+                                    width={2.3}
                                     height={100}
                                     viewAvatar={`1.M lượt xem    ${video.dayAgo} ngày trước`}
                                     isSearch={true}

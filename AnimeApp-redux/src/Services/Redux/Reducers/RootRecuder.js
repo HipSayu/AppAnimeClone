@@ -1,19 +1,19 @@
 import { combineReducers } from 'redux';
 
-import loginReducer from './LoginReducer/loginReducer';
+import loginReducer from './loginReducer/loginReducer';
 
-import GetVideoHomeReducer from './HomePageReducer/GetVideoHomeReducer';
-import GetAnimeHomeReducer from './HomePageReducer/GetAnimeHomeReducer';
-import getAnimeContinuceReducer from './HomePageReducer/getAnimeContinuceReducer';
+import GetVideoHomeReducer from './homePageReducer/GetVideoHomeReducer';
+import GetAnimeHomeReducer from './homePageReducer/GetAnimeHomeReducer';
+import getAnimeContinuceReducer from './homePageReducer/getAnimeContinuceReducer';
 
-import getHistorySearchReducer from './SearchReducer/getHistorySearchReducer';
-import getAnimeSearchReducer from './SearchReducer/getAnimeSearchReducer';
-import getVideoSearchReducer from './SearchReducer/getVideoSearchReducer';
-import getUserSearchReducer from './SearchReducer/getUserSearchReducer';
+import getHistorySearchReducer from './searchReducer/getHistorySearchReducer';
+import getAnimeSearchReducer from './searchReducer/getAnimeSearchReducer';
+import getVideoSearchReducer from './searchReducer/getVideoSearchReducer';
+import getUserSearchReducer from './searchReducer/getUserSearchReducer';
 
-import getUserfollowHomeReducer from './UserReducer/getUserfollowHomeReducer';
-import getUserNotFollowReducer from './UserReducer/getUserNotFollowReducer';
-import getUserVideoReducer from './UserReducer/getUserVideoReducer';
+import getUserfollowHomeReducer from './userReducer/getUserfollowHomeReducer';
+import getUserNotFollowReducer from './userReducer/getUserNotFollowReducer';
+import getUserVideoReducer from './userReducer/getUserVideoReducer';
 import checkUserFollowReducer from './userFollowReducer/checkUserFollowReducer';
 
 import getVideoPlayReducer from './videoReducer/getVideoPlayReducer';

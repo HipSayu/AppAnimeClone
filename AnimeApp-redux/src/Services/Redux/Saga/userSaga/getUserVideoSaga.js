@@ -1,5 +1,5 @@
 import { put, call } from 'redux-saga/effects';
-import { GetUserVideo } from '~/Services/Action/UserPage';
+import { getUserVideo } from '~/Services/Action/UserPage';
 
 export default function* getUserVideoSaga(action) {
     const userFollowId = action.payload.userFollowId;
@@ -7,7 +7,7 @@ export default function* getUserVideoSaga(action) {
 
     try {
         console.log('UserVideo_Saga Action:', action);
-        const response = yield call(GetUserVideo, userFollowId);
+        const response = yield call(getUserVideo, userFollowId);
 
         yield put({ type: 'GET_USER_VIDEO_SUCCESS', payload: response.data });
     } catch (error) {

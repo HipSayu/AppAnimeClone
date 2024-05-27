@@ -1,12 +1,12 @@
 import { put, call } from 'redux-saga/effects';
-import { CheckIslike } from '~/Services/Action/PlayVideoPage';
+import { checkIslike } from '~/Services/Action/PlayVideoPage';
 
 export default function* checkLikeVideoSaga(action) {
     const userId = action.payload.userId;
     const idVideo = action.payload.idVideo;
     console.log('Get_Check_Like_Video_Saga Action:', action);
     try {
-        const response = yield call(CheckIslike, userId, idVideo);
+        const response = yield call(checkIslike, userId, idVideo);
         console.log(response.data);
         yield put({ type: 'GET_CHECK_IS_LIKE_VIDEO_SUCCESS', payload: response.data });
     } catch (error) {

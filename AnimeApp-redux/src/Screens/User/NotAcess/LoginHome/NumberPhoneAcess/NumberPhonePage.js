@@ -5,7 +5,7 @@ import { Dimensions } from 'react-native';
 import React, { useState } from 'react';
 import GlobalStyles from '~/Styles/GlobalStyles';
 
-import { CheckNumberPhone } from '~/Services/Action/Login';
+import { checkNumberPhone } from '~/Services/Action/Login';
 
 import Popup from '~/Common/Constanst';
 
@@ -32,7 +32,7 @@ export default function NumberPhonePage() {
 
     const HandleValidation = (number) => {
         if (regexNumberPhone.test(number.trim())) {
-            CheckNumberPhone(number)
+            checkNumberPhone(number)
                 .then((response) => {
                     console.log('response', response.data);
                     navigation.navigate('LoginNumberPhonePage', { SDT: number });

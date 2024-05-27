@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 
 import GlobalStyles from '~/Styles/GlobalStyles';
 
-import { CreateUser } from '~/Services/Action/Login';
+import { createUser } from '~/Services/Action/Login';
 import Popup from '~/Common/Constanst';
 
 const windowWidth = Dimensions.get('window').width;
@@ -83,7 +83,7 @@ export default function ResgisterNumberPhonePage({ route }) {
                     text: 'OK',
                     onPress: () => {
                         //API
-                        CreateUser(userName, password, SDT)
+                        createUser(userName, password, SDT)
                             .then((res) => {
                                 console.log('>>Check Response', res);
                                 Alert.alert('Thông báo', 'đăng ký thành công vui lòng đăng nhập', [

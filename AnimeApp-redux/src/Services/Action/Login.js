@@ -1,13 +1,14 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import instance from '../Api/AxiosCustom';
 
 const LOGIN = process.env.EXPO_PUBLIC_API_URL_LOGIN;
 const USER = process.env.EXPO_PUBLIC_API_URL_USER;
 
-const CheckNumberPhone = (number) => {
+const checkNumberPhone = (number) => {
     return instance.get(`/${LOGIN}/CheckSDT/${number}`);
 };
 
-const CreateUser = (userName, password, SDT) => {
+const createUser = (userName, password, SDT) => {
     return instance.post(`/${USER}/create`, {
         userName: userName,
         password: password,
@@ -18,7 +19,7 @@ const CreateUser = (userName, password, SDT) => {
     });
 };
 
-const LoginUser = (SDT, userName, password) => {
+const loginUser = (SDT, userName, password) => {
     return instance.get(`/${LOGIN}/Login?NumberPhone=${SDT}&UserName=${userName}&Password=${password}`);
 };
 
@@ -33,4 +34,9 @@ const updateUser = (id, tieuSu = '', avatarUrl = '', backgroundUrl = '') => {
         backgroundUrl: backgroundUrl,
     });
 };
-export { CheckNumberPhone, CreateUser, LoginUser, updateUser };
+
+const clearLogin = async () => {
+    await AsyncStorage.removeItem('my_login');
+    return true;
+};
+export { checkNumberPhone, createUser, loginUser, updateUser, clearLogin };

@@ -9,8 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { LOGOUT_REQUEST } from '~/Services/Action/action';
 import { getDataStorage } from '~/Common/getDataStorage';
 import Loading from '~/Components/Adicator/Loading';
-import { GetUserById } from '~/Services/Action/UserPage';
-import Popup from '~/Common/Constanst';
+import { getUserById } from '~/Services/Action/UserPage';
 
 export default function UserHomePage({}) {
     const [userInfo, setUserInfo] = useState({});
@@ -19,12 +18,16 @@ export default function UserHomePage({}) {
     const navigation = useNavigation();
 
     const login = useSelector((state) => state.loginReducer);
+
     const change = useSelector((state) => state.changeNameReducer);
+
     var isLoading = login.isLoading;
+
+    console.log('login', login);
 
     useEffect(() => {
         if (login.userInfo.length > 0) {
-            GetUserById(login.userInfo.id)
+            getUserById(login.userInfo.id)
                 .then((res) => {
                     setUserInfo(res.data);
                 })
@@ -34,19 +37,22 @@ export default function UserHomePage({}) {
         } else {
             getDataStorage('my_login')
                 .then((data) => {
-                    GetUserById(data.id)
+                    getUserById(data.id)
                         .then((res) => {
+                            console.log('data login', data);
                             setUserInfo(res.data);
                         })
                         .catch((error) => {
                             console.log('user error', error);
                         });
                 })
-                .catch((error) => {});
+                .catch((error) => {
+                    setUserInfo({});
+                });
         }
     }, [login, change]);
 
-    console.log('userInfo', userInfo);
+    console.log('userInfo Login', userInfo);
 
     const handleLogout = () => {
         Alert.alert('Thông báo', 'Bạn có muốn đăng xuất ', [

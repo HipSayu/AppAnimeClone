@@ -41,7 +41,7 @@ const unFollowUser = async (userIdLogin, userFollow) => {
     });
 };
 
-const CheckIsFollow = async (userId, userFollowId) => {
+const checkIsFollow = async (userId, userFollowId) => {
     return instance.get(
         `http://localhost:5179/api/UserFollow/CheckIsFollow?IdFollower=${userId}&IdFollowing=${userFollowId}`,
         {
@@ -60,15 +60,15 @@ const getUserFollowWithVideo = async (pageSize, pageIndex, userId) => {
     });
 };
 
-const GetUserVideo = async (userFollowId) => {
+const getUserVideo = async (userFollowId) => {
     return instance.get(`/${USER}/get-user-with-Video-by-id/${userFollowId}`);
 };
 
-const GetUserById = async (id) => {
+const getUserById = async (id) => {
     return instance.get(`/${USER}/get-by-id/${id}`);
 };
 
-const ChangeNameUser = async (name, userId) => {
+const changeNameUser = async (name, userId) => {
     return instance.put(`/${USER}/update`, {
         tieuSu: name,
         userId: userId,
@@ -80,9 +80,9 @@ export {
     getUserNotFollow,
     followUser,
     unFollowUser,
-    CheckIsFollow,
+    checkIsFollow,
     getUserFollowWithVideo,
-    GetUserVideo,
-    GetUserById,
-    ChangeNameUser,
+    getUserVideo,
+    getUserById,
+    changeNameUser,
 };

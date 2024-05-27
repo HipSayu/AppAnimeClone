@@ -1,5 +1,5 @@
 import { put, call } from 'redux-saga/effects';
-import { CheckIsFollow } from '~/Services/Action/UserPage';
+import { checkIsFollow } from '~/Services/Action/UserPage';
 
 export default function* checktUserFollowSaga(action) {
     const userId = action.payload.userId;
@@ -8,7 +8,7 @@ export default function* checktUserFollowSaga(action) {
     try {
         console.log('Check_User_Follow_Saga Action:', action);
 
-        const response = yield call(CheckIsFollow, userId, userFollowId);
+        const response = yield call(checkIsFollow, userId, userFollowId);
 
         yield put({ type: 'CHECK_USER_FOLLOW_SUCCESS', payload: response.data });
     } catch (error) {

@@ -10,7 +10,7 @@ import { LOGIN_REQUEST } from '~/Services/Action/action';
 
 import GlobalStyles from '~/Styles/GlobalStyles';
 
-import { LoginUser } from '~/Services/Action/Login';
+import { loginUser } from '~/Services/Action/Login';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -38,7 +38,7 @@ export default function LoginNumberPhonePage({ route }) {
                 {
                     text: 'OK',
                     onPress: () => {
-                        LoginUser(SDT, userName, password)
+                        loginUser(SDT, userName, password)
                             .then((res) => {
                                 dispatch({
                                     type: LOGIN_REQUEST,
@@ -47,7 +47,12 @@ export default function LoginNumberPhonePage({ route }) {
                                 Alert.alert('Thông báo', 'Đăng nhập thành công ', [
                                     {
                                         text: 'OK',
-                                        onPress: () => navigation.navigate('UserHomePage'),
+                                        onPress: () => {
+                                            Alert.alert('Đang tiến hành đăng nhập');
+                                            setTimeout(() => {
+                                                navigation.navigate('UserHomePage');
+                                            }, 5000);
+                                        },
                                         style: 'cancel',
                                     },
                                 ]);
