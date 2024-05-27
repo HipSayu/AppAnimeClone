@@ -63,6 +63,7 @@ namespace ApiBasic.ApplicationServices.UserModule.Implements
                 .Where(u => u.Id == UserId)
                 .Select(e => new FindUserDto
                 {
+                    Id=e.Id,
                     UserName = e.UserName,
                     AvatarUrl = e.AvatarUrl,
                     BackgroundUrl = e.BackgroundUrl,
@@ -154,14 +155,15 @@ namespace ApiBasic.ApplicationServices.UserModule.Implements
             };
         }
 
-        public PageResultDto<List<UserFollowDto>> GetAllUserFollowHomePage(FilterUserFollowHomeDto input)
+        public PageResultDto<List<UserFollowDto>> GetAllUserFollowHomePage(
+            FilterUserFollowHomeDto input
+        )
         {
             var usersFollowingIdS =
                 from u in _dbcontext.Users
                 join userFollowing in _dbcontext.UserFollows on u.Id equals userFollowing.FollowerId
                 where u.SĐT == input.NumberPhone && userFollowing.FollowingId != 1
                 select new { usersFollowingId = userFollowing.FollowingId };
-           
 
             var users =
                 from user in _dbcontext.Users
@@ -212,15 +214,17 @@ namespace ApiBasic.ApplicationServices.UserModule.Implements
             var userfollow = _dbcontext.UserFollows;
             var user = _dbcontext
                 .Users.Where(u =>
-                    !userfollow.Any(uf => uf.FollowingId == u.Id && uf.FollowerId == input.UserId) && u.Id != input.UserId
+                    !userfollow.Any(uf => uf.FollowingId == u.Id && uf.FollowerId == input.UserId)
+                    && u.Id != input.UserId
                 )
                 .Select(u => new UserNotFollowDto
-                { 
+                {
                     AvatarUrl = u.AvatarUrl,
                     UserFollowId = u.Id,
                     UserName = u.UserName
-                }).Skip(input.PageSize * (input.PageIndex - 1))
-                    .Take(input.PageSize);
+                })
+                .Skip(input.PageSize * (input.PageIndex - 1))
+                .Take(input.PageSize);
 
             return new PageResultDto<List<UserNotFollowDto>>
             {
@@ -229,21 +233,25 @@ namespace ApiBasic.ApplicationServices.UserModule.Implements
             };
         }
 
-        public PageResultDto<List<UserNotFollowDto>> GetAllUserNotFollowHomePage(FilterUserFollowHomeDto input)
+        public PageResultDto<List<UserNotFollowDto>> GetAllUserNotFollowHomePage(
+            FilterUserFollowHomeDto input
+        )
         {
             int userId = _dbcontext.Users.FirstOrDefault(s => s.SĐT == input.NumberPhone).Id;
             var userfollow = _dbcontext.UserFollows;
             var user = _dbcontext
                 .Users.Where(u =>
-                    !userfollow.Any(uf => uf.FollowingId == u.Id && uf.FollowerId == userId) && u.Id != userId
+                    !userfollow.Any(uf => uf.FollowingId == u.Id && uf.FollowerId == userId)
+                    && u.Id != userId
                 )
                 .Select(u => new UserNotFollowDto
                 {
                     AvatarUrl = u.AvatarUrl,
                     UserFollowId = u.Id,
                     UserName = u.UserName
-                }).Skip(input.PageSize * (input.PageIndex - 1))
-                    .Take(input.PageSize);
+                })
+                .Skip(input.PageSize * (input.PageIndex - 1))
+                .Take(input.PageSize);
 
             return new PageResultDto<List<UserNotFollowDto>>
             {
@@ -263,6 +271,7 @@ namespace ApiBasic.ApplicationServices.UserModule.Implements
                     {
                         Id = u.Id,
                         AvatarUrl = u.AvatarUrl,
+                        TieuSu = u.TieuSu,
                         BackgroundUrl = u.BackgroundUrl,
                         UserName = u.UserName,
                         Follower = u.Following.Count(),
@@ -290,11 +299,30 @@ namespace ApiBasic.ApplicationServices.UserModule.Implements
             var user =
                 _dbcontext.Users.FirstOrDefault(u => u.Id == input.UserId)
                 ?? throw new UserFriendlyExceptions("User không tìm thấy");
-            user.UserName = input.UserName;
-            user.Password = CommonUtils.CreateMD5(input.Password);
-            user.AvatarUrl = input.AvatarUrl;
-            user.BackgroundUrl = input.BackgroundUrl;
-            user.TieuSu = input.TieuSu;
+            if (input.UserName != "")
+            {
+                user.UserName = input.UserName;
+            }
+            if (input.AvatarUrl != "")
+            {
+                user.AvatarUrl = input.AvatarUrl;
+            }
+
+            if (input.BackgroundUrl != "")
+            {
+                user.BackgroundUrl = input.BackgroundUrl;
+            }
+
+            if (input.TieuSu != "")
+            {
+                user.TieuSu = input.TieuSu;
+            }
+
+            if (input.Password != "")
+            {
+                user.Password = CommonUtils.CreateMD5(input.Password);
+            }
+
             _dbcontext.SaveChanges();
         }
     }

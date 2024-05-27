@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { LOGOUT_REQUEST } from '~/Services/Action/action';
 import { getDataStorage } from '~/Common/getDataStorage';
 import Loading from '~/Components/Adicator/Loading';
+import { GetUserById } from '~/Services/Action/UserPage';
+import Popup from '~/Common/Constanst';
 
 export default function UserHomePage({}) {
     const [userInfo, setUserInfo] = useState({});
@@ -17,23 +19,32 @@ export default function UserHomePage({}) {
     const navigation = useNavigation();
 
     const login = useSelector((state) => state.loginReducer);
+    const change = useSelector((state) => state.changeNameReducer);
     var isLoading = login.isLoading;
-
-    console.log('isLoading', isLoading);
 
     useEffect(() => {
         if (login.userInfo.length > 0) {
-            setUserInfo(login.userInfo);
+            GetUserById(login.userInfo.id)
+                .then((res) => {
+                    setUserInfo(res.data);
+                })
+                .catch((error) => {
+                    console.log('user error', error);
+                });
         } else {
             getDataStorage('my_login')
                 .then((data) => {
-                    setUserInfo(data);
+                    GetUserById(data.id)
+                        .then((res) => {
+                            setUserInfo(res.data);
+                        })
+                        .catch((error) => {
+                            console.log('user error', error);
+                        });
                 })
-                .catch((error) => {
-                    Popup('Error Read Login', error.message);
-                });
+                .catch((error) => {});
         }
-    }, [login]);
+    }, [login, change]);
 
     console.log('userInfo', userInfo);
 
@@ -91,7 +102,7 @@ export default function UserHomePage({}) {
                     </View>
                     {/* Account */}
                     <View style={{ marginLeft: 10, marginTop: 10 }}>
-                        {userInfo == null ? (
+                        {userInfo.id == undefined ? (
                             // Chưa login
                             <TouchableOpacity
                                 onPress={() => navigation.navigate('LoginHome')}
@@ -119,7 +130,7 @@ export default function UserHomePage({}) {
                                     source={{ uri: userInfo.avatarUrl }}
                                 />
                                 <View style={{ marginLeft: 15 }}>
-                                    <Text style={[GlobalStyles.h3, {}]}>{userInfo.userName}</Text>
+                                    <Text style={[GlobalStyles.h3, {}]}>{userInfo.tieuSu}</Text>
                                     <View style={{ flexDirection: 'row' }}>
                                         <View
                                             style={{ marginRight: 15, justifyContent: 'center', alignItems: 'center' }}

@@ -149,6 +149,7 @@ namespace ApiBasic.ApplicationServices.LoginModule.implements
                 .Select(e => new FindUserDto
                 {
                     Id = e.Id,
+                    password = e.Password,
                     UserName = e.UserName,
                     AvatarUrl = e.AvatarUrl,
                     BackgroundUrl = e.BackgroundUrl,

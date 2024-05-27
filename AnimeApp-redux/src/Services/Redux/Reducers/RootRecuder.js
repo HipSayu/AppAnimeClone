@@ -21,6 +21,7 @@ import getVideoPlayVideoPageReducer from './videoReducer/getVideoPlayVideoPageRe
 import getLikeVideoReducer from './videoReducer/getLikeVideoReducer';
 import checkLikeVideoReducer from './videoReducer/checkLikeVideoReducer';
 import getCommentReducder from './commentReducer/getCommentReducder';
+import changeNameReducer from './changeUserReducer/changeNameReducer';
 
 export default RootReducer = combineReducers({
     loginReducer,
@@ -46,4 +47,6 @@ export default RootReducer = combineReducers({
     checkLikeVideoReducer,
 
     getCommentReducder,
+
+    changeNameReducer,
 });

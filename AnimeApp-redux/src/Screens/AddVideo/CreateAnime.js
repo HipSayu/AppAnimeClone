@@ -7,44 +7,42 @@ import { setStatusBarHidden } from 'expo-status-bar';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import GlobalStyles from '~/Styles/GlobalStyles';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useSelector } from 'react-redux';
+import { getDataStorage } from '~/Common/getDataStorage';
 
 export default function CreateAnime() {
     const [image, setImage] = useState('');
     const [inFullscreen, setInFullsreen] = useState(false);
     const [video, setVideo] = useState({ uri: '', duration: 0 });
     const [nameVideo, setNameVideo] = useState('');
-    const refVideo = useRef(null);
     const [userInfor, setUserInfor] = useState({ token: { accessToken: '' } });
+
+    const refVideo = useRef(null);
 
     const windowWidth = Dimensions.get('window').width;
     const windowHeight = Dimensions.get('window').height;
 
-    const host = process.env.EXPO_PUBLIC_API_URL_HOST;
-    const Video = process.env.EXPO_PUBLIC_API_URL_VIDEO;
-    const File = process.env.EXPO_PUBLIC_API_URL_FILE;
+    const HOST = process.env.EXPO_PUBLIC_API_URL_HOST;
+    const VIDEO = process.env.EXPO_PUBLIC_API_URL_VIDEO;
+    const FILE = process.env.EXPO_PUBLIC_API_URL_FILE;
 
     var login = useSelector((state) => state.loginReducer);
 
     if (userInfor != undefined) {
         var userId = userInfor.id;
     }
-    const getData = async () => {
-        try {
-            var jsonValue = await AsyncStorage.getItem('my_login');
-            jsonValue = JSON.parse(jsonValue);
-            setUserInfor(jsonValue);
-        } catch (e) {
-            console.log('get AsyncStogare', e);
-        }
-    };
 
     useEffect(() => {
-        getData();
+        getDataStorage('my_login')
+            .then((data) => {
+                setUserInfor(data);
+            })
+            .catch((error) => {
+                Popup('Error Read Login', error.message);
+            });
     }, [login]);
 
-    console.log('userId', userId);
+    // console.log('userId', userId);
 
     const handleVideoPickerPress = async () => {
         let resultVideo = await ImagePicker.launchImageLibraryAsync({
@@ -93,7 +91,7 @@ export default function CreateAnime() {
             let configVideo = {
                 method: 'POST',
                 maxBodyLength: Infinity,
-                url: `${host}${File}/upload_test`,
+                url: `${HOST}${FILE}/upload_test`,
                 headers: { 'Content-Type': 'multipart/form-data' },
                 data: formDataVideo,
             };
@@ -108,7 +106,7 @@ export default function CreateAnime() {
             let configImage = {
                 method: 'POST',
                 maxBodyLength: Infinity,
-                url: `${host}${File}/upload_test`,
+                url: `${HOST}${FILE}/upload_test`,
                 headers: { 'Content-Type': 'multipart/form-data' },
                 data: formDataImage,
             };
@@ -123,7 +121,7 @@ export default function CreateAnime() {
                     let configCreateVideo = {
                         method: 'POST',
                         maxBodyLength: Infinity,
-                        url: `${host}${Video}/create`,
+                        url: `${HOST}${VIDEO}/create`,
                         data: {
                             videoId: 'string',
                             userId: userId,

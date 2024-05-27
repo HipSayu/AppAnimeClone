@@ -8,6 +8,7 @@ import React, { useState } from 'react';
 import GlobalStyles from '~/Styles/GlobalStyles';
 
 import { CreateUser } from '~/Services/Action/Login';
+import Popup from '~/Common/Constanst';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -71,6 +72,7 @@ export default function ResgisterNumberPhonePage({ route }) {
                 rePassword,
                 SDT,
             };
+            console.log('>>CheckData', data);
             Alert.alert('Thông báo', 'Bạn có chắc muốn đăng kí và đồng ý với điều khoản', [
                 {
                     text: 'No',
@@ -94,11 +96,11 @@ export default function ResgisterNumberPhonePage({ route }) {
                             })
                             .catch((error) => {
                                 console.log('>>Check Error', error);
+                                Popup('UserName đã tồn tại');
                             });
                     },
                 },
             ]);
-            console.log('>>CheckData', data);
         } else {
             Alert.alert('Thông báo', 'Nhập thông tin chưa đầy đủ', [
                 {

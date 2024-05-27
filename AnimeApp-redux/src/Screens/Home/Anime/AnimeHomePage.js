@@ -8,6 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import AnimeVideo from '~/Components/AnimeItems/AnimeVideo';
 
 import { getDataStorage } from '~/Common/getDataStorage';
+
 import Popup from '~/Common/Constanst';
 import Loading from '~/Components/Adicator/Loading';
 

@@ -7,7 +7,7 @@ const CheckNumberPhone = (number) => {
     return instance.get(`/${LOGIN}/CheckSDT/${number}`);
 };
 
-const CreateUser = async (userName, password, SDT) => {
+const CreateUser = (userName, password, SDT) => {
     return instance.post(`/${USER}/create`, {
         userName: userName,
         password: password,
@@ -18,8 +18,19 @@ const CreateUser = async (userName, password, SDT) => {
     });
 };
 
-const LoginUser = async (SDT, userName, password) => {
+const LoginUser = (SDT, userName, password) => {
     return instance.get(`/${LOGIN}/Login?NumberPhone=${SDT}&UserName=${userName}&Password=${password}`);
 };
 
-export { CheckNumberPhone, CreateUser, LoginUser };
+const updateUser = (id, tieuSu = '', avatarUrl = '', backgroundUrl = '') => {
+    return instance.put(`/${USER}/update`, {
+        userId: id,
+        userName: '',
+        password: '',
+        sđt: '',
+        tieuSu: tieuSu,
+        avatarUrl: avatarUrl,
+        backgroundUrl: backgroundUrl,
+    });
+};
+export { CheckNumberPhone, CreateUser, LoginUser, updateUser };

@@ -10,7 +10,7 @@ import getAnimeHomeSaga from './homePageSaga/getAnimeHomeSaga';
 import deleteAnimeHomeSaga from './homePageSaga/deleteAnimeHomeSaga';
 import getUserfollowHomeSaga from './userSaga/getUserfollowHomeSaga';
 import getVideoHomePageNotLoginSaga from './homePageSaga/getVideoHomePageNotLoginSaga';
-import GetAnimeContinuceSaga from './homePageSaga/getAnimeContinuceSaga';
+import getAnimeContinuceSaga from './homePageSaga/getAnimeContinuceSaga';
 import deleteAnimeContinuceSaga from './homePageSaga/deleteAnimeContinuceSaga';
 
 import getHistorySearchSaga from './SearchSaga/getHistorySearchSaga';
@@ -29,6 +29,7 @@ import getLikeVideoSaga from './videoSaga/getLikeVideoSaga';
 import checkLikeVideoSaga from './videoSaga/checkLikeVideoSaga';
 import getCommentSaga from './commentSaga/getCommentSaga';
 import checkLikeNotLoginVideoSaga from './videoSaga/checkLikeNotLoginVideoSaga';
+import changeNameSaga from './changeUserSaga/changeNameSaga';
 
 export default RootSaga = function* () {
     yield all([
@@ -41,7 +42,7 @@ export default RootSaga = function* () {
 
         takeEvery('GET_ANIME_HOME_RESQUEST', getAnimeHomeSaga),
         takeEvery('DELETE_ANIME_HOME_RESQUEST', deleteAnimeHomeSaga),
-        takeEvery('GET_ANIME_CONTINUCE_RESQUEST', GetAnimeContinuceSaga),
+        takeEvery('GET_ANIME_CONTINUCE_RESQUEST', getAnimeContinuceSaga),
         takeEvery('DELETE_ANIME_CONTINUCE_RESQUEST', deleteAnimeContinuceSaga),
 
         takeEvery('GET_USERFOLLOW_HOME_RESQUEST', getUserfollowHomeSaga),
@@ -62,5 +63,7 @@ export default RootSaga = function* () {
         takeEvery('GET_CHECK_IS_LIKE_VIDEO_RESQUEST', checkLikeVideoSaga),
 
         takeEvery('GET_COMMENT_RESQUEST', getCommentSaga),
+
+        takeEvery('CHANGE_NAME_RESQUEST', changeNameSaga),
     ]);
 };

@@ -12,12 +12,13 @@ import { getDataStorage } from '~/Common/getDataStorage';
 import Popup from '~/Common/Constanst';
 import Loading from '~/Components/Adicator/Loading';
 
+const windowWidth = Dimensions.get('window').width;
+
 export default function FollowPage() {
     const [userInfor, setUserInfor] = useState(null);
 
     const navigation = useNavigation();
     const dispatch = useDispatch();
-    const windowWidth = Dimensions.get('window').width;
 
     const login = useSelector((state) => state.loginReducer);
 
@@ -28,7 +29,8 @@ export default function FollowPage() {
     const userNotFollowData = useSelector((state) => state.getUserNotFollowReducer);
     let userNotFollow = userNotFollowData.userNotFollow;
     let isLoadingNotFollow = userNotFollowData.isLoading;
-    console.log('userFollow', login);
+
+    // console.log('userFollow', login);
 
     useEffect(() => {
         getDataStorage('my_login')

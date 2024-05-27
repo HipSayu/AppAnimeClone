@@ -10,7 +10,7 @@ import GlobalStyles from '~/Styles/GlobalStyles';
 import Avatar from '~/Components/AvatarUser/Avatar';
 import AnimeMV from '~/Components/AnimeVideo/AnimeMV';
 
-import { followUser, unFollowUser } from '~/Services/Action/UserPage';
+import { GetUserById, followUser, unFollowUser } from '~/Services/Action/UserPage';
 import { getDataStorage } from '~/Common/getDataStorage';
 import Popup from '~/Common/Constanst';
 import Loading from '~/Components/Adicator/Loading';
@@ -31,6 +31,7 @@ export default function User({ route }) {
 
     const login = useSelector((state) => state.loginReducer);
     let userData;
+
     const userVideo = useSelector((state) => state.getUserVideoReducer);
     if (userVideo.userVideo.length != 0) {
         userData = userVideo.userVideo;
@@ -58,7 +59,13 @@ export default function User({ route }) {
     useEffect(() => {
         getDataStorage('my_login')
             .then((data) => {
-                setUserInfor(data);
+                GetUserById(data.id)
+                    .then((res) => {
+                        setUserInfor(res.data);
+                    })
+                    .catch((error) => {
+                        console.log('user error', error);
+                    });
             })
             .catch((error) => {
                 Popup('Error Read Login', error.message);
@@ -184,6 +191,29 @@ export default function User({ route }) {
                             </View>
                         </View>
                     )}
+                    {isUser && (
+                        <View style={{ flexDirection: 'row-reverse' }}>
+                            <View
+                                style={{
+                                    borderWidth: 1,
+                                    paddingVertical: 5,
+                                    paddingHorizontal: 10,
+                                    borderRadius: 10,
+                                    marginBottom: 10,
+                                    marginRight: 10,
+                                    borderColor: GlobalStyles.blue.color,
+                                }}
+                            >
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        navigation.navigate('UserInformationPage', userInfor);
+                                    }}
+                                >
+                                    <Text style={[GlobalStyles.h5, GlobalStyles.blue]}>Sửa thông tin</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    )}
                 </ImageBackground>
             )}
             {isloadingVideo ? (
@@ -192,7 +222,8 @@ export default function User({ route }) {
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={{ alignItems: 'center' }}>
                         <Avatar
-                            userName={userData.userName}
+                            navigation={navigation}
+                            userName={userData.tieuSu}
                             following={userData.following}
                             follower={userData.follower}
                             likes="9M"

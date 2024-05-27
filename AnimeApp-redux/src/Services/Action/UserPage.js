@@ -64,6 +64,17 @@ const GetUserVideo = async (userFollowId) => {
     return instance.get(`/${USER}/get-user-with-Video-by-id/${userFollowId}`);
 };
 
+const GetUserById = async (id) => {
+    return instance.get(`/${USER}/get-by-id/${id}`);
+};
+
+const ChangeNameUser = async (name, userId) => {
+    return instance.put(`/${USER}/update`, {
+        tieuSu: name,
+        userId: userId,
+    });
+};
+
 export {
     getUserFollow,
     getUserNotFollow,
@@ -72,4 +83,6 @@ export {
     CheckIsFollow,
     getUserFollowWithVideo,
     GetUserVideo,
+    GetUserById,
+    ChangeNameUser,
 };

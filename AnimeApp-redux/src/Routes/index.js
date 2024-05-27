@@ -19,6 +19,9 @@ import LoginHomePage from '~/Screens/User/NotAcess/LoginHome/LoginHomePage';
 import NumberPhonePage from '~/Screens/User/NotAcess/LoginHome/NumberPhoneAcess/NumberPhonePage';
 import LoginNumberPhonePage from '~/Screens/User/NotAcess/LoginHome/Login/LoginNumberPhone/LoginNumberPhonePage';
 import ResgisterNumberPhonePage from '~/Screens/User/NotAcess/LoginHome/Resgister/ResgisterNumberPhone/ResgisterNumberPhonePage';
+import UserInformationPage from '~/Screens/Follow/ChangeInformationUser/UserInformationPage';
+import ChangeNamePage from '~/Screens/Follow/ChangeInformationUser/ChangeScreen/ChangeNamePage';
+import ChangeTitlePage from '~/Screens/Follow/ChangeInformationUser/ChangeScreen/ChangeTitlePage';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -41,6 +44,7 @@ function SearchHomePage() {
             <Stack.Screen name="SearchingPage" options={{ headerShown: false }} component={SearchingPage} />
             <Stack.Screen name="PlayVideoPage" options={{ headerShown: false }} component={PlayVideoPage} />
             <Stack.Screen name="User" options={{ headerShown: false }} component={User} />
+            <Stack.Screen name="UserInformationPage" options={{ headerShown: false }} component={UserInformationPage} />
         </Stack.Navigator>
     );
 }
@@ -53,6 +57,9 @@ function UserPage() {
             <Stack.Screen name="LoginHome" options={{ headerShown: false }} component={LoginHome} />
             <Stack.Screen name="PlayVideoPage" options={{ headerShown: false }} component={PlayVideoPage} />
             <Stack.Screen name="User" options={{ headerShown: false }} component={User} />
+            <Stack.Screen name="UserInformationPage" options={{ headerShown: false }} component={UserInformationPage} />
+            <Stack.Screen name="ChangeNamePage" options={{ headerShown: false }} component={ChangeNamePage} />
+            <Stack.Screen name="ChangeTitlePage" options={{ headerShown: false }} component={ChangeTitlePage} />
         </Stack.Navigator>
     );
 }
@@ -82,6 +89,7 @@ function FollowPageHome() {
             <Stack.Screen name="FollowPage" options={{ headerShown: false }} component={FollowPage} />
             <Stack.Screen name="User" options={{ headerShown: false }} component={User} />
             <Stack.Screen name="PlayVideoPage" options={{ headerShown: false }} component={PlayVideoPage} />
+            <Stack.Screen name="UserInformationPage" options={{ headerShown: false }} component={UserInformationPage} />
         </Stack.Navigator>
     );
 }

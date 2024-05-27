@@ -6,7 +6,7 @@ namespace ApiBasic.ApplicationServices.UserModule.Dtos
     {
         private string _userName;
 
-        [Required]
+        
         [MaxLength(50)]
         public string UserName
         {
