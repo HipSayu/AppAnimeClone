@@ -30,8 +30,6 @@ export default function FollowPage() {
     let userNotFollow = userNotFollowData.userNotFollow;
     let isLoadingNotFollow = userNotFollowData.isLoading;
 
-    // console.log('userFollow', login);
-
     useEffect(() => {
         getDataStorage('my_login')
             .then((data) => {
