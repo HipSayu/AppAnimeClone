@@ -1,19 +1,21 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import instance from '../Api/AxiosCustom';
+import axios from 'axios';
 
 const LOGIN = process.env.EXPO_PUBLIC_API_URL_LOGIN;
 const USER = process.env.EXPO_PUBLIC_API_URL_USER;
+const HOST = process.env.EXPO_PUBLIC_API_URL_HOST;
 
 const checkNumberPhone = (number) => {
     return instance.get(`/${LOGIN}/CheckSDT/${number}`);
 };
 
-const createUser = (userName, password, SDT) => {
-    return instance.post(`/${USER}/create`, {
+const createUser = async (userName, password, SDT) => {
+    return await axios.post(`http://localhost:5179/api/User/create`, {
         userName: userName,
         password: password,
         sđt: SDT,
-        tieuSu: '',
+        tieuSu: userName,
         avatarUrl: '',
         backgroundUrl: '',
     });

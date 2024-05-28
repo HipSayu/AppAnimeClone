@@ -7,6 +7,7 @@ import React from 'react';
 import GlobalStyles from '~/Styles/GlobalStyles';
 
 import SeacrResultHomePage from './SearchResultHomePage/SeacrResultHomePage';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -19,7 +20,7 @@ export default function SearchResultPage({ route }) {
     let widthSearch = 1.4;
     console.log('searchValue', searchValue);
     return (
-        <>
+        <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
             <View style={[styles.Search]}>
                 <TouchableOpacity onPress={() => navigation.goBack()}>
                     <ImageBackground
@@ -49,7 +50,7 @@ export default function SearchResultPage({ route }) {
             </View>
 
             <SeacrResultHomePage data={searchValue} />
-        </>
+        </SafeAreaView>
     );
 }
 
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
     Page: {},
     Search: {
         backgroundColor: GlobalStyles.white.color,
-        paddingTop: 25,
+        // paddingTop: 25,
 
         alignItems: 'center',
         flexDirection: 'row',

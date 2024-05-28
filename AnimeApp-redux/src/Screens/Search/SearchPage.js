@@ -6,6 +6,7 @@ import React from 'react';
 
 import GlobalStyles from '~/Styles/GlobalStyles';
 import SearchHomePage from './SearchHome/SearchHomePage';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 // Chiều rộng điện thoại
 const windowWidth = Dimensions.get('window').width;
@@ -29,37 +30,39 @@ export default function SearchPage() {
     };
 
     return (
-        <View style={styles.Page}>
-            {/* Search */}
-            <View style={styles.Search}>
-                {search !== '' ? (
-                    <TouchableOpacity onPress={() => HandleDeleteSearch()}>
-                        <ImageBackground
-                            style={{ width: 20, height: 20, marginRight: 5, marginTop: 10 }}
-                            source={require('~/Assets/Icon/IconReturn.png')}
-                        />
-                    </TouchableOpacity>
-                ) : (
-                    <></>
-                )}
-                <TouchableOpacity>
-                    <View style={[styles.WrapperInput, { width: windowWidth / widthSearch }]}>
-                        <ImageBackground style={styles.Icon} source={require('~/Assets/Icon/search.png')} />
-
-                        <TouchableOpacity
-                            value={search}
-                            onPress={() => navigation.navigate('SearchingPage')}
-                            onChangeText={(searchInput) => setSearch(searchInput)}
-                            style={[styles.input, { width: windowWidth / widthSearch / 1.25, padding: 10 }]}
-                        >
-                            <Text>Tìm Anime | Video | Nhà sáng tạo</Text>
+        <SafeAreaView style={styles.Page}>
+            <View style={styles.Page}>
+                {/* Search */}
+                <View style={styles.Search}>
+                    {search !== '' ? (
+                        <TouchableOpacity onPress={() => HandleDeleteSearch()}>
+                            <ImageBackground
+                                style={{ width: 20, height: 20, marginRight: 5, marginTop: 10 }}
+                                source={require('~/Assets/Icon/IconReturn.png')}
+                            />
                         </TouchableOpacity>
-                    </View>
-                </TouchableOpacity>
-            </View>
+                    ) : (
+                        <></>
+                    )}
+                    <TouchableOpacity>
+                        <View style={[styles.WrapperInput, { width: windowWidth / widthSearch }]}>
+                            <ImageBackground style={styles.Icon} source={require('~/Assets/Icon/search.png')} />
 
-            <SearchHomePage />
-        </View>
+                            <TouchableOpacity
+                                value={search}
+                                onPress={() => navigation.navigate('SearchingPage')}
+                                onChangeText={(searchInput) => setSearch(searchInput)}
+                                style={[styles.input, { width: windowWidth / widthSearch / 1.25, padding: 10 }]}
+                            >
+                                <Text>Tìm Anime | Video | Nhà sáng tạo</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+
+                <SearchHomePage />
+            </View>
+        </SafeAreaView>
     );
 }
 
@@ -67,7 +70,7 @@ const styles = StyleSheet.create({
     Page: {
         flex: 1,
         backgroundColor: GlobalStyles.white.color,
-        marginTop: 30,
+        // marginTop: 30,
         alignItems: 'center',
     },
     Search: {

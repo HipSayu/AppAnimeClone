@@ -43,8 +43,8 @@ export default function UserResultPage({ data }) {
                                     data={item.id}
                                     navigation={navigation}
                                     avatar={{ uri: item.avatarUrl }}
-                                    userName={item.userName}
-                                    isSearch={true}
+                                    userName={item.tieuSu}
+                                    isSearch={false}
                                     time={`${item.follower}  người theo dõi | ${item.videos} Videos`}
                                 />
                             </View>

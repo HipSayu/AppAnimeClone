@@ -68,7 +68,7 @@ export default function User({ route }) {
                     });
             })
             .catch((error) => {
-                Popup('Error Read Login', error.message);
+                // Popup('Error Read Login', error.message);
             });
     }, []);
 
@@ -127,7 +127,7 @@ export default function User({ route }) {
     }
 
     return (
-        <View style={{ marginTop: 30 }}>
+        <View style={{ marginTop: 30, backgroundColor: 'white' }}>
             {isLoadingFollow ? (
                 <Loading />
             ) : (
@@ -144,13 +144,13 @@ export default function User({ route }) {
                         </TouchableOpacity>
 
                         <View style={{ flexDirection: 'row' }}>
-                            <TouchableOpacity onPress={() => navigation.goBack()}>
+                            <TouchableOpacity onPress={() => Popup('Đang phát triển')}>
                                 <ImageBackground
                                     style={{ width: 20, height: 20, marginRight: 5, marginTop: 10 }}
                                     source={require('~/Assets/Icon/Share.png')}
                                 />
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => navigation.goBack()}>
+                            <TouchableOpacity onPress={() => Popup('Đang phát triển')}>
                                 <ImageBackground
                                     style={{ width: 20, height: 20, marginRight: 5, marginTop: 10 }}
                                     source={require('~/Assets/Icon/List.png')}

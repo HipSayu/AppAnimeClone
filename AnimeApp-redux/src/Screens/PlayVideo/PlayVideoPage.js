@@ -9,6 +9,9 @@ import * as ScreenOrientation from 'expo-screen-orientation';
 import MainVideoHomePage from './MainVideo/MainVideoHomePage';
 
 import { useDispatch, useSelector } from 'react-redux';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import GlobalStyles from '~/Styles/GlobalStyles';
+import Popup from '~/Common/Constanst';
 
 export default function PlayVideoPage({ route }) {
     const [inFullscreen, setInFullsreen] = useState(false);
@@ -36,9 +39,9 @@ export default function PlayVideoPage({ route }) {
     const windowWidth = Dimensions.get('window').width;
     const windowHeight = Dimensions.get('window').height;
     return (
-        <>
-            <View style={{ backgroundColor: '#fff', zIndex: 2 }}>
-                <View style={{ marginTop: 30 }}>
+        <SafeAreaView style={styles.Page}>
+            <View style={{ backgroundColor: '#fff' }}>
+                <View style={{ marginTop: 0 }}>
                     {/* IconBack */}
                     <View
                         style={{
@@ -54,7 +57,7 @@ export default function PlayVideoPage({ route }) {
                                 source={require('~/Assets/Icon/IconReturn.png')}
                             />
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <TouchableOpacity onPress={() => Popup('Đang phát triển')}>
                             <ImageBackground
                                 style={{ width: 20, height: 20 }}
                                 source={require('~/Assets/Icon/List.png')}
@@ -95,8 +98,13 @@ export default function PlayVideoPage({ route }) {
                 </View>
             </View>
             <MainVideoHomePage data={video} animeVideo={animevideo} likes={video.likes} />
-        </>
+        </SafeAreaView>
     );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    Page: {
+        backgroundColor: GlobalStyles.white.color,
+        flex: 1,
+    },
+});

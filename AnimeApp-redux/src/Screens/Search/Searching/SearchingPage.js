@@ -11,6 +11,7 @@ import { createSearchHistiory, deleteSearchHistiory } from '~/Services/Action/Se
 import { getDataStorage } from '~/Common/getDataStorage';
 import Popup from '~/Common/Constanst';
 import Loading from '~/Components/Adicator/Loading';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -42,7 +43,7 @@ export default function SearchingPage() {
             .catch((error) => {
                 Popup('Error');
             });
-    }, []);
+    }, [login]);
 
     if (userInfor != undefined) {
         var token = userInfor.token.accessToken;
@@ -86,113 +87,120 @@ export default function SearchingPage() {
     };
 
     return (
-        <View style={styles.Page}>
-            {/* Search */}
-            <View style={styles.Search}>
-                <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <ImageBackground
-                        style={{ width: 20, height: 20, marginRight: 5, marginTop: 10 }}
-                        source={require('~/Assets/Icon/IconReturn.png')}
-                    />
-                </TouchableOpacity>
-
-                <View style={[styles.WrapperInput, { width: windowWidth / widthSearch }]}>
-                    <ImageBackground style={styles.Icon} source={require('~/Assets/Icon/search.png')} />
-                    <TextInput
-                        autoFocus={true}
-                        value={search}
-                        onChangeText={(searchInput) => setSearch(searchInput)}
-                        style={[styles.input, { width: windowWidth / widthSearch / 1.25 }]}
-                        placeholder="Tìm Anime | Video | Nhà sáng tạo"
-                    ></TextInput>
-
-                    <TouchableOpacity onPress={() => HandleDeleteSearch()}>
+        <SafeAreaView style={styles.Page}>
+            <View style={styles.Page}>
+                {/* Search */}
+                <View style={styles.Search}>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
                         <ImageBackground
-                            style={{ width: 20, height: 20 }}
-                            source={require('~/Assets/Icon/Close.png')}
+                            style={{ width: 20, height: 20, marginRight: 5, marginTop: 10 }}
+                            source={require('~/Assets/Icon/IconReturn.png')}
                         />
                     </TouchableOpacity>
-                </View>
 
-                <TouchableOpacity
-                    onPress={() => {
-                        if (userId == undefined) {
-                            search !== '' ? handleOnpress(search) : null;
-                        } else {
-                            search !== '' ? handleSearch() : null;
-                        }
-                    }}
-                    style={{ marginTop: 10 }}
-                >
-                    <Text style={[GlobalStyles.gray, { marginLeft: 10 }]}>Tìm kiếm</Text>
-                </TouchableOpacity>
-            </View>
-            <View>
-                {/* Check to align */}
-                <View style={{ alignItems: 'center' }}>
-                    <ImageBackground
-                        borderRadius={10}
-                        style={{ width: windowWidth / 1.05, height: 0 }}
-                        source={require('~/Assets/Image/AnimeBackground.png')}
-                    />
+                    <View style={[styles.WrapperInput, { width: windowWidth / widthSearch }]}>
+                        <ImageBackground style={styles.Icon} source={require('~/Assets/Icon/search.png')} />
+                        <TextInput
+                            autoFocus={true}
+                            value={search}
+                            onChangeText={(searchInput) => setSearch(searchInput)}
+                            style={[styles.input, { width: windowWidth / widthSearch / 1.25 }]}
+                            placeholder="Tìm Anime | Video | Nhà sáng tạo"
+                        ></TextInput>
+
+                        <TouchableOpacity onPress={() => HandleDeleteSearch()}>
+                            <ImageBackground
+                                style={{ width: 20, height: 20 }}
+                                source={require('~/Assets/Icon/Close.png')}
+                            />
+                        </TouchableOpacity>
+                    </View>
+
+                    <TouchableOpacity
+                        onPress={() => {
+                            if (userId == undefined) {
+                                search !== '' ? handleOnpress(search) : null;
+                            } else {
+                                search !== '' ? handleSearch() : null;
+                            }
+                        }}
+                        style={{ marginTop: 10 }}
+                    >
+                        <Text style={[GlobalStyles.gray, { marginLeft: 10 }]}>Tìm kiếm</Text>
+                    </TouchableOpacity>
                 </View>
-                {/* Lich Su Tim Kiem */}
-                <View style={{ marginTop: 10, marginLeft: 10, justifyContent: 'space-between', flexDirection: 'row' }}>
-                    <Text style={GlobalStyles.h4}>Lịch sử tìm kiếm</Text>
-                    <ImageBackground style={{ width: 20, height: 20 }} source={require('~/Assets/Icon/trash.png')} />
-                </View>
-                {/* List */}
-                {userId != undefined ? (
-                    isLoading ? (
-                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                            <Loading />
-                        </View>
-                    ) : (
-                        <ScrollView showsVerticalScrollIndicator={false}>
-                            {searchHistory.map((item, index) => (
-                                <View
-                                    key={index}
-                                    style={{
-                                        flexDirection: 'row',
-                                        justifyContent: 'space-between',
-                                        marginTop: 20,
-                                        paddingLeft: 10,
-                                    }}
-                                >
-                                    <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                                        <ImageBackground
-                                            style={{ width: 20, height: 20, marginRight: 10, marginTop: 5 }}
-                                            source={require('~/Assets/Icon/Clock.png')}
-                                        />
+                <View>
+                    {/* Check to align */}
+                    <View style={{ alignItems: 'center' }}>
+                        <ImageBackground
+                            borderRadius={10}
+                            style={{ width: windowWidth / 1.05, height: 0 }}
+                            source={require('~/Assets/Image/AnimeBackground.png')}
+                        />
+                    </View>
+                    {/* Lich Su Tim Kiem */}
+                    <View
+                        style={{ marginTop: 10, marginLeft: 10, justifyContent: 'space-between', flexDirection: 'row' }}
+                    >
+                        <Text style={GlobalStyles.h4}>Lịch sử tìm kiếm</Text>
+                        <ImageBackground
+                            style={{ width: 20, height: 20 }}
+                            source={require('~/Assets/Icon/trash.png')}
+                        />
+                    </View>
+                    {/* List */}
+                    {userId != undefined ? (
+                        isLoading ? (
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                <Loading />
+                            </View>
+                        ) : (
+                            <ScrollView showsVerticalScrollIndicator={false}>
+                                {searchHistory.map((item, index) => (
+                                    <View
+                                        key={index}
+                                        style={{
+                                            flexDirection: 'row',
+                                            justifyContent: 'space-between',
+                                            marginTop: 20,
+                                            paddingLeft: 10,
+                                        }}
+                                    >
+                                        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                                            <ImageBackground
+                                                style={{ width: 20, height: 20, marginRight: 10, marginTop: 5 }}
+                                                source={require('~/Assets/Icon/Clock.png')}
+                                            />
+                                            <TouchableOpacity
+                                                onPress={() => {
+                                                    handleOnpress(item.searchKeyWord);
+                                                }}
+                                                style={{ padding: 5 }}
+                                            >
+                                                <Text>{item.searchKeyWord}</Text>
+                                            </TouchableOpacity>
+                                        </View>
                                         <TouchableOpacity
                                             onPress={() => {
-                                                handleOnpress(item.searchKeyWord);
+                                                handleDeleteSearch(item.id);
                                             }}
                                             style={{ padding: 5 }}
                                         >
-                                            <Text>{item.searchKeyWord}</Text>
+                                            <ImageBackground
+                                                style={{ width: 20, height: 20 }}
+                                                source={require('~/Assets/Icon/Close.png')}
+                                            />
                                         </TouchableOpacity>
                                     </View>
-                                    <TouchableOpacity
-                                        onPress={() => {
-                                            handleDeleteSearch(item.id);
-                                        }}
-                                        style={{ padding: 5 }}
-                                    >
-                                        <ImageBackground
-                                            style={{ width: 20, height: 20 }}
-                                            source={require('~/Assets/Icon/Close.png')}
-                                        />
-                                    </TouchableOpacity>
-                                </View>
-                            ))}
-                        </ScrollView>
-                    )
-                ) : (
-                    <ScrollView showsVerticalScrollIndicator={false}></ScrollView>
-                )}
+                                ))}
+                            </ScrollView>
+                        )
+                    ) : (
+                        <ScrollView showsVerticalScrollIndicator={false}></ScrollView>
+                    )}
+                </View>
             </View>
-        </View>
+        </SafeAreaView>
     );
 }
 
@@ -200,7 +208,7 @@ const styles = StyleSheet.create({
     Page: {
         flex: 1,
         backgroundColor: GlobalStyles.white.color,
-        marginTop: 30,
+        // marginTop: 30,
         alignItems: 'center',
     },
     Search: {

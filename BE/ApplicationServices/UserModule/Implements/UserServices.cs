@@ -82,7 +82,7 @@ namespace ApiBasic.ApplicationServices.UserModule.Implements
                 .Users.Include(u => u.Followers)
                 .ThenInclude(u => u.Following)
                 .ThenInclude(u => u.Videos)
-                .Where(u => u.UserName.ToLower().Contains(input.Keyword.ToLower()))
+                .Where(u => u.TieuSu.ToLower().Contains(input.Keyword.ToLower()))
                 .Select(e => new FindUserDto
                 {
                     Id = e.Id,
@@ -142,7 +142,7 @@ namespace ApiBasic.ApplicationServices.UserModule.Implements
                         {
                             AvatarUrl = user.AvatarUrl,
                             UserFollowId = user.Id,
-                            UserName = user.UserName,
+                            UserName = user.TieuSu,
                             VideoUserFollow = videos.ToList(),
                         }
                     );
@@ -196,7 +196,8 @@ namespace ApiBasic.ApplicationServices.UserModule.Implements
                         {
                             AvatarUrl = user.AvatarUrl,
                             UserFollowId = user.Id,
-                            UserName = user.UserName,
+                            UserName = user.TieuSu,
+
                             VideoUserFollow = videos.ToList(),
                         }
                     );
@@ -221,7 +222,7 @@ namespace ApiBasic.ApplicationServices.UserModule.Implements
                 {
                     AvatarUrl = u.AvatarUrl,
                     UserFollowId = u.Id,
-                    UserName = u.UserName
+                    UserName = u.TieuSu
                 })
                 .Skip(input.PageSize * (input.PageIndex - 1))
                 .Take(input.PageSize);

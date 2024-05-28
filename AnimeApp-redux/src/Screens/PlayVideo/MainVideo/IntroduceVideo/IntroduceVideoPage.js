@@ -151,27 +151,34 @@ export default function IntroduceVideoPage({ data, animeVideo, likes }) {
 
                         <Text style={GlobalStyles.h5_Medium}>{like}</Text>
                     </TouchableOpacity>
-                    <View style={{ alignItems: 'center', marginHorizontal: 10 }}>
-                        <ImageBackground
-                            source={require('~/Assets/Icon/IconActive/Bookmark.png')}
-                            style={{ width: 30, height: 30 }}
-                        />
-                        <Text style={GlobalStyles.h5_Medium}>Yêu thích</Text>
-                    </View>
-                    <View style={{ alignItems: 'center', marginHorizontal: 10 }}>
-                        <ImageBackground
-                            source={require('~/Assets/Icon/IconActive/Download.png')}
-                            style={{ width: 30, height: 30 }}
-                        />
-                        <Text style={GlobalStyles.h5_Medium}>Tải xuống</Text>
-                    </View>
-                    <View style={{ alignItems: 'center', marginHorizontal: 10 }}>
-                        <ImageBackground
-                            source={require('~/Assets/Icon/IconActive/Share.png')}
-                            style={{ width: 30, height: 30 }}
-                        />
-                        <Text style={GlobalStyles.h5_Medium}>Share</Text>
-                    </View>
+                    <TouchableOpacity onPress={() => Popup('Đang phát triển')}>
+                        <View style={{ alignItems: 'center', marginHorizontal: 10 }}>
+                            <ImageBackground
+                                source={require('~/Assets/Icon/IconActive/Bookmark.png')}
+                                style={{ width: 30, height: 30 }}
+                            />
+                            <Text style={GlobalStyles.h5_Medium}>Yêu thích</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => Popup('Đang phát triển')}>
+                        <View style={{ alignItems: 'center', marginHorizontal: 10 }}>
+                            <ImageBackground
+                                source={require('~/Assets/Icon/IconActive/Download.png')}
+                                style={{ width: 30, height: 30 }}
+                            />
+                            <Text style={GlobalStyles.h5_Medium}>Tải xuống</Text>
+                        </View>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={() => Popup('Đang phát triển')}>
+                        <View style={{ alignItems: 'center', marginHorizontal: 10 }}>
+                            <ImageBackground
+                                source={require('~/Assets/Icon/IconActive/Share.png')}
+                                style={{ width: 30, height: 30 }}
+                            />
+                            <Text style={GlobalStyles.h5_Medium}>Share</Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
                 {animeVideo == undefined ? (
                     <></>

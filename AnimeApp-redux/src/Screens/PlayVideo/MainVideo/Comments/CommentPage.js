@@ -111,7 +111,7 @@ export default function CommentPage({ data }) {
                         <TouchableOpacity>
                             <Text style={[GlobalStyles.h4, { marginRight: 10 }]}>Nổi bật nhất</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => Popup('Đang phát triển')}>
                             <Text style={[GlobalStyles.h4, GlobalStyles.gray, {}]}>Gần đây</Text>
                         </TouchableOpacity>
                     </View>

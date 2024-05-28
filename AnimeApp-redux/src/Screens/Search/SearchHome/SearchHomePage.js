@@ -5,6 +5,7 @@ import AnimeVideo from '~/Components/AnimeItems/AnimeVideo';
 
 import { useDispatch, useSelector } from 'react-redux';
 import Loading from '~/Components/Adicator/Loading';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -35,11 +36,11 @@ export default function SearchHomePage() {
     }
 
     return (
-        <View>
+        <SafeAreaView>
             <View style={{ alignItems: 'center' }}>
                 <ImageBackground
                     borderRadius={10}
-                    style={{ width: windowWidth / 1.05, height: 103, marginTop: 20 }}
+                    style={{ width: windowWidth / 1.05, height: 103, marginTop: 10 }}
                     source={require('~/Assets/Image/AnimeBackground.png')}
                 />
             </View>
@@ -66,7 +67,7 @@ export default function SearchHomePage() {
                     </ScrollView>
                 )}
             </View>
-        </View>
+        </SafeAreaView>
     );
 }
 

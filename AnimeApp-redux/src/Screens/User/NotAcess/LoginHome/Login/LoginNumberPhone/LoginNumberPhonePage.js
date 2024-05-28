@@ -48,10 +48,7 @@ export default function LoginNumberPhonePage({ route }) {
                                     {
                                         text: 'OK',
                                         onPress: () => {
-                                            Alert.alert('Đang tiến hành đăng nhập');
-                                            setTimeout(() => {
-                                                navigation.navigate('UserHomePage');
-                                            }, 5000);
+                                            navigation.navigate('UserHomePage');
                                         },
                                         style: 'cancel',
                                     },

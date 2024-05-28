@@ -31,6 +31,7 @@ export default function AllResultPage({ data }) {
             payload: { pageSize: 2, pageIndex: 1, keyword: data },
         });
     }, [data]);
+    console.log('video', video);
 
     return (
         <ScrollView style={{ flex: 1, paddingLeft: 10, backgroundColor: GlobalStyles.white.color }}>

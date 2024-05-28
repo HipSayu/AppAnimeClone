@@ -7,7 +7,7 @@ import { setStatusBarHidden } from 'expo-status-bar';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import GlobalStyles from '~/Styles/GlobalStyles';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getDataStorage } from '~/Common/getDataStorage';
 
 export default function CreateAnime() {
@@ -18,6 +18,8 @@ export default function CreateAnime() {
     const [userInfor, setUserInfor] = useState({ token: { accessToken: '' } });
 
     const refVideo = useRef(null);
+
+    const dispatch = useDispatch();
 
     const windowWidth = Dimensions.get('window').width;
     const windowHeight = Dimensions.get('window').height;
@@ -142,6 +144,9 @@ export default function CreateAnime() {
                                     text: 'Oke',
                                     onPress: () => {
                                         setNameVideo('');
+                                        dispatch({
+                                            type: 'CHANGE_NAME_RESQUEST',
+                                        });
                                     },
                                     style: 'cancel',
                                 },

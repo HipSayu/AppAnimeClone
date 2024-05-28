@@ -62,7 +62,7 @@ namespace ApiBasic.ApplicationServices.VideoModule.Implements
                     UrlVideo = v.UrlVideo,
                     Id = v.Id,
                     UsderId = v.User.Id,
-                    nameUser = v.User.UserName,
+                    nameUser = v.User.TieuSu,
                     AvatarUserUrl = v.User.AvatarUrl,
                 });
             videos = videos.Skip(input.PageSize * (input.PageIndex - 1)).Take(input.PageSize);
@@ -86,7 +86,7 @@ namespace ApiBasic.ApplicationServices.VideoModule.Implements
                     UrlVideo = v.UrlVideo,
                     Id = v.Id,
                     UsderId = v.User.Id,
-                    nameUser = v.User.UserName,
+                    nameUser = v.User.TieuSu,
                     AvatarUserUrl = v.User.AvatarUrl,
                 }).OrderBy(s => s.AvatarVideoUrl).ThenBy(s => s.NameVideos)
                 .Where(u => u.UsderId != 1);
@@ -112,7 +112,7 @@ namespace ApiBasic.ApplicationServices.VideoModule.Implements
                     UrlVideo = v.UrlVideo,
                     Id = v.Id,
                     UsderId = v.User.Id,
-                    nameUser = v.User.UserName,
+                    nameUser = v.User.TieuSu,
                     AvatarUserUrl = v.User.AvatarUrl,
                 }).OrderBy(s => s.NameVideos)
                 .Where(u => u.UsderId != 1);
@@ -199,7 +199,7 @@ namespace ApiBasic.ApplicationServices.VideoModule.Implements
                         CommentId = c.CommentId,
                         Text = c.Text,
                         UserId = c.User.Id,
-                        UserName = c.User.UserName,
+                        UserName = c.User.TieuSu,
                     })
                     .ToList();
 
@@ -211,7 +211,7 @@ namespace ApiBasic.ApplicationServices.VideoModule.Implements
                         Date = commentPV.Date,
                         Text = commentPV.Text,
                         UserId = commentPV.User.Id,
-                        UserName = commentPV.User.UserName,
+                        UserName = commentPV.User.TieuSu,
                         VideoId = commentPV.VideoId,
                         CommentChilds = commentChilds
                     }

@@ -10,6 +10,8 @@ import { LOGOUT_REQUEST } from '~/Services/Action/action';
 import { getDataStorage } from '~/Common/getDataStorage';
 import Loading from '~/Components/Adicator/Loading';
 import { getUserById } from '~/Services/Action/UserPage';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Popup from '~/Common/Constanst';
 
 export default function UserHomePage({}) {
     const [userInfo, setUserInfo] = useState({});
@@ -77,28 +79,28 @@ export default function UserHomePage({}) {
     };
 
     return (
-        <>
+        <SafeAreaView style={styles.Page}>
             {isLoading ? (
                 <Loading />
             ) : (
-                <View style={{ paddingTop: 10, backgroundColor: GlobalStyles.white.color, flex: 1 }}>
+                <View style={{ backgroundColor: GlobalStyles.white.color, flex: 1 }}>
                     {/* Header */}
 
-                    <View style={{ flexDirection: 'row-reverse', justifyContent: 'space-between', marginTop: 10 }}>
+                    <View style={{ flexDirection: 'row-reverse', justifyContent: 'space-between' }}>
                         <View style={{ flexDirection: 'row' }}>
-                            <TouchableOpacity onPress={() => navigation.goBack()}>
+                            <TouchableOpacity onPress={() => Popup('Đang phát triển')}>
                                 <ImageBackground
                                     style={{ width: 20, height: 20, marginRight: 20, marginTop: 10 }}
                                     source={require('~/Assets/Icon/Camera.png')}
                                 />
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => navigation.goBack()}>
+                            <TouchableOpacity onPress={() => Popup('Đang phát triển')}>
                                 <ImageBackground
                                     style={{ width: 20, height: 20, marginRight: 20, marginTop: 10 }}
                                     source={require('~/Assets/Icon/QR.png')}
                                 />
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => navigation.goBack()}>
+                            <TouchableOpacity onPress={() => Popup('Đang phát triển')}>
                                 <ImageBackground
                                     style={{ width: 20, height: 20, marginRight: 20, marginTop: 10 }}
                                     source={require('~/Assets/Icon/Email.png')}
@@ -107,7 +109,7 @@ export default function UserHomePage({}) {
                         </View>
                     </View>
                     {/* Account */}
-                    <View style={{ marginLeft: 10, marginTop: 10 }}>
+                    <View style={{ marginLeft: 10 }}>
                         {userInfo.id == undefined ? (
                             // Chưa login
                             <TouchableOpacity
@@ -173,20 +175,44 @@ export default function UserHomePage({}) {
                             </TouchableOpacity>
                         )}
 
-                        <ActionList Name="Lịch sử" />
-                        <ActionList IconLeft={require('~/Assets/Icon/Download.png')} Name="Đã tải xuống" />
-                        <ActionList IconLeft={require('~/Assets/Icon/Muc.png')} Name="Mục ưa thích" />
-                        <ActionList IconLeft={require('~/Assets/Icon/store.png')} Name="Cửa hàng" />
-                        <ActionList IconLeft={require('~/Assets/Icon/settings.png')} Name="Cài đặt" />
-                        <ActionList IconLeft={require('~/Assets/Icon/help.png')} Name="Trợ giúp" />
-                        <ActionList IconLeft={require('~/Assets/Icon/message.png')} Name="Phản hồi" />
+                        <ActionList onPress={() => Popup('Đang phát triển')} Name="Lịch sử" />
+                        <ActionList
+                            onPress={() => Popup('Đang phát triển')}
+                            IconLeft={require('~/Assets/Icon/Download.png')}
+                            Name="Đã tải xuống"
+                        />
+                        <ActionList
+                            onPress={() => Popup('Đang phát triển')}
+                            IconLeft={require('~/Assets/Icon/Muc.png')}
+                            Name="Mục ưa thích"
+                        />
+                        <ActionList
+                            onPress={() => Popup('Đang phát triển')}
+                            IconLeft={require('~/Assets/Icon/store.png')}
+                            Name="Cửa hàng"
+                        />
+                        <ActionList
+                            onPress={() => Popup('Đang phát triển')}
+                            IconLeft={require('~/Assets/Icon/settings.png')}
+                            Name="Cài đặt"
+                        />
+                        <ActionList
+                            onPress={() => Popup('Đang phát triển')}
+                            IconLeft={require('~/Assets/Icon/help.png')}
+                            Name="Trợ giúp"
+                        />
+                        <ActionList
+                            onPress={() => Popup('Đang phát triển')}
+                            IconLeft={require('~/Assets/Icon/message.png')}
+                            Name="Phản hồi"
+                        />
 
                         <ActionList onPress={handleLogout} IconLeft={require('~/Assets/Icon/help.png')} Name="Logout" />
                     </View>
                 </View>
             )}
-        </>
+        </SafeAreaView>
     );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({ Page: { flex: 1, backgroundColor: GlobalStyles.white.color } });

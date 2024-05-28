@@ -7,6 +7,7 @@ import GlobalStyles from '~/Styles/GlobalStyles';
 
 import { followUser, unFollowUser } from '~/Services/Action/UserPage';
 import { useDispatch } from 'react-redux';
+import Popup from '~/Common/Constanst';
 
 // Chiều rộng điện thoại
 const windowWidth = Dimensions.get('window').width;
@@ -77,6 +78,9 @@ export default function Avatar({
                         type: 'GET_USER_NOT_FOLLOW_RESQUEST',
                         payload: { userId: userIdLogin },
                     });
+                    dispatch({
+                        type: 'CHANGE_NAME_RESQUEST',
+                    });
                     setIfollows(!isfollows);
                 })
                 .catch((err) => {
@@ -92,6 +96,9 @@ export default function Avatar({
                     dispatch({
                         type: 'GET_USER_NOT_FOLLOW_RESQUEST',
                         payload: { userId: userIdLogin },
+                    });
+                    dispatch({
+                        type: 'CHANGE_NAME_RESQUEST',
                     });
                     setIfollows(!isfollows);
                 })
@@ -181,14 +188,6 @@ export default function Avatar({
                                         >
                                             {nameVideo}
                                         </Text>
-                                        {isHasIcon ? (
-                                            <ImageBackground
-                                                style={{ width: 30, height: 30 }}
-                                                source={require('~/Assets/Icon/List.png')}
-                                            />
-                                        ) : (
-                                            <></>
-                                        )}
                                     </View>
                                 ) : (
                                     <></>
@@ -264,6 +263,16 @@ export default function Avatar({
                             )}
                         </View>
                     </TouchableOpacity>
+                    {isHasIcon ? (
+                        <TouchableOpacity onPress={() => Popup('Đang phá triển')} style={{ marginTop: 10 }}>
+                            <ImageBackground
+                                style={{ width: 30, height: 30 }}
+                                source={require('~/Assets/Icon/List.png')}
+                            />
+                        </TouchableOpacity>
+                    ) : (
+                        <></>
+                    )}
                     {isSearch ? (
                         <TouchableOpacity
                             onPress={() => {
